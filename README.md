@@ -22,3 +22,6 @@ Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitu
 - tiettynä pvm:nä montako kpl mies/nainen on käynyt
 - tiettynä pvm:nä montako kuvia otettiin
 
+## loput
+
+keksin ne myöhemmin, jos kerkeän
