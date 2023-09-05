@@ -4,20 +4,25 @@ Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitu
 
 ## käyttäjään liittyvät perustoiminnat:
 
-- rekisteröivät `user:pass:blood_type`
+Käyttäjät saavat:
+
+- rekisteröidä `user:pass:role`
     - `salasana` tallennetaan `md5sum` muodossa
-- käyttäjät tunnistautuvat
-- käyttäjällä `/[AB0][+-]/` veriryhmä jonain `int` muodossa
-- käyttäjä saa olla admin myös
-    - jolloin näkee kaiken tiedon rajoituksetta
-- käyttäjä saa rekisteröidä verenluovutuskäynnin X kpl eri luovutuspaikassa
-    - luovutuksen yhteydessä saa ruksittaa checkboxeja joissa up to 64 eri keksi/kahvi/teeta/Elovenakeksi/karkki/emt/ym. ruksittavissa
-- käyttäjä saa suostua laittaa kommentit julkkiseksi alla muodossa, jonk jälkeen:
-    - luovutuksen kommentit vapaamuotoisena tekstinä
-    - käyttäjä saa myös ladata kuvia luovutuksista, joita `blob` -beina tallennetaan
+    - `role` kuvaa perus luovuttajan/hoitajan/adminin
+        - admin näkee kaiken tiedon
+        - hoitaja näkee nykyisen potilaansa kaiken tiedot
+    - luovuttajat lisäksi tallentaa `veriryhmänsä`
+        - `/(?:AB|[AB0])[+-]/` 1 int lukuna
+- tunnistautua
+- rekisteröidä verenluovutuskäynnin X kpl eri luovutuspaikassa
+    - luovutuksen yhteydessä saa ruksittaa checkboxeja joissa erilaiset keksi/kahvi/teeta/Eloveena-keksi/karkki/emt/ym. ruksittavissa
+- luovuttajat saavat julkaista:
+    - kommentteja vapaamuotoisena tekstinä
+    - kuvat luovutuksista
 
 ## luovutuspaikan perustoiminnat:
 
+Tunnistautumatta myös:
 - user kommentit saa bongata "`<pvm>`: 'oli mukava luovuttaa, bla bla bla...' - `<user_name>`"
 - tiettynä pvm:nä montako kpl mies/nainen on käynyt
 - tiettynä pvm:nä montako kuvia otettiin
