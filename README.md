@@ -2,7 +2,17 @@
 
 Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitustyöksi.
 
-## käyttäjään liittyvät perustoiminnat:
+## Nykytilanne
+
+README:n luonnos tehty
+
+## Kokeilu
+
+placeholder
+
+## Toiminnan kuvaus
+
+### käyttäjään liittyvät perustoiminnat:
 
 Käyttäjät saavat:
 
@@ -20,13 +30,13 @@ Käyttäjät saavat:
     - kommentteja vapaamuotoisena tekstinä
     - kuvat luovutuksista
 
-## luovutuspaikan perustoiminnat:
+### luovutuspaikan perustoiminnat:
 
 Tunnistautumatta myös:
 - user kommentit saa bongata "`<pvm>`: 'oli mukava luovuttaa, bla bla bla...' - `<user_name>`"
 - tiettynä pvm:nä montako kpl mies/nainen on käynyt
 - tiettynä pvm:nä montako kuvia otettiin
 
-## loput
+### loput
 
 keksin ne myöhemmin, jos kerkeän
