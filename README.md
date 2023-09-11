@@ -4,7 +4,11 @@ Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitu
 
 ## Nykytilanne
 
-README:n luonnos tehty
+Kronologisesti väärinpain:
+
+- Vaatimusmäärittelystä karsittu turhan vaikeat osat
+    - 5op:een ei mahdu kunnon sovellus...
+- README:n luonnos tehty
 
 ## Kokeilu
 
@@ -12,15 +16,15 @@ placeholder
 
 ## Toiminnan kuvaus
 
-### käyttäjään liittyvät perustoiminnat:
+Sovelluksessa sekä perus, että admin käyttäjät, erikoisuutena muutamaa luovutuspaikka.
 
-Käyttäjät saavat:
+### käyttäjään liittyvät perustoiminnat:
 
 - rekisteröidä `user:pass:role`
     - `salasana` tallennetaan `md5sum` muodossa
-    - `role` kuvaa perus luovuttajan/hoitajan/adminin
+    - `role` kuvaa perus luovuttajan/~~hoitajan~~/adminin
         - admin näkee kaiken tiedon
-        - hoitaja näkee nykyisen potilaansa kaiken tiedot
+        - ~~hoitaja näkee nykyisen potilaansa kaiken tiedot~~
     - luovuttajat lisäksi tallentaa `veriryhmänsä`
         - `/(?:AB|[AB0])[+-]/` 1 int lukuna
 - tunnistautua
@@ -28,15 +32,13 @@ Käyttäjät saavat:
     - luovutuksen yhteydessä saa ruksittaa checkboxeja joissa erilaiset keksi/kahvi/teeta/Eloveena-keksi/karkki/emt/ym. ruksittavissa
 - luovuttajat saavat julkaista:
     - kommentteja vapaamuotoisena tekstinä
-    - kuvat luovutuksista
+    - ~~kuvia luovutuksista~~
 
 ### luovutuspaikan perustoiminnat:
 
-Tunnistautumatta myös:
+Tunnistautumatta pystyy kysellä myös luovutuspaikkojen tilastot:
+
 - user kommentit saa bongata "`<pvm>`: 'oli mukava luovuttaa, bla bla bla...' - `<user_name>`"
-- tiettynä pvm:nä montako kpl mies/nainen on käynyt
-- tiettynä pvm:nä montako kuvia otettiin
+- tiettynä pv:nä montako kpl mies/nainen on käynyt
+- ~~tiettynä pv:nä montako kuvia otettiin~~
 
-### loput
-
-keksin ne myöhemmin, jos kerkeän
