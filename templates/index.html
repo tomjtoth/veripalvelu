@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}Verenluovutus{% endblock %}
+{% block body %}
+{% if session.user %}
+Tervetuloa, {{ session.user.fnames }}.
+<a href="/donate">Rekisteröi luovutus</a>
+{% else %}
+<a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröi</a>
+{% endif %}
+<p>
+    Tänne myöhemmin joku most-recent luovutukset geneerisesti.
+</p>
+{% endblock %}

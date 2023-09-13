@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Rekisteröinti{% endblock %}
+{% block body %}
+<form method="post">
+    <div>
+        <label for="names">your name:</label>
+        <input name="names" placeholder="Sukunimet, Etunimet" required
+            pattern="\p{Lu}\p{Ll}+(?: \p{Lu}\p{Ll}+)*, *\p{Lu}\p{Ll}+(?: \p{Lu}\p{Ll}+)*">
+    </div>
+    <div>
+        <label for="username">username:</label>
+        <input name="username" placeholder="noertti666" required pattern="[a-z][a-z0-9]{2,7}"
+            title="alkaa pienellä kirjaimella enkun aakkosesta, vähintään 3, enintään 8 pitkää">
+    </div>
+    <div>
+        <label for="password">password:</label>
+        <input name="password" type="password" required placeholder="************" pattern="\w{8,}"
+            title="saa olla enkun aakkosen pienet, isot kirjaimet, numerot ja alaviivat, vähintään 8 merkkiä, ei ylärajaa">
+    </div>
+    <div>
+        <label for="pw-verify">verify:</label>
+        <input name="pw-verify" type="password" required placeholder="************" pattern="\w{8,}"
+            title="täsmälleen sama kuin yllä">
+    </div>
+    <div>
+        <label for="blood-type">blood type:</label>
+        <select name="blood-type" required>
+            <option disabled>select one</option>
+            {% for type in blood_types %}
+            <option value="{{loop.index0}}">{{type}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="gender">gender:</label>
+        <select name="gender" required>
+            <option disabled>select one</option>
+            <option value="0">female</option>
+            <option value="1">male</option>
+        </select>
+    </div>
+    <input type="submit" value="Register">
+</form>
+{% endblock %}
