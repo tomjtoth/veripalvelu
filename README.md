@@ -1,18 +1,31 @@
 # Verenluovutus-sovellus
 
-Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitustyöksi.
+Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitustyöksi, jossa käyttäjät saattaa rekisteröidä itseänne, sekä erillisiä käyntejä verenluovutuspaikoilla, joiden yhteydessä saavat ruksittaa mitkä kaikkea ne ovat syöneet/juoneet, myös jättää vapaamuotoista kommenttia halutessaan.
 
 ## Nykytilanne
 
 Kronologisesti väärinpain:
 
+- rekisteröinti, kirjautuminen toimii
 - Vaatimusmäärittelystä karsittu turhan vaikeat osat
     - 5op:een ei mahdu kunnon sovellus...
 - README:n luonnos tehty
 
-## Kokeilu
+## Käyttöönotto
 
-placeholder
+- Asenna virtuaaliympäristö projektille ja aktivoi sitä
+    - `python3 -m venv venv`
+    - `source venv/bin/activate`
+- Asenna projektin riippuvuudet virtuaaliympäristöön alla komennolla
+    - `pip install flask flask-sqlalchemy psycopg2 python-dotenv`
+
+## Käynnistys
+
+Tapahtuu virtuaaliympäristössä komennolla `flask run`.
+
+## Kehitys / kokeilu
+
+[Ohjeen](https://code.visualstudio.com/docs/python/tutorial-flask) perusteella luo `.vscode/launch.json` jotta pääsisit edes `debug` -gaamaan + muuntaa itsellesi sopivaksi alla arvot:
 
 ## Toiminnan kuvaus
 
@@ -21,7 +34,7 @@ Sovelluksessa sekä perus, että admin käyttäjät, erikoisuutena muutamaa luov
 ### käyttäjään liittyvät perustoiminnat:
 
 - rekisteröidä `user:pass:role`
-    - `salasana` tallennetaan `md5sum` muodossa
+    - `salasana` tallennetaan/luetaan `werkzeug.security` avulla
     - `role` kuvaa perus luovuttajan/~~hoitajan~~/adminin
         - admin näkee kaiken tiedon
         - ~~hoitaja näkee nykyisen potilaansa kaiken tiedot~~
