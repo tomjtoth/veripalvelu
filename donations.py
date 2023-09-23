@@ -5,7 +5,7 @@ import math
 from app import app, generate_random_data
 from random import randint, random, choice, choices, shuffle
 import time
-from datetime import date
+from datetime import date, timedelta
 import threading
 import plotly
 import plotly.graph_objs as go
@@ -46,34 +46,53 @@ def register(date: str, clinic_id: int, consumption, comment: str):
 
 def plot(user_id = None, crit = "clinic"):
 
-    return json.dumps([
-        go.Bar(
-            name=name,
-            x=x,
-            y=y,
-            hoverinfo="name+y",
-            showlegend=True
-        ) 
-        
-        for name, x, y in db.session.execute(text(f"""
-        with cte as (
-            select 
-                __CRIT__, 
-                date, 
-                count(*) over (partition by date) 
-            from data
-            {"where user_id = " + str(user_id) if user_id else ""}
-            group by __CRIT__, date
-            order by __CRIT__
-        )
-        select
-            __CRIT__,
-            json_agg(date),
-            json_agg(count)
-        from cte
-        group by __CRIT__;
-        """.replace("__CRIT__", crit))).fetchall()
-    ], cls=plotly.utils.PlotlyJSONEncoder) #, barmode="stack")
+    return (
+        json.dumps([
+
+            go.Bar(
+                name=name,
+                x=x,
+                y=y,
+                hoverinfo="name+y",
+                showlegend=True
+            ) 
+            
+            for name, x, y in db.session.execute(text(f"""
+            with cte as (
+                select 
+                    __CRIT__, 
+                    date, 
+                    count(*) over (partition by date) 
+                from data
+                {"where user_id = " + str(user_id) if user_id else ""}
+                group by __CRIT__, date
+                order by __CRIT__
+            )
+            select
+                __CRIT__,
+                json_agg(date),
+                json_agg(count)
+            from cte
+            group by __CRIT__;
+            """.replace("__CRIT__", crit))).fetchall()
+        ],
+        cls=plotly.utils.PlotlyJSONEncoder),
+        json.dumps({
+            'barmode': "relative",
+            'scrollZoom': True,
+            'xaxis': {
+                'range': [date.today()- timedelta(weeks=4*3), date.today()],
+                'title': "pvm"
+            },
+            'yaxis': {'title': "luovutukset"},
+            'title': f"""{
+                'Luovutuspaikkojen' 
+                if crit == 'clinic' 
+                else 'Veriryhmien'
+            } perusteella"""
+        },
+        cls=plotly.utils.PlotlyJSONEncoder)
+    )
     
 
 def rand_date():
