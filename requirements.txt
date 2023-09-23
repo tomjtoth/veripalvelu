@@ -11,3 +11,4 @@ python-dotenv==1.0.0
 SQLAlchemy==2.0.20
 typing_extensions==4.7.1
 Werkzeug==2.3.7
+plotly==5.17.0

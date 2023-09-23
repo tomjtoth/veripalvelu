@@ -1,13 +1,36 @@
 {% extends "layout.html" %}
 {% block title %}Verenluovutus{% endblock %}
 {% block body %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 {% if session.user %}
 Tervetuloa, {{ session.user.fnames }}.
 <a href="/donate">Rekisteröi luovutus</a>
+{% if plots.2 %}
+<h2>Omat luovutukset</h2>
+<div class="chart" id="own-donations">
+    <script>
+        var plot_own = {{ plots.2 | safe}};
+        Plotly.plot('own-donations', plot_own, {});
+    </script>
+</div>
+{% endif %}
 {% else %}
 <a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröi</a>
 {% endif %}
-<p>
-    Tänne myöhemmin joku most-recent luovutukset geneerisesti.
-</p>
+{% if plots %}
+<h2>Kaikki luovutukset järjestelmässä</h2>
+<div class="chart" id="all-by-clinic">
+    <script>
+        var plot_by_clinic = {{ plots.0 | safe}};
+        Plotly.plot('all-by-clinic', plot_by_clinic, {});
+    </script>
+</div>
+<div class="chart" id="all-by-blood-type">
+    <script>
+        var plot_by _type = {{ plots.1 | safe}};
+        Plotly.plot('all-by-blood-type', plot_by_type, {});
+    </script>
+</div>
+{% endif %}
 {% endblock %}

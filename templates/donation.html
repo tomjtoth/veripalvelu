@@ -17,7 +17,7 @@
     <div>
         <p>Merkkaa alla mitkä kaikkea olet vetänyt luovutuksen jälkeen:</p>
         {% for consumable in consumables %}
-        <input id="consumable-{{consumable.0}}" type="checkbox" name="consumable" value="{{consumable.0}}">
+        <input id="consumable-{{consumable.0}}" type="number" min="0" name="consumable" value="0" style="width: 50px;">
         <label for="consumable-{{consumable.0}}">{{consumable.1}}</label>
         <br>
         {% endfor %}

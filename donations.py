@@ -7,6 +7,9 @@ from random import randint, random, choice, choices, shuffle
 import time
 from datetime import date
 import threading
+import plotly
+import plotly.graph_objs as go
+import json
 
 def register(date: str, clinic_id: int, consumption, comment: str):
     consumable = 0
@@ -40,6 +43,20 @@ def register(date: str, clinic_id: int, consumption, comment: str):
         return False
     
     return True
+
+def plot(user_id = None, by_type = False):
+    x, y = db.session.execute(text(f"""
+        with cte as (
+            select date, count(*) as cnt
+            from data
+            {"where user_id = " + str(user_id) if user_id else ""}
+            group by date 
+            {", blood_type" if by_type else ", clinic"}
+        )
+        select json_agg(date), json_agg(cnt) from cte
+    """)).fetchone()
+
+    return json.dumps([go.Bar(x=x,y=y)], cls=plotly.utils.PlotlyJSONEncoder)
 
 def rand_date():
     fmt = "%Y-%m-%d"
@@ -129,4 +146,3 @@ if generate_random_data:
 
             db.session.commit()
             print("\tDONE")
-

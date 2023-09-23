@@ -93,7 +93,9 @@ $$;
 create or replace view data as
 select 
     ddate as date, 
+    cli.id as clinic_id,
     cli.cname as clinic,
+    u.id as user_id,
     fnames, 
     lnames, 
     is_admin(booleans),
@@ -107,7 +109,7 @@ inner join clinics cli on cli.id = d.clinic_id
 left join consumption con1 on con1.donation_id = d.id
 left join consumables con2 on con2.id = con1.consumable_id
 left join comments com on com.donation_id  = d.id
-group by d.id, cli.cname, fnames, lnames, booleans, com.comment
+group by d.id, cli.id, cli.cname, u.id, fnames, lnames, booleans, com.comment
 order by ddate desc
 ;
 

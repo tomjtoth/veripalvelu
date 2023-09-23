@@ -60,3 +60,9 @@ Tunnistautumatta pystyy kysellä myös luovutuspaikkojen tilastot:
 - tiettynä pv:nä montako kpl mies/nainen on käynyt
 - ~~tiettynä pv:nä montako kuvia otettiin~~
 
+## Jatkokehitysideat
+
+Tänne niitä joita voisikin toteuttaa, muttei mahdu aikarajoitteen takia kurssiin.
+
+- reaaliset [rajoitteet](https://www.veripalvelu.fi/verenluovutus/luovutusedellytykset/) 2 luovutuksen väliin:
+    > Suosittelemme verenluovutusta yli 25-vuotiaille naisille enintään 2–3 kertaa vuodessa ja 18-25 v. naisille enintään kerran vuodessa. Miehille suosittelemme enintään 3–4 verenluovutusta vuodessa. Sallitut minimivälit kokoverenluovutuksille ovat naisille 91 ja miehille 61 vuorokautta. Voit laskea laskurilla​, onko minimiväli kohdallasi jo täyttynyt.

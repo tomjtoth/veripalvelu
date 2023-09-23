@@ -3,6 +3,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from app import app
 import users, clinics, donations, consumables
 import re
+from datetime import date
 
 re_names = re.compile(r"(.+), *(.+)")
 
@@ -81,7 +82,12 @@ def logout():
 
 @app.route('/')
 def root():
-    return render_template('index.html')
+    return render_template('index.html',
+        plots=[
+            donations.plot(),
+            donations.plot(by_type=True),
+            donations.plot(session['user']['id']) if session.get('user') else None
+        ])
 
 @app.route('/donate', methods=["GET", "POST"])
 def donate():
