@@ -6,8 +6,8 @@ Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitu
 
 Kronologisesti väärinpain:
 
-- `plotly` WiP
-    - haluan legendin, ym saada toimimaan
+- `plotly` toimii
+    - dupe arvot tulee kannasta, pitää vielä säätää se kysely kuntoon
 - feikki tietojen populointi toimii
     - (käyttäjä ei pääse noihin insert lausekkeihin, joten on turvallista rakentaa täällä tavalla)
 - luovutuksen rekisteröinti toimii
@@ -16,7 +16,7 @@ Kronologisesti väärinpain:
     - 5op:een ei mahdu kunnon sovellus...
 - README:n luonnos tehty
 
-## Käyttöönotto
+## Käyttöönotto / käynnistys
 
 - Asenna virtuaaliympäristö projektille ja aktivoi sitä
     - `python3 -m venv venv`
@@ -29,19 +29,11 @@ Kronologisesti väärinpain:
 - käynnistä:
     - `flask run` komennolla
 
-## Käynnistys
-
-Tapahtuu virtuaaliympäristössä komennolla `flask run`.
-
-## Kehitys / kokeilu
-
-[Ohjeen](https://code.visualstudio.com/docs/python/tutorial-flask) perusteella luo `.vscode/launch.json` jotta pääsisit edes `debug` -gaamaan + muuntaa itsellesi sopivaksi alla arvot:
-
 ## Toiminnan kuvaus
 
 Sovelluksessa sekä perus, että admin käyttäjät, erikoisuutena muutamaa luovutuspaikka.
 
-### käyttäjään liittyvät perustoiminnat:
+### Käyttäjään liittyvät perustoiminnat:
 
 - rekisteröidä `user:pass:role`
     - `salasana` tallennetaan/luetaan `werkzeug.security` avulla
@@ -57,7 +49,7 @@ Sovelluksessa sekä perus, että admin käyttäjät, erikoisuutena muutamaa luov
     - kommentteja vapaamuotoisena tekstinä
     - ~~kuvia luovutuksista~~
 
-### luovutuspaikan perustoiminnat:
+### Luovutuspaikan perustoiminnat:
 
 Tunnistautumatta pystyy kysellä myös luovutuspaikkojen tilastot:
 
