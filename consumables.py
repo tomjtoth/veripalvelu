@@ -26,8 +26,8 @@ with app.app_context():
         db.session.execute(text(
             "insert into consumables(consumable) values\n"
             + ",\n".join([ f"('{x.strip()}')"
-                for x in """
-                alkoholiton kalja
+                for x in 
+                """alkoholiton kalja
                 kokis
                 energiajuoma
                 kahvi mustana
@@ -38,8 +38,7 @@ with app.app_context():
                 makea pulla
                 kalkkunasämpylä
                 kanasämpylä
-                Marionetti karkki
-                """.splitlines() if x != ""
+                Marionetti karkki""".splitlines()
             ])
         ))
         db.session.commit()

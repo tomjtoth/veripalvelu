@@ -11,8 +11,8 @@ with app.app_context():
         db.session.execute(text(
             "insert into clinics(cname) values\n" +
             ",".join([ f"('{x.strip()}')" 
-            for x in """
-            Espoo, Iso Omena
+            for x in 
+            """Espoo, Iso Omena
             Helsinki, Kivihaka
             Helsinki, Sanomatalo
             Jyväskylä
@@ -21,8 +21,7 @@ with app.app_context():
             Oulu
             Seinäjoki
             Tampere
-            Turku
-            """.splitlines() if x != ""
+            Turku""".splitlines() if x != ""
         ])))
         db.session.commit()
         
