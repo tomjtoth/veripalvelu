@@ -82,3 +82,24 @@ def logout():
 @app.route('/')
 def root():
     return render_template('index.html')
+
+@app.route('/donate', methods=["GET", "POST"])
+def donate():
+    if not session['user']:
+        return redirect('/login')
+
+    if request.method == "GET":
+        return render_template('donation.html',
+            clinics=clinics.get_names(),
+            today= date.today(),
+            consumables=consumables.get_all())
+    else:
+        if donations.register(
+            request.form['date'],
+            request.form['clinic'],
+            request.form.getlist('consumption', int),
+            request.form['comment']
+        ):
+            return redirect('/')
+        else:
+            return render_template('error.html', err='emt')

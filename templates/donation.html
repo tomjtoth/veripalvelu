@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Luovutus{% endblock %}
+{% block body %}
+<form action="/donate" method="post">
+    <div>
+        <label for="date">Koska luovutit?</label>
+        <input type="date" name="date" required value="{{today}}" max="{{today}}">
+    </div>
+    <div>
+        <p>Missä luovutit?</p>
+        {% for clinic in clinics %}
+        <input id="clinic-{{clinic.0}}" type="radio" name="clinic" value="{{clinic.0}}" required>
+        <label for="clinic-{{clinic.0}}">{{clinic.1}}</label>
+        <br>
+        {% endfor %}
+    </div>
+    <div>
+        <p>Merkkaa alla mitkä kaikkea olet vetänyt luovutuksen jälkeen:</p>
+        {% for consumable in consumables %}
+        <input id="consumable-{{consumable.0}}" type="checkbox" name="consumable" value="{{consumable.0}}">
+        <label for="consumable-{{consumable.0}}">{{consumable.1}}</label>
+        <br>
+        {% endfor %}
+    </div>
+    <div>
+        <p>Oliko <i><span title="haha EasterEgg">huimaavasti</span> erikoinen</i> kokemus?</p>
+        <textarea name="comment" style="width: 500px;"
+            placeholder="Houkuttele lisää luovuttajia kokemuksesi kertomuksella!"></textarea>
+    </div>
+    <p></p>
+    <input type="submit" value="Luovutin!">
+</form>
+{% endblock %}
