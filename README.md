@@ -20,9 +20,12 @@ Kronologisesti väärinpain:
     - `python3 -m venv venv`
     - `source venv/bin/activate`
 - Asenna projektin riippuvuudet virtuaaliympäristöön alla komennolla
-    - `pip install flask flask-sqlalchemy psycopg2 python-dotenv`
-- `.env`:ssa säädä `GEN_RAND_DATA=false` arvoon ennen ensikäyttöä jos haluat paljaan kannan
+    - `pip install -r requirements.txt`
+- vaihtoehtoisesti:
+    - `.env`:ssa säädä `GEN_RAND_DATA=false` arvoon ennen ensikäyttöä jos haluat paljaan kannan
     - en suosittele
+- käynnistä:
+    - `flask run` komennolla
 
 ## Käynnistys
 

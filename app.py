@@ -11,7 +11,7 @@ SECRET_KEY={secrets.token_hex(16)}
 GEN_RAND_DATA=true
 """)
     f.close()
-    print('\n\tcreated sample config file as .env\n\trevise it, then restart the app\n')
+    print('\n\t.env MISSING!!!\n\tcreated from presets\n\trevise it, then restart the app\n')
     exit(0)
 
 app = Flask(__name__)
