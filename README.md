@@ -6,6 +6,8 @@ Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitu
 
 Kronologisesti väärinpain:
 
+- `plotly` WiP
+    - haluan legendin, ym saada toimimaan
 - feikki tietojen populointi toimii
     - (käyttäjä ei pääse noihin insert lausekkeihin, joten on turvallista rakentaa täällä tavalla)
 - luovutuksen rekisteröinti toimii

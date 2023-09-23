@@ -56,7 +56,11 @@ def plot(user_id = None, by_type = False):
         select json_agg(date), json_agg(cnt) from cte
     """)).fetchone()
 
-    return json.dumps([go.Bar(x=x,y=y)], cls=plotly.utils.PlotlyJSONEncoder)
+    return json.dumps([go.Bar(
+        x=x,
+        y=y,
+        hovertext="y"
+    )], cls=plotly.utils.PlotlyJSONEncoder)
 
 def rand_date():
     fmt = "%Y-%m-%d"
