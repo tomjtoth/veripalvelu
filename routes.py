@@ -4,7 +4,7 @@ from app import app
 import users, clinics, donations, consumables
 import re
 
-re_names = re.compile(r"([A-Z][a-z-]+(?: [A-Z][a-z]+)*), *([A-Z][a-z-]+(?: [A-Z][a-z-]+)*)")
+re_names = re.compile(r"(.+), *(.+)")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
