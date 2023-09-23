@@ -6,6 +6,9 @@ Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitu
 
 Kronologisesti väärinpain:
 
+- feikki tietojen populointi toimii
+    - (käyttäjä ei pääse noihin insert lausekkeihin, joten on turvallista rakentaa täällä tavalla)
+- luovutuksen rekisteröinti toimii
 - rekisteröinti, kirjautuminen toimii
 - Vaatimusmäärittelystä karsittu turhan vaikeat osat
     - 5op:een ei mahdu kunnon sovellus...
@@ -18,6 +21,8 @@ Kronologisesti väärinpain:
     - `source venv/bin/activate`
 - Asenna projektin riippuvuudet virtuaaliympäristöön alla komennolla
     - `pip install flask flask-sqlalchemy psycopg2 python-dotenv`
+- `.env`:ssa säädä `GEN_RAND_DATA=false` arvoon ennen ensikäyttöä jos haluat paljaan kannan
+    - en suosittele
 
 ## Käynnistys
 

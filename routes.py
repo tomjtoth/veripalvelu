@@ -1,7 +1,7 @@
 from flask import send_from_directory, render_template, redirect, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from app import app
-import users
+import users, clinics, donations, consumables
 import re
 
 re_names = re.compile(r"([A-Z][a-z-]+(?: [A-Z][a-z]+)*), *([A-Z][a-z-]+(?: [A-Z][a-z-]+)*)")
