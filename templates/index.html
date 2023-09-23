@@ -28,7 +28,7 @@ Tervetuloa, {{ session.user.fnames }}.
 </div>
 <div class="chart" id="all-by-blood-type">
     <script>
-        var plot_by _type = {{ plots.1 | safe}};
+        var plot_by_type = {{ plots.1 | safe}};
         Plotly.plot('all-by-blood-type', plot_by_type, {});
     </script>
 </div>
