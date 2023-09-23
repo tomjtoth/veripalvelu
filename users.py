@@ -74,6 +74,8 @@ if generate_random_data:
     with app.app_context():
         # populate only once
         if int(db.session.execute(text("select count(*) from users")).fetchone()[0]) < 1000:
+            print("populating users with fake data")
+
            
             sql_from_multithread = [None] * 10
 
@@ -98,5 +100,7 @@ if generate_random_data:
             db.session.execute(text(
                 "insert into users(uname, passw, fnames, lnames, booleans) values\n"
                 + ",\n".join(sql_from_multithread)
-            ))    
+            ))
             db.session.commit()
+
+            print("\tDONE")

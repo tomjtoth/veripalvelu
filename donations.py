@@ -78,6 +78,7 @@ if generate_random_data:
     with app.app_context():
         # populate only once
         if int(db.session.execute(text("select count(*) from donations")).fetchone()[0]) < 10:
+            print("populating donations with fake data")
 
             clinic_ids = [x[0] 
                 for x in db.session.execute(text("select id from clinics")).fetchall()
@@ -127,3 +128,5 @@ if generate_random_data:
             ))
 
             db.session.commit()
+            print("\tDONE")
+

@@ -45,6 +45,7 @@ with app.app_context():
         
     if generate_random_data:
         if int(db.session.execute(text("select count(*) from consumption")).fetchone()[0]) < 10000:
+            print("populating consuption with fake data")
             
             consumable_ids = [x[0]
                 for x in db.session.execute(text("select id from consumables")).fetchall()
@@ -70,3 +71,5 @@ with app.app_context():
                 + ",\n".join(sql_from_multithread)
             ))
             db.session.commit()
+            print("\tDONE")
+
