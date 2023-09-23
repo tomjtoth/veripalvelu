@@ -44,23 +44,37 @@ def register(date: str, clinic_id: int, consumption, comment: str):
     
     return True
 
-def plot(user_id = None, by_type = False):
-    x, y = db.session.execute(text(f"""
+def plot(user_id = None, crit = "clinic"):
+
+    return json.dumps([
+        go.Bar(
+            name=name,
+            x=x,
+            y=y,
+            hoverinfo="name+y",
+            showlegend=True
+        ) 
+        
+        for name, x, y in db.session.execute(text(f"""
         with cte as (
-            select date, count(*) as cnt
+            select 
+                __CRIT__, 
+                date, 
+                count(*) over (partition by date) 
             from data
             {"where user_id = " + str(user_id) if user_id else ""}
-            group by date 
-            {", blood_type" if by_type else ", clinic"}
+            group by __CRIT__, date
+            order by __CRIT__
         )
-        select json_agg(date), json_agg(cnt) from cte
-    """)).fetchone()
-
-    return json.dumps([go.Bar(
-        x=x,
-        y=y,
-        hovertext="y"
-    )], cls=plotly.utils.PlotlyJSONEncoder)
+        select
+            __CRIT__,
+            json_agg(date),
+            json_agg(count)
+        from cte
+        group by __CRIT__;
+        """.replace("__CRIT__", crit))).fetchall()
+    ], cls=plotly.utils.PlotlyJSONEncoder) #, barmode="stack")
+    
 
 def rand_date():
     fmt = "%Y-%m-%d"

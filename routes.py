@@ -85,7 +85,7 @@ def root():
     return render_template('index.html',
         plots=[
             donations.plot(),
-            donations.plot(by_type=True),
+            donations.plot(crit="blood_type"),
             donations.plot(session['user']['id']) if session.get('user') else None
         ])
 
