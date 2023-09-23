@@ -16,12 +16,12 @@ def register():
         password = request.form["password"]
         pw_verify = request.form["pw-verify"]
         if password != pw_verify:
-            return render_template("error.html", message="Salasanat eroavat")
+            return render_template("error.html", err="Salasanat eroavat")
 
         names = re_names.match(request.form["names"])
 
         if not (names):
-            return render_template("error.html", message="nimet väärin")
+            return render_template("error.html", err="nimet väärin")
 
         booleans = 0x0
 
@@ -57,7 +57,7 @@ def register():
             return render_template(
                 "error.html",
                 operation='rekisteröinti',
-                message="Käyttäjätunnus varmaan otettu jo")
+                err="Käyttäjätunnus varmaan otettu jo")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -72,7 +72,7 @@ def login():
             return render_template(
                 "error.html", 
                 operation='kirjautuminen',
-                message="Väärä tunnus tai salasana")
+                err="Väärä tunnus tai salasana")
 
 @app.route("/logout")
 def logout():
