@@ -7,7 +7,10 @@ from subprocess import run
 if not path.exists('.env'):
     db_name = f"verenluovutus-{uuid.uuid4()}".replace("-", "_")
     f = open('.env', 'w')
-    f.write(f"""# modify these to your liking
+    f.write(f"""
+# the below database has already been created for the app
+# remember to `createdb YOUR_DB` if you modify the below string to
+# DATABASE_URL=postgresql:///YOUR_DB
 DATABASE_URL=postgresql:///{db_name}
 SECRET_KEY={secrets.token_hex(16)}
 GEN_RAND_DATA=true
