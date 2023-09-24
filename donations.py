@@ -73,7 +73,8 @@ def plot(user_id = None, crit = "clinic"):
                 json_agg(date),
                 json_agg(count)
             from cte
-            group by __CRIT__;
+            group by __CRIT__
+            order by __CRIT__;
             """.replace("__CRIT__", crit))).fetchall()
         ],
         cls=plotly.utils.PlotlyJSONEncoder),
