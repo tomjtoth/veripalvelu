@@ -88,3 +88,8 @@ def donate():
             return redirect('/')
         else:
             return render_template('error.html', err='emt')
+
+@app.route('/comments')
+def comments():
+    return render_template('comments.html', comments=donations.all_comments())
+

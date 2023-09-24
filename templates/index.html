@@ -5,7 +5,6 @@
 
 {% if session.user %}
 Tervetuloa, {{ session.user.fnames }}.
-<a href="/donate">Rekisteröi luovutus</a>
 <h2>Omat luovutukset</h2>
 {% if plots.2 %}
 <div class="chart" id="own-donations">
@@ -18,8 +17,6 @@ Tervetuloa, {{ session.user.fnames }}.
 {% else %}
 <p>Et ole vielä luovuttanut, tervetuloa!</p>
 {% endif %}
-{% else %}
-<a href="/login">Kirjaudu sisään</a> | <a href="/register">Rekisteröi</a>
 {% endif %}
 
 <h2>Kaikki luovutukset järjestelmässä</h2>

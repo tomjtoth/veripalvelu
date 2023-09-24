@@ -7,7 +7,7 @@ Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitu
 Kronologisesti väärinpain:
 
 - `plotly` toimii
-    - dupe arvot tulee kannasta, pitää vielä säätää se kysely kuntoon
+    - pitää vielä säätää kyselyjä taustalla
 - feikki tietojen populointi toimii
     - (käyttäjä ei pääse noihin insert lausekkeihin, joten on turvallista rakentaa täällä tavalla)
 - luovutuksen rekisteröinti toimii

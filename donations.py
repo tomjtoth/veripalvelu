@@ -53,7 +53,7 @@ def plot(user_id = None, crit = "clinic"):
                 name=name,
                 x=x,
                 y=y,
-                hoverinfo="name+y",
+                hoverinfo="x+name+y",
                 showlegend=True
             ) 
             
@@ -62,7 +62,7 @@ def plot(user_id = None, crit = "clinic"):
                 select 
                     __CRIT__, 
                     date, 
-                    count(*) over (partition by date) 
+                    count(*) over (partition by date, __CRIT__) 
                 from data
                 {"where user_id = " + str(user_id) if user_id else ""}
                 group by __CRIT__, date
@@ -82,7 +82,11 @@ def plot(user_id = None, crit = "clinic"):
             'barmode': "relative",
             'scrollZoom': True,
             'xaxis': {
-                'range': [date.today()- timedelta(weeks=4*3), date.today()],
+                'range': [
+                    date.today() - timedelta(weeks=4*3),
+                    # today's donations were only visible half-width :D
+                    date.today() + timedelta(days=1)
+                ],
                 'title': "pvm"
             },
             'yaxis': {'title': "luovutukset"},
@@ -128,7 +132,26 @@ def comment_faker(i, arr, donation_ids, comments):
         entries.append(f"({id},'{choice(comments)}')")
 
     arr[i] = ",\n".join(entries)
+
+all_comments = lambda : [
     
+    row[0] for row in
+    
+    db.session.execute(text("""
+    select json_build_object(
+        'd', date,
+        'cl', clinic,
+        'fn', substring(fnames, 1, 1),
+        'ln', substring(lnames, 1, 1),
+        'qt', comment
+    )
+    from data
+    where comment is not null
+    --group by clinic
+    --order by data.date desc
+    """)).fetchall()
+]
+
 if generate_random_data:
     with app.app_context():
         # populate only once
