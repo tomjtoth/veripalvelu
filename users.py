@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
 import secrets
 from app import app, generate_random_data
-from random import choice, uniform, shuffle
+from random import choice, choices, uniform, shuffle
 import threading
 
 def login(username, password):
@@ -48,12 +48,39 @@ def register(username, password, firstnames, lastnames, flags):
         return False
     return login(username, password)
 
+all_blood_types = '0- 0+ A- A+ B- B+ AB- AB+'.split(' ')
+
+def flags_from_form(is_male, blood_type, is_admin = False):
+    flags = blood_type
+
+    if is_admin:
+        flags |= 0x10000
+    
+    if is_male:
+        flags |= 0x1000
+
+    return flags
+
 # below starts the fake population thingy
 
 def gen_rand_gender(names_female, names_male, names_last):
+    [flags] = choices(
+
+        # 1st 3 bits of the flags are A,B,RH
+        range(8),
+
+        # returning only one
+        k=1,
+
+        # from https://www.blood.co.uk/why-give-blood/blood-types/
+        weights=(35, 13, 30, 8, 8, 2, 2, 1)
+    )
     if round(uniform(0, 1)) == 0:
-        return choice(names_female), choice(names_last), round(uniform(0,7))
-    return choice(names_male), choice(names_last), round(uniform(8,15))
+        fnames = names_female
+    else:
+        fnames = names_male
+        flags |= 0x1000
+    return choice(fnames), choice(names_last), flags
 
 
 
