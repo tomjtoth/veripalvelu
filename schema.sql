@@ -7,7 +7,7 @@ create table if not exists users(
     fnames text not null,
     lnames text not null,
 
-    booleans integer not null
+    flags integer not null
 );
 
 create table if not exists clinics(
@@ -98,9 +98,9 @@ select
     u.id as user_id,
     fnames, 
     lnames, 
-    is_admin(booleans),
-    sex(booleans),
-    blood_type(booleans),
+    is_admin(flags),
+    sex(flags),
+    blood_type(flags),
     string_agg(consumable, ', ') as consumption,
     comment
 from donations d
@@ -109,7 +109,7 @@ inner join clinics cli on cli.id = d.clinic_id
 left join consumption con1 on con1.donation_id = d.id
 left join consumables con2 on con2.id = con1.consumable_id
 left join comments com on com.donation_id  = d.id
-group by d.id, cli.id, cli.cname, u.id, fnames, lnames, booleans, com.comment
+group by d.id, cli.id, cli.cname, u.id, fnames, lnames, flags, com.comment
 order by ddate desc
 ;
 

@@ -30,18 +30,18 @@ def login(username, password):
 def logout():
     del session["user"]
 
-def register(username, password, firstnames, lastnames, booleans):
+def register(username, password, firstnames, lastnames, flags):
     hash_value = generate_password_hash(password)
     try:
         db.session.execute(text("""
-        INSERT INTO users(uname, passw, fnames, lnames, booleans) 
-        VALUES (:un,:pw,:fn,:ln,:bool)
+        INSERT INTO users(uname, passw, fnames, lnames, flags) 
+        VALUES (:un,:pw,:fn,:ln,:flags)
         """), {
             "un": username,
             "pw": hash_value,
             "fn": firstnames,
             "ln": lastnames,
-            "bool": booleans
+            "flags": flags
         })
         db.session.commit()
     except:
@@ -98,7 +98,7 @@ if generate_random_data:
                 t.join()
 
             db.session.execute(text(
-                "insert into users(uname, passw, fnames, lnames, booleans) values\n"
+                "insert into users(uname, passw, fnames, lnames, flags) values\n"
                 + ",\n".join(sql_from_multithread)
             ))
             db.session.commit()
