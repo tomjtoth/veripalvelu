@@ -23,11 +23,9 @@ Kronologisesti väärinpain:
     - `source venv/bin/activate`
 - Asenna projektin riippuvuudet virtuaaliympäristöön alla komennolla
     - `pip install -r requirements.txt`
-- vaihtoehtoisesti:
-    - `.env`:ssa säädä `GEN_RAND_DATA=false` arvoon ennen ensikäyttöä jos haluat paljaan kannan
-    - en suosittele
 - käynnistä:
     - `flask run` komennolla
+    - `.env` tiedosto ja tietokanta tulee luoduksi ekalla käynnistyksellä
 
 ## Toiminnan kuvaus
 

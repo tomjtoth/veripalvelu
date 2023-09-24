@@ -1,18 +1,27 @@
 from flask import Flask
 from os import getenv, path, environ
-import secrets
+import secrets, uuid
+from subprocess import run
 
 # create default .env if not exists
 if not path.exists('.env'):
+    db_name = f"verenluovutus-{uuid.uuid4()}".replace("-", "_")
     f = open('.env', 'w')
     f.write(f"""# modify these to your liking
-DATABASE_URL=postgresql:///user
+DATABASE_URL=postgresql:///{db_name}
 SECRET_KEY={secrets.token_hex(16)}
 GEN_RAND_DATA=true
 """)
     f.close()
-    print('\n\t.env MISSING!!!\n\tcreated from presets\n\trevise it, then restart the app\n')
-    exit(0)
+    try:
+        run(["createdb", db_name])
+        print('\n\t./.env missing, generated from presets\n\tnow restart the program\n')
+        RC=0
+    except:
+        print(f'\n\tfailed to create database: "{db_name}"')
+        RC=1
+    finally:
+        exit(RC)
 
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
