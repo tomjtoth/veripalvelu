@@ -2,6 +2,7 @@
 
 if [ "$1" == "systemd" ]; then
     systemctl --user ${2:-start} verenluovutus
+    exit 0
 fi
 
 source venv/bin/activate
