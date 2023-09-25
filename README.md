@@ -6,6 +6,10 @@ Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitu
 
 [Täältä](http://oracle.ttj.hu:55599) pääsee kokeilemaan [24.9.2023](https://github.com/tomjtoth/tsoha-harjoitustyo/commit/b55f528bc501ad8f3ab8194c16a0bb260d92d88b) palautuksen version. Domain ostettu halvalla kotimaasta. Ilmainen palvelin [Oraclelta](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm) pyörii Ruotsissa.
 
+### Poikkeukset
+
+Koska palvelin on aarch64, `psycopg2` ei asentunut, onneksi oli `psycopg2-binary`, lisäksi tossa joku uudempi postgresql, jossa sovellus ei pystynyt luoda kannan itsestään, piti käsin luoda, systemd [.service](./verenluovutus.service) tiedosto pyörittää kaiken peruskäyttäjänä (with user lingering enabled).
+
 ## Nykytilanne
 
 Kronologisesti väärinpain:
