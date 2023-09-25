@@ -4,7 +4,7 @@ Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitu
 
 ## Tuotantoversio
 
-[Täältä](http://oracle.ttj.hu:55599) pääsee kokeilemaan [24.9.2023](https://github.com/tomjtoth/tsoha-harjoitustyo/commit/b55f528bc501ad8f3ab8194c16a0bb260d92d88b) palautuksen version. Domain ostettu halvalla kotimaasta. Ilmainen palvelin [Oraclelta](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm) pyörii Ruotsissa.
+[Täältä](http://oracle.ttj.hu:55599) pääsee kokeilemaan [25.9.2023](https://github.com/tomjtoth/tsoha-harjoitustyo/commit/53f7a69e8e81fd0ae226de960347569d7113c697) aamulla modattua versiota. Domain nimi ostettu halvalla kotimaasta. [Oraclen](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm) ilmainen palvelin pyörii Ruotsissa.
 
 ### Poikkeukset
 
