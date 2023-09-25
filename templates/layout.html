@@ -46,13 +46,14 @@
 
 <body>
     <nav>
+        <a href="/">Pääsivu</a>
         <a href="/comments">Kertomukset</a>
         {% if session.user %}
         <a href="/donate">Rekisteröi luovutus</a>
         <a class="auth" href="/logout">Kirjaudu ulos</a>
         {% else %}
-        <a class="auth" href="/login">Kirjaudu sisään</a>
         <a class="auth" href="/register">Rekisteröi</a>
+        <a class="auth" href="/login">Kirjaudu sisään</a>
         {% endif %}
     </nav>
     <h1>Verenluovutus-sovellus</h1>
