@@ -2,6 +2,10 @@
 
 Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitustyöksi, jossa käyttäjät saattaa rekisteröidä itseänne, sekä erillisiä käyntejä verenluovutuspaikoilla, joiden yhteydessä saavat ruksittaa mitkä kaikkea ne ovat syöneet/juoneet, myös jättää vapaamuotoista kommenttia halutessaan.
 
+## Tuotantoversio
+
+[Täältä](http://oracle.ttj.hu:55591) pääsee kokeilemaan [24.9.2023](https://github.com/tomjtoth/tsoha-harjoitustyo/commit/b55f528bc501ad8f3ab8194c16a0bb260d92d88b) palautuksen version. Domain ostettu halvalla kotimaasta. Ilmainen palvelin [Oraclelta](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm) pyörii Ruotsissa.
+
 ## Nykytilanne
 
 Kronologisesti väärinpain:
