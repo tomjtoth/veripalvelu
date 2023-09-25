@@ -14,6 +14,10 @@ if not path.exists('.env'):
 DATABASE_URL=postgresql:///{db_name}
 SECRET_KEY={secrets.token_hex(16)}
 GEN_RAND_DATA=true
+
+# the below is only present because of the VPS
+HOST=0.0.0.0
+PORT=xxx
 """)
     f.close()
     try:
