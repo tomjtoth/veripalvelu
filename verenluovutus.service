@@ -4,11 +4,11 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-Type=forking
+#Type=forking
 Restart=always
 RestartSec=10
-WorkingDirectory=%h/verenluovutussovellus
-ExecStart=%h/verenluovutussovellus/start.sh
+WorkingDirectory=%h/verenluovutus-sovellus
+ExecStart=%h/verenluovutus-sovellus/start.sh
 
 [Install]
 WantedBy=default.target
