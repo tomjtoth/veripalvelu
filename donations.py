@@ -87,7 +87,7 @@ def plot(user_id = None, crit = "clinic"):
                     # today's donations were only visible half-width :D
                     date.today() + timedelta(days=1)
                 ],
-                'title': "pvm"
+                'title': "päivämäärä"
             },
             'yaxis': {'title': "luovutukset"},
             'title': f"""{
