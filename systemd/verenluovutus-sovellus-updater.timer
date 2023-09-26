@@ -1,0 +1,10 @@
+[Unit]
+Description=periodically checks for updates
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=5min
+Unit=verenluovutus-sovellus-updater.service
+
+[Install]
+WantedBy=timers.target

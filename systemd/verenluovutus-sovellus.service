@@ -1,14 +1,13 @@
 [Unit]
-Description=blood donation app for hy-tkt/tsoha
+Description=python webapp for hy-tkt/tsoha
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-#Type=forking
 Restart=always
 RestartSec=10
 WorkingDirectory=%h/verenluovutus-sovellus
-ExecStart=%h/verenluovutus-sovellus/start.sh
+ExecStart=%h/verenluovutus-sovellus/main.sh
 
 [Install]
 WantedBy=default.target
