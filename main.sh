@@ -15,4 +15,3 @@ else
     source .env
     flask run --host=$HOST --port=$PORT
 fi
-

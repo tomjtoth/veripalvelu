@@ -37,8 +37,6 @@ create table if not exists comments(
     comment text not null
 );
 
-
-
 CREATE or replace FUNCTION is_admin(integer)
 RETURNS boolean
     AS 'select ($1 >> 4) & 1 = 1;'
@@ -112,4 +110,3 @@ left join comments com on com.donation_id  = d.id
 group by d.id, cli.id, cli.cname, u.id, fnames, lnames, flags, com.comment
 order by ddate desc
 ;
-
