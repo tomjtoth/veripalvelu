@@ -1,13 +1,9 @@
 {% extends "layout.html" %}
-{% block title %}Luovutuspaikat{% endblock %}
+{% block title %}Kertomukset{% endblock %}
 {% block body %}
 
-<!--
-    {{ comments|pprint }}
--->
-
-<h2>Kokemukset</h2>
 {% for row in comments %}
+<br>
 <figure>
     {{ row.d }}, {{ row.cl }}:
     <blockquote>
