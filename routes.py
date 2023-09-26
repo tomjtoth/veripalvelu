@@ -70,7 +70,7 @@ def root():
 
 @app.route('/donate', methods=["GET", "POST"])
 def donate():
-    if not session['user']:
+    if not session.get('user'):
         return redirect('/login')
 
     if request.method == "GET":
