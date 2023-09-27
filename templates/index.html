@@ -1,9 +1,20 @@
 {% extends "layout.html" %}
 {% block title %}Verenluovutus{% endblock %}
 {% block body %}
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+    const div_loader = document.createElement('div');
+    div_loader.classList.add('loader');
+    div_loader.appendChild(document.createElement('div'));
+    document.body.insertBefore(div_loader, document.body.firstChild);
 
-<p>Timolle PR demo</p>
+    document.addEventListener('DOMContentLoaded', _ => {
+        //setTimeout(_ => {
+        div_loader.setAttribute('hidden', 'hidden');
+        //}, 2 * 1000)
+    })
+</script>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 {% if session.user %}
 Tervetuloa, {{ session.user.fnames }}.
