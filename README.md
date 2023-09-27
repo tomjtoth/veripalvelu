@@ -4,16 +4,17 @@ Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitu
 
 ## Tuotantoversio
 
-[Täältä](http://oracle.ttj.hu:55599) pääsee kokeilemaan [25.9.2023](https://github.com/tomjtoth/tsoha-harjoitustyo/commit/53f7a69e8e81fd0ae226de960347569d7113c697) aamulla modattua versiota. Domain nimi ostettu halvalla kotimaasta. [Oraclen](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm) ilmainen palvelin pyörii Ruotsissa.
+[Täältä](http://oracle.ttj.hu:55599) pääsee kokeilemaan tureimman version, 5 minuutin sisällä pitäisi hoitua deploymentin systemd timer:in toimesta. Domain nimi ostettu halvalla kotimaasta. [Oraclen](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm) ilmainen palvelin pyörii Ruotsissa.
 
 ### Poikkeukset
 
-Koska palvelin on aarch64, `psycopg2` ei asentunut, onneksi oli `psycopg2-binary`, lisäksi tossa joku uudempi postgresql, jossa sovellus ei pystynyt luoda kannan itsestään, piti käsin luoda, systemd [.service](./verenluovutus.service) tiedosto pyörittää kaiken peruskäyttäjänä (with user lingering enabled).
+Koska palvelin on aarch64, `psycopg2` ei asentunut, onneksi oli `psycopg2-binary`, lisäksi tossa joku uudempi postgresql, jossa sovellus ei pystynyt luoda kannan itsestään, piti käsin luoda, systemd [.service](./systemd/verenluovutus-sovellus.service) tiedosto pyörittää kaiken peruskäyttäjänä (with user lingering enabled).
 
 ## Nykytilanne
 
 Kronologisesti väärinpain:
 
+- loader lisätty
 - `plotly` toimii
     - pitää vielä säätää kyselyjä taustalla
 - feikki tietojen populointi toimii
@@ -69,3 +70,5 @@ Tänne niitä joita voisikin toteuttaa, muttei mahdu aikarajoitteen takia kurssi
 
 - reaaliset [rajoitteet](https://www.veripalvelu.fi/verenluovutus/luovutusedellytykset/) 2 luovutuksen väliin:
     > Suosittelemme verenluovutusta yli 25-vuotiaille naisille enintään 2–3 kertaa vuodessa ja 18-25 v. naisille enintään kerran vuodessa. Miehille suosittelemme enintään 3–4 verenluovutusta vuodessa. Sallitut minimivälit kokoverenluovutuksille ovat naisille 91 ja miehille 61 vuorokautta. Voit laskea laskurilla​, onko minimiväli kohdallasi jo täyttynyt.
+
+- TLS:in käyttöönotto vk2 palautteen perusteella
