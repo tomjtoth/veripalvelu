@@ -13,6 +13,6 @@ elif [ "$1" == "update" ]; then
 else
     source venv/bin/activate
     source .env
-    #flask run --host=$HOST --port=$PORT --cert=$TLS_CERT --key=$TLS_KEY
-    gunicorn -b $HOST:$PORT --keyfile $TLS_KEY --certfile $TLS_CERT 'app:app'
+    flask run --host=$HOST --port=$PORT --cert=$TLS_CERT --key=$TLS_KEY
+    #gunicorn -b $HOST:$PORT --keyfile $TLS_KEY --certfile $TLS_CERT 'app:app'
 fi
