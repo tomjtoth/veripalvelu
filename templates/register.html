@@ -3,28 +3,28 @@
 {% block body %}
 <form method="post">
     <div>
-        <label for="names">your name:</label>
+        <label for="names">nimesi:</label>
         <input id="names" name="names" placeholder="Sukunimet, Etunimet" required pattern=".+, *.+">
     </div>
     <div>
-        <label for="username">username:</label>
+        <label for="username">käyttäjätunnus:</label>
         <input id="username" name="username" placeholder="luovuttaja123" required pattern="[a-zA-Z][A-Za-z0-9]{2,}"
             title="alkaa kirjaimella enkun aakkosesta, vähintään 3 pitkää">
     </div>
     <div>
-        <label for="password">password:</label>
+        <label for="password">salasana:</label>
         <input id="password" name="password" type="password" required placeholder="********" pattern=".{8,}"
             title="vähintään 8 merkkiä, ei ylärajaa">
     </div>
     <div>
-        <label for="pw-verify">verify:</label>
+        <label for="pw-verify">vahvista:</label>
         <input id="pw-verify" name="pw-verify" type="password" required placeholder="********" pattern=".{8,}"
             title="täsmälleen sama kuin yllä">
     </div>
     <div>
-        <label for="blood-type">blood type:</label>
+        <label for="blood-type">veryryhmä:</label>
         <select id="blood-type" name="blood-type" required>
-            <option disabled>select one</option>
+            <option disabled selected value="">valitse yksi</option>
             {% for type in blood_types %}
             <option value="{{loop.index0}}">{{type}}</option>
             {% endfor %}
@@ -33,11 +33,11 @@
     <div>
         <label for="gender">gender:</label>
         <select required id="gender" name="gender">
-            <option disabled>select one</option>
-            <option value="0">female</option>
-            <option value="1">male</option>
+            <option disabled selected value="">valitse yksi</option>
+            <option value="0">nainen</option>
+            <option value="1">mies</option>
         </select>
     </div>
-    <input type="submit" value="Register">
+    <input type="submit" value="Rekisteröi">
 </form>
 {% endblock %}
