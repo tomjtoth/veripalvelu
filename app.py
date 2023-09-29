@@ -2,6 +2,7 @@ from flask import Flask
 from os import getenv, path, environ
 import secrets, uuid
 from subprocess import run
+import sys
 
 # create default .env if not exists
 if not path.exists('.env'):
@@ -34,5 +35,11 @@ app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 generate_random_data = environ.get("GEN_RAND_DATA", "false") == "true"
+
+force_https = next((True 
+    for arg in sys.argv 
+    if arg.startswith("--cert=")
+    or arg.startswith("--key=")
+), False)
 
 import routes
