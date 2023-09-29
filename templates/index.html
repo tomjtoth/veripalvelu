@@ -46,8 +46,8 @@ Tervetuloa, {{ session.user.fnames }}.
 {% if plots.2 %}
 <div class="chart" id="own-donations">
     <script>
-        var plot_own = {{ plots.2.0 | safe}};
-        var plot_own_conf = {{ plots.2.1 | safe}};
+        const plot_own = {{ plots.2.0 | safe}};
+        const plot_own_conf = {{ plots.2.1 | safe}};
         Plotly.plot('own-donations', plot_own, plot_own_conf);
     </script>
 </div>
@@ -59,16 +59,16 @@ Tervetuloa, {{ session.user.fnames }}.
 <h2>Kaikki luovutukset järjestelmässä</h2>
 <div class="chart" id="all-by-clinic">
     <script>
-        var plot_by_clinic = {{ plots.0.0 | safe}};
-        var plot_by_clinic_conf = {{ plots.0.1 | safe}};
+        const plot_by_clinic = {{ plots.0.0 | safe}};
+        const plot_by_clinic_conf = {{ plots.0.1 | safe}};
         Plotly.plot('all-by-clinic', plot_by_clinic, plot_by_clinic_conf);
     </script>
 </div>
 
 <div class="chart" id="all-by-blood-type">
     <script>
-        var plot_by_type = {{ plots.1.0 | safe}};
-        var plot_by_type_conf = {{ plots.1.1 | safe}};
+        const plot_by_type = {{ plots.1.0 | safe}};
+        const plot_by_type_conf = {{ plots.1.1 | safe}};
         Plotly.plot('all-by-blood-type', plot_by_type, plot_by_type_conf);
     </script>
 </div>
