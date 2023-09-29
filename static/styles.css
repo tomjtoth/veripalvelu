@@ -22,6 +22,7 @@ body {
     background-color: var(--body-bg);
     color: var(--body)
 }
+
 nav {
     list-style-type: none;
     margin: 0;
@@ -89,5 +90,25 @@ div.loader>div {
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+div.fun {
+    position: absolute;
+    z-index: 2;
+    animation: spin-and-scale 0.5s linear;
+}
+
+@keyframes spin-and-scale {
+    0% {
+        transform:
+            translateX(0px) translateY(0px) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateX(calc(50vmin - 50%)) translateY(calc(50vmin - 50%)) scale(50) rotate(360deg);
+        opacity: 0;
     }
 }
