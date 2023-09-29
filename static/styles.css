@@ -6,7 +6,7 @@ nav {
     background-color: gray;
     position: sticky;
     top: 0px;
-    z-index: 0;
+    z-index: 1;
 }
 
 nav>a {
