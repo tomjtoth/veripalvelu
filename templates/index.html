@@ -7,6 +7,33 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', _ => {
+
+        // temp solution (?)
+        // idk how to build the charts with the proper bg color pre-set
+        // so I'm changing them here to the desired ones
+        for (const bg of document.querySelectorAll(`
+            svg.main-svg:first-child, 
+            g.legend>rect.bg
+        `)) {
+            bg.style.background = 'var(--body-bg)';
+        }
+
+        for (const rect_bg of document.querySelectorAll('g.legend>rect.bg')) {
+            rect_bg.style['fill-opacity'] = '';
+            rect_bg.style.fill = '';
+        }
+
+        for (const txt of document.querySelectorAll(`
+            svg.main-svg text.legendtext,
+            svg.main-svg text.ytitle,
+            svg.main-svg text.xtitle,
+            svg.main-svg text.gtitle,
+            g.xtick>text,
+            g.ytick>text
+        `)) {
+            txt.style.fill = 'var(--body)';
+        }
+
         document.querySelector('div.loader').setAttribute('hidden', 'hidden');
     })
 </script>

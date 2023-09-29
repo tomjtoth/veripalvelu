@@ -21,6 +21,7 @@
         <a class="auth" href="/register">Rekisteröi</a>
         <a class="auth" href="/login">Kirjaudu sisään</a>
         {% endif %}
+        <a class="auth" title="toggle between dark/light mode">🌗</a>
     </nav>
     <h1>Verenluovutus-sovellus</h1>
     <hr>
@@ -35,6 +36,28 @@
             a.classList.remove('active');
         }
     }
+</script>
+<script>
+    document.documentElement.setAttribute('color-theme',
+        localStorage.getItem('color-theme') || 'light'
+    );
+
+    // settings
+    document.querySelector('nav')
+        .addEventListener('click', ({ target: { href, title } }) => {
+
+            if (href) return;
+
+            if (title.includes('dark')) {
+                const color_theme = document.documentElement
+                    .getAttribute('color-theme') == 'dark'
+                    ? 'light'
+                    : 'dark';
+                document.documentElement.setAttribute('color-theme', color_theme);
+                localStorage.setItem('color-theme', color_theme);
+            }
+
+        })
 </script>
 
 </html>
