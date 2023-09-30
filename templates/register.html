@@ -40,4 +40,13 @@
     </div>
     <input type="submit" value="Rekisteröi">
 </form>
+<script>
+    document.addEventListener('submit', e => {
+        const [pw, pw2] = document.querySelectorAll('input[type=password]');
+        if (pw !== pw2) {
+            e.preventDefault();
+            alert('salasanat eroavat');
+        }
+    })
+</script>
 {% endblock %}
