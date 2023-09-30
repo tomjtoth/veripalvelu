@@ -5,7 +5,7 @@
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 {% if session.user %}
-Tervetuloa, {{ session.user.fnames }}! Veriryhmäsi on {{ session.user.blood_type }}.
+Tervetuloa, {{ session.user.fnames }}! Veriryhmäsi on {{ session.user.blood_type }}
 <h2>Omat luovutukset</h2>
 {% if plots.2 %}
 <div class="chart" id="own-donations">
