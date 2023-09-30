@@ -9,7 +9,7 @@ import threading
 
 def login(username, password):
     result = db.session.execute(text("""
-    SELECT *
+    SELECT id, uname, passw, fnames, blood_type(flags)
     FROM users
     WHERE uname=:un
     """), {"un":username})
