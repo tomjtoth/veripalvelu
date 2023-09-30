@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 from app import app
 
 def get_names():
-    return tuple(db.session.execute(text('select * from clinics')).fetchall())
+    return tuple(db.session.execute(text('select id, cname from clinics')).fetchall())
 
 with app.app_context():
     if int(db.session.execute(text("select count(*) from clinics")).fetchone()[0]) == 0:

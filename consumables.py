@@ -5,7 +5,7 @@ from random import choices, choice, randint
 import threading
 
 def get_all():
-    return db.session.execute(text("SELECT * FROM consumables")).fetchall()
+    return db.session.execute(text("SELECT id, consumable FROM consumables")).fetchall()
 
 def consumption_faker(i, arr, donation_ids, consumable_ids):
     """
