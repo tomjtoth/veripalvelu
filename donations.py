@@ -94,7 +94,12 @@ def plot(user_id = None, crit = "clinic"):
                 'Luovutuspaikkojen' 
                 if crit == 'clinic' 
                 else 'Veriryhmien'
-            } perusteella"""
+            } perusteella""",
+            'font': {
+                'color': 'red'
+            },
+            'plot_bgcolor': 'transparent',
+            'paper_bgcolor': 'transparent',
         },
         cls=plotly.utils.PlotlyJSONEncoder)
     )
