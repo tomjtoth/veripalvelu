@@ -7,7 +7,8 @@ from datetime import date
 
 re_names = re.compile(r"(.+), *(.+)")
 
-@app.before_request
+# this is not working as flask won't run on both http and https
+#@app.before_request
 def before_request():
     if force_https and not request.is_secure:
         return redirect(
