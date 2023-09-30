@@ -1,26 +1,24 @@
 :root {
-    --body-bg: white;
-    --body: black;
-    --nav-a-hover-not-active: black;
-    --nav-a-active: purple;
+    --background: white;
+    --color: black;
     --loader-bg: #ccc8;
-    --loader-border: #f3f3f3;
+    --loader-border: #ddd;
     --loader-border-top: #3498db;
 }
 
 [color-theme="dark"] {
-    --body-bg: black;
-    --body: white;
-    --nav-a-hover-not-active: #183c61;
-    --nav-a-active: #521555;
-    --loader-bg: #000c;
+    --background: black;
+    --color: white;
+    --loader-bg: #2228;
     --loader-border: #343434;
     --loader-border-top: #0b2232;
 }
 
 body {
-    background-color: var(--body-bg);
-    color: var(--body)
+    background: var(--background);
+    color: var(--color);
+    /* emojis flying outside sideways created created horizontal scrollbar */
+    overflow-x: hidden;
 }
 
 nav {
@@ -28,7 +26,7 @@ nav {
     margin: 0;
     padding: 0;
     overflow: auto;
-    background-color: gray;
+    background: gray;
     position: sticky;
     top: 0px;
     z-index: 1;
@@ -45,11 +43,15 @@ nav>a {
 }
 
 nav>a:hover:not(.active) {
-    background-color: var(--nav-a-hover-not-active);
+    background: #183c61;
 }
 
-nav>a.active {
-    background-color: var(--nav-a-active);
+nav>a[href].active {
+    background: purple;
+}
+
+nav>a:not([href]).active {
+    background: radial-gradient(purple, orange);
 }
 
 nav>a.auth,
@@ -96,19 +98,20 @@ div.loader>div {
 div.fun {
     position: absolute;
     z-index: 2;
-    animation: spin-and-scale 0.5s linear;
+    animation: fun 2s linear;
+    user-select: none;
 }
 
-@keyframes spin-and-scale {
+@keyframes fun {
     0% {
         transform:
-            translateX(0px) translateY(0px) scale(1) rotate(0deg);
+            scale(1) translateX(-50%) translateY(-50%) rotate(0deg);
         opacity: 1;
     }
 
     100% {
         transform:
-            translateX(calc(50vmin - 50%)) translateY(calc(50vmin - 50%)) scale(50) rotate(360deg);
+            scale(50) translateX(50%) translateY(50%) rotate(360deg);
         opacity: 0;
     }
 }

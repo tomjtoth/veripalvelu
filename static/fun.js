@@ -1,19 +1,18 @@
 class Fun {
 
-    static _emojis = [...'🤡🎉🎈🥳🎪🤹‍♂️🎁🍭🤡🤹‍♀️🥳🎊'];
+    static _emojis = [...'🤡🎉🎈🥳🎪🤹🎁🍭🤹🥳🎊'];
 
-    static _status = localStorage.getItem('fun-mode') === 'true';
+    static status = localStorage.getItem('fun-mode') === 'true';
 
     static toggle() {
-        this._status = !this._status;
-        localStorage.setItem('fun-mode', this._status);
+        this.status = !this.status;
+        localStorage.setItem('fun-mode', this.status);
     }
 
     static {
-        document.addEventListener('DOMContentLoaded', _ => {
-            document.body.addEventListener('click', ({ pageX, pageY, target: { tagName } }) => {
-                if (this._status) new this(pageX, pageY);
-            });
+
+        document.addEventListener('click', ({ pageX, pageY }) => {
+            if (this.status) new this(pageX, pageY);
         });
 
         document.addEventListener('animationend', ({ target }) => {

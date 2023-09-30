@@ -12,6 +12,9 @@
 </head>
 
 <body>
+    <div class="loader">
+        <div></div>
+    </div>
     <nav>
         <a href="/">Pääsivu</a>
         <a href="/comments">Kertomukset</a>
@@ -25,10 +28,10 @@
         <a class="auth" title="toggle between fun/lame mode">🥳</a>
         <a class="auth" title="toggle between dark/light mode">🌗</a>
     </nav>
+    <script src="static/layout.js"></script>
     <h1>Verenluovutus-sovellus</h1>
     <hr>
     {% block body %}{% endblock %}
 </body>
-<script src="static/layout.js"></script>
 
 </html>
