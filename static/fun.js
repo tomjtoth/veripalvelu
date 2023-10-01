@@ -27,11 +27,22 @@ class Fun {
         return this._emojis[Math.floor(Math.random() * this._emojis.length)];
     }
 
-    constructor(x, y) {
+    static err(n) {
+        if (this.status && n > 0) {
+            setTimeout(_ => {
+                new this(Math.random() * window.innerWidth, Math.random() * window.innerHeight, 0);
+                this.err(n - 1);
+            }, 300, n);
+        }
+    }
+
+    constructor(x, y, i = -1) {
 
         const div = document.createElement('div');
         div.classList.add('fun');
-        div.textContent = Fun._rand();
+        div.textContent = i >= 0
+            ? Fun._emojis[i]
+            : Fun._rand();
         div.style.left = x + 'px';
         div.style.top = y + 'px';
         document.body.appendChild(div);
