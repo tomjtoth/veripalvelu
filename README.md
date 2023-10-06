@@ -15,6 +15,9 @@ Koska palvelin on aarch64, `psycopg2` ei asentunut, onneksi oli `psycopg2-binary
 Kronologisesti väärinpain:
 
 - arbitrary rajoitukset tehty syötteiden pituuksiin
+- fun/lame mode lisätty
+    - error.html:ssa sateilee pelleitä (50kpl)
+- dark mode lisätty
 - loader lisätty
 - `plotly` toimii
     - pitää vielä säätää kyselyjä taustalla
