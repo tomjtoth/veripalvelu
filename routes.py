@@ -97,7 +97,9 @@ def root():
                            plots=[
                                donations.plot(),
                                donations.plot(crit="blood_type"),
+
                                donations.plot(session['user']['id'])
+                               if session.get('user') else None
                            ])
 
 
@@ -113,7 +115,7 @@ def donate():
                                consumables=consumables.get_all())
     else:
 
-        # we don't event have a session yet (?)
+        # we don't event have a session yet
         if not session.get("user"):
             return redirect("/login")
 
