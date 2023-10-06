@@ -48,18 +48,17 @@ def register(date: str, clinic_id: int, consumption, comment: str):
 
 def plot(user_id=None, crit="clinic"):
 
-    return (
-        json.dumps([
+    data = [
 
-            go.Bar(
-                name=name,
-                x=x,
-                y=y,
-                hoverinfo="x+name+y",
-                showlegend=True
-            )
+        go.Bar(
+            name=name,
+            x=x,
+            y=y,
+            hoverinfo="x+name+y",
+            showlegend=True
+        )
 
-            for name, x, y in db.session.execute(text(f"""
+        for name, x, y in db.session.execute(text(f"""
             with cte as (
                 select 
                     __CRIT__, 
@@ -77,9 +76,12 @@ def plot(user_id=None, crit="clinic"):
             from cte
             group by __CRIT__
             order by __CRIT__;
-            """.replace("__CRIT__", crit))).fetchall()
-        ],
-            cls=plotly.utils.PlotlyJSONEncoder),
+            """.replace("__CRIT__", crit)
+        )).fetchall()
+    ]
+
+    return (
+        json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder),
         json.dumps({
             'barmode': "relative",
             'scrollZoom': True,
@@ -102,9 +104,8 @@ def plot(user_id=None, crit="clinic"):
             },
             'plot_bgcolor': 'transparent',
             'paper_bgcolor': 'transparent',
-        },
-            cls=plotly.utils.PlotlyJSONEncoder)
-    )
+        }, cls=plotly.utils.PlotlyJSONEncoder)
+    ) if len(data) > 0 else None
 
 
 def rand_date():
