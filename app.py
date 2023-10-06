@@ -1,6 +1,7 @@
 from flask import Flask
 from os import getenv, path, environ
-import secrets, uuid
+import secrets
+import uuid
 from subprocess import run
 import sys
 
@@ -24,10 +25,10 @@ PORT=xxx
     try:
         run(["createdb", db_name])
         print('\n\t./.env missing, generated from presets\n\tnow restart the program\n')
-        RC=0
+        RC = 0
     except:
         print(f'\n\tfailed to create database: "{db_name}"')
-        RC=1
+        RC = 1
     finally:
         exit(RC)
 
@@ -36,10 +37,12 @@ app.secret_key = getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 generate_random_data = environ.get("GEN_RAND_DATA", "false") == "true"
 
-force_https = next((True 
-    for arg in sys.argv 
-    if arg.startswith("--cert=")
-    or arg.startswith("--key=")
-), False)
+force_https = next((True
+                    for arg in sys.argv
+                    if arg.startswith("--cert=")
+                    or arg.startswith("--key=")
+                    ), False)
 
+# autopep8 wants this on the top...
+# fmt: off
 import routes

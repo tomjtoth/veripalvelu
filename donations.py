@@ -11,17 +11,18 @@ import plotly
 import plotly.graph_objs as go
 import json
 
+
 def register(date: str, clinic_id: int, consumption, comment: str):
     consumable = 0
 
     # set 1 bit at a time
     for c in consumption:
         consumable |= int(math.pow(2, c))
-    
+
     try:
         db.session.execute(text("""
         insert into donations(user_id, clinic_id, ddate)
-        values(:uid, :cid, :dd)"""),{
+        values(:uid, :cid, :dd)"""), {
             'uid': session['user']['id'],
             'cid': clinic_id,
             'dd': date
@@ -30,21 +31,22 @@ def register(date: str, clinic_id: int, consumption, comment: str):
             db.session.execute(text("""
             insert into consumption(donation_id, consumed)
             select currval(pg_get_serial_sequence('donations','id')), :x
-            """), {'x':consumable})
+            """), {'x': consumable})
         if comment != "":
             db.session.execute(text("""
             insert into comments(donation_id, comment)
             select currval(pg_get_serial_sequence('donations','id')), :x
-            """), {'x':comment})
-        
+            """), {'x': comment})
+
         db.session.commit()
-        
+
     except:
         return False
-    
+
     return True
 
-def plot(user_id = None, crit = "clinic"):
+
+def plot(user_id=None, crit="clinic"):
 
     return (
         json.dumps([
@@ -55,8 +57,8 @@ def plot(user_id = None, crit = "clinic"):
                 y=y,
                 hoverinfo="x+name+y",
                 showlegend=True
-            ) 
-            
+            )
+
             for name, x, y in db.session.execute(text(f"""
             with cte as (
                 select 
@@ -77,7 +79,7 @@ def plot(user_id = None, crit = "clinic"):
             order by __CRIT__;
             """.replace("__CRIT__", crit))).fetchall()
         ],
-        cls=plotly.utils.PlotlyJSONEncoder),
+            cls=plotly.utils.PlotlyJSONEncoder),
         json.dumps({
             'barmode': "relative",
             'scrollZoom': True,
@@ -101,9 +103,9 @@ def plot(user_id = None, crit = "clinic"):
             'plot_bgcolor': 'transparent',
             'paper_bgcolor': 'transparent',
         },
-        cls=plotly.utils.PlotlyJSONEncoder)
+            cls=plotly.utils.PlotlyJSONEncoder)
     )
-    
+
 
 def rand_date():
     fmt = "%Y-%m-%d"
@@ -120,9 +122,10 @@ def donation_faker(i, arr, user_ids, clinic_ids):
     generate fake entries string on separate threads
     """
     entries = []
-    
+
     for _ in range(1000):
-        entries.append(f"({choice(user_ids)},{choice(clinic_ids)},'{rand_date()}')")
+        entries.append(
+            f"({choice(user_ids)},{choice(clinic_ids)},'{rand_date()}')")
 
     arr[i] = ",\n".join(entries)
 
@@ -132,16 +135,17 @@ def comment_faker(i, arr, donation_ids, comments):
     generate fake entries string on separate threads
     """
     entries = []
-    
+
     for id in choices(donation_ids, k=100):
         entries.append(f"({id},'{choice(comments)}')")
 
     arr[i] = ",\n".join(entries)
 
-all_comments = lambda : [
-    
+
+def all_comments(): return [
+
     row[0] for row in
-    
+
     db.session.execute(text("""
     select json_build_object(
         'd', date,
@@ -157,25 +161,27 @@ all_comments = lambda : [
     """)).fetchall()
 ]
 
+
 if generate_random_data:
     with app.app_context():
         # populate only once
         if int(db.session.execute(text("select count(*) from donations")).fetchone()[0]) < 10:
             print("populating donations with fake data")
 
-            clinic_ids = [x[0] 
-                for x in db.session.execute(text("select id from clinics")).fetchall()
-            ]
+            clinic_ids = [x[0]
+                          for x in db.session.execute(text("select id from clinics")).fetchall()
+                          ]
 
-            user_ids = [x[0] 
-                for x in db.session.execute(text("select id from users")).fetchall()
-            ]
+            user_ids = [x[0]
+                        for x in db.session.execute(text("select id from users")).fetchall()
+                        ]
 
             sql_from_multithread = [None] * 10
 
             threads = []
             for i in range(10):
-                threads.append(threading.Thread(target=donation_faker, args=(i, sql_from_multithread, user_ids, clinic_ids)))
+                threads.append(threading.Thread(target=donation_faker, args=(
+                    i, sql_from_multithread, user_ids, clinic_ids)))
                 threads[-1].start()
 
             # wait for the threads to complete
@@ -188,17 +194,19 @@ if generate_random_data:
             ))
 
             # comments from ChatGPT: "generate 50 random comments about how good it was to donate blood in Finnish"
-            comments = [x.strip().replace("'", "''") for x in open("fake_data/comments.lst", "r").readlines()]
+            comments = [x.strip().replace("'", "''")
+                        for x in open("fake_data/comments.lst", "r").readlines()]
 
             shuffle(comments)
 
             donation_ids = [x[0]
-                for x in db.session.execute(text("select id from donations")).fetchall()
-            ]
+                            for x in db.session.execute(text("select id from donations")).fetchall()
+                            ]
 
             threads = []
             for i in range(10):
-                threads.append(threading.Thread(target=comment_faker, args=(i, sql_from_multithread, donation_ids, comments)))
+                threads.append(threading.Thread(target=comment_faker, args=(
+                    i, sql_from_multithread, donation_ids, comments)))
                 threads[-1].start()
 
             # wait for the threads to complete

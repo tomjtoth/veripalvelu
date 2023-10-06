@@ -1,14 +1,19 @@
 from flask import send_from_directory, render_template, redirect, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from app import app, force_https
-import users, clinics, donations, consumables
+import users
+import clinics
+import donations
+import consumables
 import re
 from datetime import date
 
-re_names = re.compile(r"(.+), *(.+)")
+re_names = re.compile(r"^(.{1,100}), *(.{1,100})$")
 
 # this is not working as flask won't run on both http and https
-#@app.before_request
+# @app.before_request
+
+
 def before_request():
     if force_https and not request.is_secure:
         return redirect(
@@ -16,11 +21,12 @@ def before_request():
             code=301
         )
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
-        return render_template("register.html", 
-            blood_types=users.all_blood_types)
+        return render_template("register.html",
+                               blood_types=users.all_blood_types)
     if request.method == "POST":
         password = request.form["password"]
         if password != request.form["pw-verify"]:
@@ -32,10 +38,10 @@ def register():
             return render_template("error.html", err="nimet väärin")
 
         if users.register(
-            request.form["username"], 
-            password, 
-            names.group(2), 
-            names.group(1), 
+            request.form["username"],
+            password,
+            names.group(2),
+            names.group(1),
             users.flags_from_form(
                 int(request.form["gender"]) == 1,
                 int(request.form["blood-type"])
@@ -48,6 +54,7 @@ def register():
                 operation='rekisteröinti',
                 err="Käyttäjätunnus varmaan otettu jo")
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
@@ -59,23 +66,27 @@ def login():
             return redirect("/")
         else:
             return render_template(
-                "error.html", 
+                "error.html",
                 operation='kirjautuminen',
                 err="Väärä tunnus tai salasana")
+
 
 @app.route("/logout")
 def logout():
     del session["user"]
     return redirect("/")
 
+
 @app.route('/')
 def root():
     return render_template('index.html',
-        plots=[
-            donations.plot(),
-            donations.plot(crit="blood_type"),
-            donations.plot(session['user']['id']) if session.get('user') else None
-        ])
+                           plots=[
+                               donations.plot(),
+                               donations.plot(crit="blood_type"),
+                               donations.plot(session['user']['id']) if session.get(
+                                   'user') else None
+                           ])
+
 
 @app.route('/donate', methods=["GET", "POST"])
 def donate():
@@ -84,9 +95,9 @@ def donate():
 
     if request.method == "GET":
         return render_template('donation.html',
-            clinics=clinics.get_names(),
-            today= date.today(),
-            consumables=consumables.get_all())
+                               clinics=clinics.get_names(),
+                               today=date.today(),
+                               consumables=consumables.get_all())
     else:
         if donations.register(
             request.form['date'],
@@ -98,7 +109,7 @@ def donate():
         else:
             return render_template('error.html', err='emt')
 
+
 @app.route('/comments')
 def comments():
     return render_template('comments.html', comments=donations.all_comments())
-
