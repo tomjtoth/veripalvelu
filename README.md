@@ -4,7 +4,7 @@ Yksinkertainen sovellus [tsoha](https://hy-tsoha.github.io/materiaali/) harjoitu
 
 ## Tuotantoversio
 
-[Täältä](https://oracle.ttj.hu:55599) pääsee kokeilemaan tureimman version, 5 minuutin sisällä pitäisi hoitua deploymentin systemd timer:in toimesta. Domain nimi ostettu halvalla kotimaasta. [Oraclen](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm) ilmainen palvelin pyörii Ruotsissa.
+[Täältä](https://oracle.ttj.hu:55599) pääsee kokeilemaan `prod` haaran tureimman version, 5 minuutin sisällä pitäisi hoitua deploymentin systemd timer:in toimesta. Domain nimi ostettu kotimaasta. [Oraclen](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm) palvelin pyörii Ruotsissa.
 
 ### Poikkeukset
 
