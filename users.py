@@ -23,6 +23,7 @@ def login(username, password):
             user = user._asdict()
             # the hashed pw should not be sent back to the client
             del user['passw']
+            user['csrf'] = secrets.token_hex(16)
             session["user"] = user
             return True
         else:

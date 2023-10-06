@@ -1,4 +1,4 @@
-from flask import send_from_directory, render_template, redirect, request, session
+from flask import send_from_directory, render_template, redirect, request, session, abort
 from werkzeug.security import check_password_hash, generate_password_hash
 from app import app, force_https
 import users
@@ -103,6 +103,14 @@ def donate():
                                today=date.today(),
                                consumables=consumables.get_all())
     else:
+
+        # we don't event have a session yet (?)
+        if not session.get("user"):
+            return redirect("/login")
+
+        elif request.form.get("csrf") is None or request.form["csrf"] != session["user"]["csrf"]:
+            abort(403)
+
         comment = request.form['comment']
 
         if len(comment) > 5000:

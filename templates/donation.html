@@ -32,6 +32,7 @@
         <p>Kommentisi perään näytetään nimesi alkukirjaimet ja luovutuspaikan.</p>
     </div>
     <p></p>
+    <input type="hidden" name="csrf" value="{{ session.user.csrf }}">
     <input type="submit" value="Luovutin!">
 </form>
 <script>
