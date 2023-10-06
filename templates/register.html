@@ -43,7 +43,7 @@
 <script>
     document.addEventListener('submit', e => {
         const [pw, pw2] = document.querySelectorAll('input[type=password]');
-        if (pw !== pw2) {
+        if (pw.value !== pw2.value) {
             e.preventDefault();
             alert('salasanat eroavat');
         }
