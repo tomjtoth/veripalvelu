@@ -14,6 +14,7 @@ Koska palvelin on aarch64, `psycopg2` ei asentunut, onneksi oli `psycopg2-binary
 
 Kronologisesti väärinpain:
 
+- arbitrary rajoitukset tehty syötteiden pituuksiin
 - loader lisätty
 - `plotly` toimii
     - pitää vielä säätää kyselyjä taustalla

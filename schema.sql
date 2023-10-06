@@ -1,11 +1,11 @@
 create table if not exists users(
     id serial primary key,
 
-    uname text unique not null,
+    uname varchar(16) unique not null,
     passw text not null,
 
-    fnames text not null,
-    lnames text not null,
+    fnames varchar(100) not null,
+    lnames varchar(100) not null,
 
     flags integer not null
 );
@@ -34,7 +34,7 @@ create table if not exists consumption(
 
 create table if not exists comments(
     donation_id integer references donations(id),
-    comment text not null
+    comment varchar(5000) not null
 );
 
 CREATE or replace FUNCTION is_admin(integer)

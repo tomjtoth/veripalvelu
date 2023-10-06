@@ -8,6 +8,7 @@ import consumables
 import re
 from datetime import date
 
+# checking name lengths is taken care of here, too
 re_names = re.compile(r"^(.{1,100}), *(.{1,100})$")
 
 # this is not working as flask won't run on both http and https
@@ -31,6 +32,9 @@ def register():
         password = request.form["password"]
         if password != request.form["pw-verify"]:
             return render_template("error.html", err="Salasanat eroavat")
+
+        if len(password) < 8:
+            return render_template("error.html", err="liian lyhyt salasana")
 
         names = re_names.match(request.form["names"])
 
@@ -99,11 +103,16 @@ def donate():
                                today=date.today(),
                                consumables=consumables.get_all())
     else:
+        comment = request.form['comment']
+
+        if len(comment) > 5000:
+            return render_template("error.html", err="liian pitkä kommentti")
+
         if donations.register(
             request.form['date'],
             request.form['clinic'],
             request.form.getlist('consumption', int),
-            request.form['comment']
+            comment
         ):
             return redirect('/')
         else:

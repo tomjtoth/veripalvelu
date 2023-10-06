@@ -23,12 +23,25 @@
         {% endfor %}
     </div>
     <div>
-        <p>Oliko <i><span title="haha EasterEgg">huimaavasti</span> erikoinen</i> kokemus?</p>
-        <textarea name="comment" style="width: 500px;"
+        <p>
+            Oliko <i><span title="haha EasterEgg">huimaavasti</span> erikoinen</i> kokemus?
+            <span id="feedback"></span>
+        </p>
+        <textarea maxlength="5000" name="comment" style="width: 50vw; min-width: 250px;" title="enintään 5000 merkkiä"
             placeholder="Houkuttele lisää luovuttajia kokemuksesi kertomuksella!"></textarea>
         <p>Kommentisi perään näytetään nimesi alkukirjaimet ja luovutuspaikan.</p>
     </div>
     <p></p>
     <input type="submit" value="Luovutin!">
 </form>
+<script>
+    const span = document.querySelector('span#feedback');
+    window.addEventListener('input', ({ target: { tagName, value } }) => {
+
+        if (tagName !== 'TEXTAREA') return;
+
+        span.textContent = value.length > 0 ? `(${5000 - value.length} merkkiä tilaa jäljellä)` : '';
+
+    });
+</script>
 {% endblock %}
