@@ -12,6 +12,15 @@ from datetime import date
 re_names = re.compile(r"^(.{1,100}), *(.{1,100})$")
 re_linefeed = re.compile(r"\r?\n")
 
+
+def valid_date(date_text):
+    try:
+        if date.today() < date.fromisoformat(date_text):
+            return False
+        return True
+    except ValueError:
+        return False
+
 # this is not working as flask won't run on both http and https
 # @app.before_request
 
@@ -116,8 +125,12 @@ def donate():
         if len(comment) > 5000:
             return render_template("error.html", err="liian pitkä kommentti")
 
+        don_date = request.form['date']
+        if not valid_date(don_date):
+            return render_template("error.html", err="päivämäärä tulevaisuudessa")
+
         if donations.register(
-            request.form['date'],
+            don_date,
             request.form['clinic'],
             request.form.getlist('consumption', int),
             re_linefeed.sub('<br/>', str(escape(comment)))
