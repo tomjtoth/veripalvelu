@@ -7,6 +7,10 @@
 <figure>
     {{ row.d }}, {{ row.cl }}:
     <blockquote>
+        <!--
+            that XSS vulnerability mentioned in https://hy-tsoha.github.io/materiaali/osa-4/#xss-haavoittuvuus
+            can be triggered by adding "| safe" after row.qt below
+         -->
         <p>{{ row.qt }}</p>
     </blockquote>
     <figcaption>
