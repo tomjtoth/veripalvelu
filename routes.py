@@ -1,4 +1,4 @@
-from flask import send_from_directory, render_template, redirect, request, session, abort
+from flask import send_from_directory, render_template, redirect, request, session, abort, escape
 from werkzeug.security import check_password_hash, generate_password_hash
 from app import app, force_https
 import users
@@ -10,6 +10,7 @@ from datetime import date
 
 # checking name lengths is taken care of here, too
 re_names = re.compile(r"^(.{1,100}), *(.{1,100})$")
+re_linefeed = re.compile(r"\r?\n")
 
 # this is not working as flask won't run on both http and https
 # @app.before_request
@@ -119,7 +120,7 @@ def donate():
             request.form['date'],
             request.form['clinic'],
             request.form.getlist('consumption', int),
-            comment
+            re_linefeed.sub('<br/>', str(escape(comment)))
         ):
             return redirect('/')
         else:
