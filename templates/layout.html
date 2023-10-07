@@ -8,7 +8,6 @@
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩸</text></svg>">
     <link rel="stylesheet" href="static/styles.css">
-    <script src="static/fun.js"></script>
 </head>
 
 <body>
@@ -25,9 +24,13 @@
         <a class="auth" href="/register">Rekisteröi</a>
         <a class="auth" href="/login">Kirjaudu sisään</a>
         {% endif %}
-        <a class="auth" title="toggle between fun/lame mode">🥳</a>
+        <a class="auth" title="toggle between fun/lame mode">
+            🥳
+            <sub></sub>
+        </a>
         <a class="auth" title="toggle between dark/light mode">🌗</a>
     </nav>
+    <script src="static/fun.js"></script>
     <script src="static/layout.js"></script>
     <h1>Verenluovutus-sovellus</h1>
     <hr>

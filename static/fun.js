@@ -4,6 +4,8 @@ class Fun {
 
     static status = localStorage.getItem('fun-mode') === 'true';
 
+    static _counter = document.querySelector('a[title*="fun"]>sub');
+
     static toggle() {
         this.status = !this.status;
         localStorage.setItem('fun-mode', this.status);
@@ -28,9 +30,16 @@ class Fun {
     }
 
     static err(n) {
+        this._counter.textContent = n == 0 || !this.status ? '' : n;
         if (this.status && n > 0) {
             setTimeout(_ => {
-                new this(Math.random() * window.innerWidth, Math.random() * window.innerHeight, 0);
+                const
+                    // allowing area between (0,0) and (bottom-50,right-50)
+                    w = window.innerWidth - 50,
+                    h = window.innerHeight - 50;
+
+                // moving above area to the center
+                new this(Math.random() * w + 25, Math.random() * h + 25, 0);
                 this.err(n - 1);
             }, 300, n);
         }
