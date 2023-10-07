@@ -34,12 +34,12 @@ class Fun {
         if (this.status && n > 0) {
             setTimeout(_ => {
                 const
-                    // allowing area between (0,0) and (bottom-50,right-50)
-                    w = window.innerWidth - 50,
-                    h = window.innerHeight - 50;
+                    // allowing area between (0,0) and (bottom-80,right-80)
+                    w = window.screen.width - 80,
+                    h = window.screen.height - 80;
 
                 // moving above area to the center
-                new this(Math.random() * w + 25, Math.random() * h + 25, 0);
+                new this(Math.random() * w + 40, Math.random() * h + 40, 0);
                 this.err(n - 1);
             }, 300, n);
         }
