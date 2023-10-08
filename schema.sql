@@ -73,8 +73,8 @@ declare
     b boolean;
     rh boolean;
 begin
-    select ($1 >> 2) & 1 = 1 into a;
-    select ($1 >> 1) & 1 = 1 into b;
+    select ($1 >> 2) & 1 = 1 into b;
+    select ($1 >> 1) & 1 = 1 into a;
     select $1 & 1 = 1 into rh;
     return concat(
         case 
