@@ -23,20 +23,20 @@
             title="täsmälleen sama kuin yllä">
     </div>
     <div>
+        <label for="gender">sukupuoli:</label>
+        <select required id="gender" name="gender">
+            <option disabled selected value="">valitse yksi</option>
+            <option value="0">nainen</option>
+            <option value="1">mies</option>
+        </select>
+    </div>
+    <div>
         <label for="blood-type">veryryhmä:</label>
         <select id="blood-type" name="blood-type" required>
             <option disabled selected value="">valitse yksi</option>
             {% for type in blood_types %}
             <option value="{{loop.index0}}">{{type}}</option>
             {% endfor %}
-        </select>
-    </div>
-    <div>
-        <label for="gender">gender:</label>
-        <select required id="gender" name="gender">
-            <option disabled selected value="">valitse yksi</option>
-            <option value="0">nainen</option>
-            <option value="1">mies</option>
         </select>
     </div>
     <input type="submit" value="Rekisteröi">
