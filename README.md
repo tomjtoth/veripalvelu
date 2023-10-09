@@ -46,7 +46,7 @@ Tässä saavutukset tuoreimmista vanhempiin:
 
 ## Pää- / Kehitysversio
 
-- Kloonaa repo komennolla `git clone https://github.com/tomjtoth/tsoha-harjoitustyo verenluovutus-sovellus`
+- Kloonaa repo komennolla `git clone https://github.com/tomjtoth/verenluovutus-sovellus`
 - Vaihda äsken syntyneen hakemistoon komennolla `cd verenluovutus-sovellus`
 - Asenna virtuaaliympäristö projektille ja aktivoi sitä
     - `python3 -m venv venv`
