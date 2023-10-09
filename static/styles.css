@@ -19,6 +19,15 @@ body {
     color: var(--color);
     /* emojis flying outside sideways created created horizontal scrollbar */
     overflow-x: hidden;
+    margin-bottom: 400px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    /* otherwise would be transparent */
+    background: var(--background);
+    color: var(--color);
 }
 
 nav {

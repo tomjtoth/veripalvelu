@@ -45,6 +45,14 @@
             luovutukseen. Anna palaute, onko sovelluksessa naposteltavat ajan tasalla nykyajan tarjoamien kanssa.
         </p>
     </footer>
+    <script>
+        function adjust_bottom_margin(_) {
+            const { height } = document.querySelector('body>footer').getBoundingClientRect();
+            document.querySelector('body').style.marginBottom = height + 'px';
+        }
+        document.addEventListener('DOMContentLoaded', adjust_bottom_margin);
+        window.addEventListener('resize', adjust_bottom_margin);
+    </script>
 </body>
 
 
