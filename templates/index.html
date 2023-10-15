@@ -10,8 +10,8 @@ Tervetuloa, {{ session.user.fnames }}! Veriryhmäsi on {{ session.user.blood_typ
 {% if plots.2 %}
 <div class="chart" id="own-donations">
     <script>
-        const plot_own = {{ plots.2.0 | safe}};
-        const plot_own_conf = {{ plots.2.1 | safe}};
+        const plot_own = {{ plots.2.0 | safe }};
+        const plot_own_conf = {{ plots.2.1 | safe }};
         Plotly.plot('own-donations', plot_own, plot_own_conf);
     </script>
 </div>
