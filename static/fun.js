@@ -30,8 +30,13 @@ class Fun {
     }
 
     static err(n) {
-        this._counter.textContent = n == 0 || !this.status ? '' : n;
-        if (this.status && n > 0) {
+        if (n == 0 || !this.status) {
+            this._counter.textContent = '';
+            this._counter.setAttribute('hidden', 'hidden');
+        } else {
+            this._counter.textContent = n;
+            this._counter.removeAttribute('hidden');
+
             setTimeout(_ => {
                 const
                     // allowing area between (0,0) and (bottom-80,right-80)
