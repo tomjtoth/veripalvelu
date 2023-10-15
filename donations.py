@@ -63,7 +63,7 @@ def plot(user_id=None, crit="clinic"):
                 select 
                     __CRIT__, 
                     date, 
-                    count(*) over (partition by date, __CRIT__) 
+                    count(*)
                 from data
                 {"where user_id = " + str(user_id) if user_id else ""}
                 group by __CRIT__, date
