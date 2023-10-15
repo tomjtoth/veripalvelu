@@ -4,7 +4,7 @@
 <form method="post">
     <div>
         <label for="names">nimesi:</label>
-        <input id="names" name="names" placeholder="Sukunimet, Etunimet" required pattern="^.{1,100} *, *.{1,100}$"
+        <input id="names" name="names" placeholder="Sukunimet, Etunimet" required pattern="^.{1,100} *(?:,|<PILKKU>) *.{1,100}$"
             title="muodoltaan &quot;SUKUNIMET <PILKKU> ETUNIMET&quot;, &#10;molemmalle pätee, että &#10;vähintään 1 merkki &#10;ja enintäan 100 merkkiä">
     </div>
     <div>
