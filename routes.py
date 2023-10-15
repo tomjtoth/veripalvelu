@@ -41,15 +41,15 @@ def register():
     if request.method == "POST":
         password = request.form["password"]
         if password != request.form["pw-verify"]:
-            return render_template("error.html", err="Salasanat eroavat")
+            return render_template("error.html", err="Salasanat eroavat", retry='register')
 
         if len(password) < 8:
-            return render_template("error.html", err="liian lyhyt salasana")
+            return render_template("error.html", err="liian lyhyt salasana", retry='register')
 
         names = re_names.match(request.form["names"])
 
         if not (names):
-            return render_template("error.html", err="nimet väärin")
+            return render_template("error.html", err="nimet väärin", retry='register')
 
         if users.register(
             request.form["username"],
@@ -66,7 +66,8 @@ def register():
             return render_template(
                 "error.html",
                 operation='rekisteröinti',
-                err="Käyttäjätunnus varmaan otettu jo")
+                err="Käyttäjätunnus varmaan otettu jo",
+                retry='register')
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -82,7 +83,8 @@ def login():
             return render_template(
                 "error.html",
                 operation='kirjautuminen',
-                err="Väärä tunnus tai salasana")
+                err="Väärä tunnus tai salasana",
+                retry='login')
 
 
 @app.route("/logout")
@@ -125,11 +127,11 @@ def donate():
         comment = request.form['comment']
 
         if len(comment) > 5000:
-            return render_template("error.html", err="liian pitkä kommentti")
+            return render_template("error.html", err="liian pitkä kommentti", retry='donate')
 
         don_date = request.form['date']
         if not valid_date(don_date):
-            return render_template("error.html", err="päivämäärä tulevaisuudessa")
+            return render_template("error.html", err="päivämäärä tulevaisuudessa", retry='donate')
 
         if donations.register(
             don_date,
@@ -139,7 +141,7 @@ def donate():
         ):
             return redirect('/')
         else:
-            return render_template('error.html', err='emt')
+            return render_template('error.html', err='emt', retry='donate')
 
 
 @app.route('/comments')

@@ -6,6 +6,7 @@ Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/
 
 Tässä saavutukset tuoreimmista vanhempiin:
 
+- error.html:sta pääsee takas myös linkin kautta
 - XSS haavoittuvuus paikattu
 - CSRF otettu käyttöön
 - arbitrary rajoitukset tehty syötteiden pituuksiin
