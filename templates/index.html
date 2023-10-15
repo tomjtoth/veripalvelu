@@ -22,11 +22,14 @@ Tervetuloa, {{ session.user.fnames }}! Veriryhmäsi on {{ session.user.blood_typ
     </script>
 </div>
 {% else %}
-<p>Et ole vielä luovuttanut, tervetuloa!</p>
+<p>Et ole vielä luovuttanut, tervetuloa <a href="donate">luovuttamaan</a>!</p>
 {% endif %}
 {% endif %}
 
 <h2>Kaikki luovutukset järjestelmässä</h2>
+<p>
+    Alla kaaviot esittävät luovuttajien jakautumaa sekä luovutuspaikkojen, että veriryhmän perusteella. Kutsu mukaan kunnon porukka luovutukseen!
+</p>
 <div class="chart" id="all-by-clinic">
     <script>
         const plot_by_clinic = {{ plots.0.0 | safe }};
