@@ -9,7 +9,7 @@ import re
 from datetime import date
 
 # checking name lengths is taken care of here, too
-re_names = re.compile(r"^(.{1,100}), *(.{1,100})$")
+re_names = re.compile(r"^(.{1,100}) *, *(.{1,100})$")
 re_linefeed = re.compile(r"\r?\n")
 
 
