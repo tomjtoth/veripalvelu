@@ -41,7 +41,9 @@
 
         if (tagName !== 'TEXTAREA') return;
 
-        span.textContent = value.length > 0 ? `(${5000 - value.length} merkkiä tilaa jäljellä)` : '';
+        span.textContent = value.length > 0 
+            ? `(${5000 - value.length} merkkiä tilaa jäljellä)` 
+            : '';
 
     });
 </script>

@@ -29,16 +29,16 @@ Tervetuloa, {{ session.user.fnames }}! Veriryhmäsi on {{ session.user.blood_typ
 <h2>Kaikki luovutukset järjestelmässä</h2>
 <div class="chart" id="all-by-clinic">
     <script>
-        const plot_by_clinic = {{ plots.0.0 | safe}};
-        const plot_by_clinic_conf = {{ plots.0.1 | safe}};
+        const plot_by_clinic = {{ plots.0.0 | safe }};
+        const plot_by_clinic_conf = {{ plots.0.1 | safe }};
         Plotly.plot('all-by-clinic', plot_by_clinic, plot_by_clinic_conf);
     </script>
 </div>
 
 <div class="chart" id="all-by-blood-type">
     <script>
-        const plot_by_type = {{ plots.1.0 | safe}};
-        const plot_by_type_conf = {{ plots.1.1 | safe}};
+        const plot_by_type = {{ plots.1.0 | safe }};
+        const plot_by_type_conf = {{ plots.1.1 | safe }};
         Plotly.plot('all-by-blood-type', plot_by_type, plot_by_type_conf);
     </script>
 </div>
