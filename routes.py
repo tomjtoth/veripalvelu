@@ -60,7 +60,7 @@ def register():
 
         names = re_names.match(request.form["names"])
 
-        if not (names):
+        if not names:
             return render_template("error.html", err="nimet väärin", retry='register')
 
         if users.register(
