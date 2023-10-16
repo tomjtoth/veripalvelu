@@ -118,9 +118,7 @@ def rand_date():
     return time.strftime(fmt, time.localtime(ptime))
 
 
-def donation_faker(i, arr, user_ids, clinic_ids):
-    """
-    generate fake entries string on separate threads
+    """generate fake entries string on separate threads
     """
     entries = []
 
@@ -131,9 +129,7 @@ def donation_faker(i, arr, user_ids, clinic_ids):
     arr[i] = ",\n".join(entries)
 
 
-def comment_faker(i, arr, donation_ids, comments):
-    """
-    generate fake entries string on separate threads
+    """generate fake entries string on separate threads
     """
     entries = []
 
@@ -143,24 +139,23 @@ def comment_faker(i, arr, donation_ids, comments):
     arr[i] = ",\n".join(entries)
 
 
-def all_comments(): return [
+def all_comments():
+    return [
 
-    row[0] for row in
+        row[0] for row in
 
-    db.session.execute(text("""
-    select json_build_object(
-        'd', date,
-        'cl', clinic,
-        'fn', substring(fnames, 1, 1),
-        'ln', substring(lnames, 1, 1),
-        'qt', comment
-    )
-    from data
-    where comment is not null
-    --group by clinic
-    --order by data.date desc
-    """)).fetchall()
-]
+        db.session.execute(text("""
+            select json_build_object(
+                'd', date,
+                'cl', clinic,
+                'fn', substring(fnames, 1, 1),
+                'ln', substring(lnames, 1, 1),
+                'qt', comment
+            )
+            from data
+            where comment is not null
+        """)).fetchall()
+    ]
 
 
 if generate_random_data:
@@ -169,13 +164,15 @@ if generate_random_data:
         if db.session.execute(text("select count(*) from donations")).scalar_one() < 10:
             print("populating donations with fake data")
 
-            clinic_ids = [x[0]
-                          for x in db.session.execute(text("select id from clinics")).fetchall()
-                          ]
+            clinic_ids = [
+                x[0]
+                for x in db.session.execute(text("select id from clinics")).fetchall()
+            ]
 
-            user_ids = [x[0]
-                        for x in db.session.execute(text("select id from users")).fetchall()
-                        ]
+            user_ids = [
+                x[0]
+                for x in db.session.execute(text("select id from users")).fetchall()
+            ]
 
             sql_from_multithread = [None] * 10
 
@@ -195,14 +192,17 @@ if generate_random_data:
             ))
 
             # comments from ChatGPT: "generate 50 random comments about how good it was to donate blood in Finnish"
-            comments = [x.strip().replace("'", "''")
-                        for x in open("fake_data/comments.lst", "r").readlines()]
+            comments = [
+                x.strip().replace("'", "''")
+                for x in open("fake_data/comments.lst", "r").readlines()
+            ]
 
             shuffle(comments)
 
-            donation_ids = [x[0]
-                            for x in db.session.execute(text("select id from donations")).fetchall()
-                            ]
+            donation_ids = [
+                x[0]
+                for x in db.session.execute(text("select id from donations")).fetchall()
+            ]
 
             threads = []
             for i in range(10):

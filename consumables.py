@@ -28,21 +28,25 @@ with app.app_context():
     if db.session.execute(text("select count(*) from consumables")).scalar_one() == 0:
         db.session.execute(text(
             "insert into consumables(consumable) values\n"
-            + ",\n".join([f"('{x.strip()}')"
-                          for x in
-                           """alkoholiton kalja
-                kokis
-                energiajuoma
-                kahvi mustana
-                cappucino
-                appelsiinimehu
-                multivitaminmehu
-                Elovena keksi
-                makea pulla
-                kalkkunasämpylä
-                kanasämpylä
-                Marionetti karkki""".splitlines()
-                           ])
+            + ",\n".join([
+
+                f"('{x.strip()}')"
+
+                for x in """
+                    alkoholiton kalja
+                    kokis
+                    energiajuoma
+                    kahvi mustana
+                    cappucino
+                    appelsiinimehu
+                    multivitaminmehu
+                    Elovena keksi
+                    makea pulla
+                    kalkkunasämpylä
+                    kanasämpylä
+                    Marionetti karkki
+                """.splitlines() if x.strip() != ""
+            ])
         ))
         db.session.commit()
 
@@ -50,13 +54,15 @@ with app.app_context():
         if db.session.execute(text("select count(*) from consumption")).scalar_one() < 10000:
             print("populating consuption with fake data")
 
-            consumable_ids = [x[0]
-                              for x in db.session.execute(text("select id from consumables")).fetchall()
-                              ]
+            consumable_ids = [
+                x[0]
+                for x in db.session.execute(text("select id from consumables")).fetchall()
+            ]
 
-            donation_ids = [x[0]
-                            for x in db.session.execute(text("select id from donations")).fetchall()
-                            ]
+            donation_ids = [
+                x[0]
+                for x in db.session.execute(text("select id from donations")).fetchall()
+            ]
 
             sql_from_multithread = [None] * 10
 

@@ -95,14 +95,16 @@ def logout():
 
 @app.route('/')
 def root():
-    return render_template('index.html',
-                           plots=[
-                               donations.plot(),
-                               donations.plot(crit="blood_type"),
+    return render_template(
+        'index.html',
+        plots=[
+            donations.plot(),
+            donations.plot(crit="blood_type"),
 
-                               donations.plot(session['user']['id'])
-                               if session.get('user') else None
-                           ])
+            donations.plot(session['user']['id'])
+            if session.get('user') else None
+        ]
+    )
 
 
 @app.route('/donate', methods=["GET", "POST"])
@@ -111,10 +113,12 @@ def donate():
         return redirect('/login')
 
     if request.method == "GET":
-        return render_template('donation.html',
-                               clinics=clinics.get_names(),
-                               today=date.today(),
-                               consumables=consumables.get_all())
+        return render_template(
+            'donation.html',
+            clinics=clinics.get_names(),
+            today=date.today(),
+            consumables=consumables.get_all()
+        )
     else:
 
         # we don't event have a session yet
