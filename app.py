@@ -19,7 +19,7 @@ GEN_RAND_DATA=true
 
 # the below is only present because of the VPS
 HOST=0.0.0.0
-PORT=xxx
+PORT=xxxxx
 """)
     f.close()
     try:
