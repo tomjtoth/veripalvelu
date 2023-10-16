@@ -250,7 +250,7 @@ if generate_random_data:
             # comments from ChatGPT in batches of 50
             comments = [
                 x.strip().replace("'", "''")
-                for x in open("fake_data/comments.lst", "r").readlines()
+                for x in open("fake_data/comments.lst", "r", encoding='utf8').readlines()
             ]
 
             shuffle(comments)
