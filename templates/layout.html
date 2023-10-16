@@ -30,8 +30,17 @@
         </a>
         <a class="auth" title="toggle between dark/light mode">🌗</a>
     </nav>
+
+    <!-- 
+        the below 2 <script> tags are ordered here because:
+        - dark mode would not be set before plotly charts' load is done in index.html
+            - resulting in several hundreds of ms of non-dark color theme
+        - cannot move to header, as both of these reference the above <nav> tag
+        - appearance.js also uses `class Fun` from fun.js
+    -->
     <script src="static/fun.js"></script>
-    <script src="static/layout.js"></script>
+    <script src="static/appearance.js"></script>
+    
     <h1>Verenluovutus-sovellus</h1>
     <hr>
     {% block body %}{% endblock %}

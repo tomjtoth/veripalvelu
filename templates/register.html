@@ -42,6 +42,7 @@
     <input type="submit" value="Rekisteröi">
 </form>
 <script>
+    // compare the 2 passwords
     document.addEventListener('submit', e => {
         const [pw, pw2] = document.querySelectorAll('input[type=password]');
         if (pw.value !== pw2.value) {

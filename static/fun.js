@@ -1,3 +1,6 @@
+/**
+ *  handles the FUN mode related functionalities
+ */
 class Fun {
 
     static _emojis = [...'🤡🎉🎈🥳🎪🤹🎁🍭🤹🥳🎊'];
@@ -6,6 +9,9 @@ class Fun {
 
     static _counter = document.querySelector('a[title*="fun"]>sub');
 
+    /**
+     * toggles FUN mode
+     */
     static toggle() {
         this.status = !this.status;
         localStorage.setItem('fun-mode', this.status);
@@ -13,10 +19,12 @@ class Fun {
 
     static {
 
+        // create div.fun at click pos
         document.addEventListener('click', ({ pageX, pageY }) => {
             if (this.status) new this(pageX, pageY);
         });
 
+        // remove div.fun from the DOM tree after animation ends
         document.addEventListener('animationend', ({ target }) => {
             if (target.classList.contains('fun')) {
                 document.body.removeChild(target);
@@ -25,10 +33,20 @@ class Fun {
 
     }
 
+    /**
+     * picks 1 random emoji
+     * 
+     * @returns 1 emoji
+     */
     static _rand() {
         return this._emojis[Math.floor(Math.random() * this._emojis.length)];
     }
 
+    /**
+     * creates 1 clown emoji at every 300ms at random x,y pos on screen
+     * 
+     * @param {Int} n index of the emoji
+     */
     static err(n) {
         if (n == 0 || !this.status) {
             this._counter.textContent = '';
@@ -50,6 +68,13 @@ class Fun {
         }
     }
 
+    /**
+     * creates an emoji on screen at given x,y coords
+     * 
+     * @param {Int} x coord on screen
+     * @param {Int} y coord on screen
+     * @param {Int} i index of emoji, defaults to a random choice
+     */
     constructor(x, y, i = -1) {
 
         const div = document.createElement('div');

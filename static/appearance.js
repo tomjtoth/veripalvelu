@@ -1,5 +1,9 @@
-class Layout {
+/**
+ * handles layout and color theme related dynamic functionalities
+ */
+class Appearance {
 
+    // rotating circle shown during content load
     static _loader = document.querySelector('div.loader');
 
     static {
@@ -31,11 +35,13 @@ class Layout {
 
                 if (tagName !== 'A') return;
 
+                // show the loader if a __navigation__ link is clicked
                 if (href != '') {
                     this._loader.removeAttribute('hidden');
                     return;
                 }
 
+                // handle DARK mode change/storage
                 if (title.includes('dark')) {
                     const color_theme = document.documentElement
                         .getAttribute('color-theme') == 'dark'
@@ -45,7 +51,7 @@ class Layout {
                     localStorage.setItem('color-theme', color_theme);
                 }
 
-                // FUN mode
+                // handle FUN mode change/storage
                 else {
                     Fun.toggle();
                 }
@@ -54,6 +60,7 @@ class Layout {
 
             })
 
+        // hide loader when pageload is done
         document.addEventListener('DOMContentLoaded', _ => {
             this._loader.setAttribute('hidden', 'hidden');
         })
