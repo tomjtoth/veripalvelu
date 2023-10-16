@@ -115,6 +115,10 @@ a[title*="fun"]>sub {
     font-size: xx-small;
 }
 
+span.easter-egg {
+    cursor: pointer;
+}
+
 @keyframes fun {
     0% {
         transform:
