@@ -5,13 +5,23 @@ from db import db
 from app import app, generate_random_data
 
 
-def get_all():
+def get_all() -> list:
     return db.session.execute(text("SELECT id, consumable FROM consumables")).fetchall()
 
 
-def consumption_faker(i, arr, donation_ids, consumable_ids):
-    """
-    generate fake entries string on separate threads
+def consumption_faker(
+    thread_idx: int,
+    arr: list[str],
+    donation_ids: list[int],
+    consumable_ids: list[int]
+):
+    """worker thread calls this function during population of fake data
+
+    Args:
+        thread_idx (int): index of thread
+        arr (list[str]): array that joins results from threads
+        donation_ids (list[int]): random donation ids 
+        consumable_ids (list[int]): random consumable ids
     """
     entries = []
 
@@ -19,7 +29,7 @@ def consumption_faker(i, arr, donation_ids, consumable_ids):
         for consumable_id in choices(consumable_ids, k=randint(2, 8)):
             entries.append(f"({donation_id},{consumable_id})")
 
-    arr[i] = ",\n".join(entries)
+    arr[thread_idx] = ",\n".join(entries)
 
 
 with app.app_context():

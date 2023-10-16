@@ -11,43 +11,53 @@ from db import db
 from app import app, generate_random_data
 
 
-def register(date: str, clinic_id: int, consumption, comment: str):
-    consumable = 0
-
-    # set 1 bit at a time
-    for c in consumption:
-        consumable |= int(math.pow(2, c))
+def register(date: str, clinic_id: int, cons: list[int], comment: str):
+    # this must be here, otherwise during population of fake data would get stuck
+    import consumables  # pylint: disable=import-outside-toplevel
 
     try:
-        db.session.execute(text("""
-        insert into donations(user_id, clinic_id, ddate)
-        values(:uid, :cid, :dd)"""), {
-
+        donation_id = db.session.execute(text(
+            """
+            insert into donations(user_id, clinic_id, ddate)
+            values(:uid, :cid, :dd)
+            returning id
+            """
+        ), {
             'uid': session['user']['id'],
             'cid': clinic_id,
             'dd': date
-        })
-        if consumable > 0:
-            db.session.execute(text("""
-            insert into consumption(donation_id, consumed)
-            select currval(pg_get_serial_sequence('donations','id')), :x
-            """), {'x': consumable})
+        }).scalar_one()
+
+        consumables_sql = []
+
+        for cons_id, cons_qty in zip([x[0] for x in consumables.get_all()], cons):
+            for _ in range(cons_qty):
+                consumables_sql.append(f"({donation_id},{cons_id})")
+
+        if len(consumables_sql) > 0:
+            db.session.execute(text(
+                "insert into consumption(donation_id, consumable_id) values"
+                # this should be safe as conversion to list[int] is enforced in routes.py
+                + ",".join(consumables_sql)
+            ))
         if comment != "":
-            db.session.execute(text("""
-            insert into comments(donation_id, comment)
-            select currval(pg_get_serial_sequence('donations','id')), :x
-            """), {'x': comment})
+            db.session.execute(text(
+                "insert into comments(donation_id, comment) values (:id, :c)"
+            ), {
+                'id': donation_id,
+                'c': comment
+            })
 
         db.session.commit()
 
     except:
+        db.session.rollback()
         return False
 
     return True
 
 
-def plot(user_id=None, crit="clinic"):
-
+def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
     data = [
 
         go.Bar(
@@ -108,9 +118,9 @@ def plot(user_id=None, crit="clinic"):
     ) if len(data) > 0 else None
 
 
-def rand_date():
+def rand_date(min: str = "2000-01-01") -> str:
     fmt = "%Y-%m-%d"
-    stime = time.mktime(time.strptime("2000-01-01", fmt))
+    stime = time.mktime(time.strptime(min, fmt))
     etime = time.mktime(time.strptime(date.today().strftime(fmt), fmt))
 
     ptime = stime + random() * (etime - stime)
@@ -118,6 +128,7 @@ def rand_date():
     return time.strftime(fmt, time.localtime(ptime))
 
 
+def donation_faker(i: int, arr: list[str], user_ids: list[int], clinic_ids: list[int]):
     """generate fake entries string on separate threads
     """
     entries = []
@@ -129,14 +140,15 @@ def rand_date():
     arr[i] = ",\n".join(entries)
 
 
+def comment_faker(thread_idx: int, arr: list[str], donation_ids: list[int], comments: list[str]):
     """generate fake entries string on separate threads
     """
     entries = []
 
-    for id in choices(donation_ids, k=100):
-        entries.append(f"({id},'{choice(comments)}')")
+    for donation_id in choices(donation_ids, k=100):
+        entries.append(f"({donation_id},'{choice(comments)}')")
 
-    arr[i] = ",\n".join(entries)
+    arr[thread_idx] = ",\n".join(entries)
 
 
 def all_comments():

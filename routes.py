@@ -13,7 +13,7 @@ re_names = re.compile(r"^(.{1,100}) *(?:,|<PILKKU>) *(.{1,100})$")
 re_linefeed = re.compile(r"\r?\n")
 
 
-def valid_date(date_text):
+def valid_date(date_text: str) -> bool:
     try:
         if date.today() < date.fromisoformat(date_text):
             return False
@@ -133,19 +133,19 @@ def donate():
         if len(comment) > 5000:
             return render_template("error.html", err="liian pitkä kommentti", retry='donate')
 
-        don_date = request.form['date']
-        if not valid_date(don_date):
+        donation_date = request.form['date']
+        if not valid_date(donation_date):
             return render_template("error.html", err="päivämäärä tulevaisuudessa", retry='donate')
 
         if donations.register(
-            don_date,
+            donation_date,
             request.form['clinic'],
-            request.form.getlist('consumption', int),
+            request.form.getlist('consumables', int),
             re_linefeed.sub('<br/>', str(escape(comment)))
         ):
             return redirect('/')
-        else:
-            return render_template('error.html', err='emt', retry='donate')
+
+        return render_template('error.html', err='emt', retry='donate')
 
 
 @app.route('/comments')

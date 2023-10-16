@@ -8,7 +8,7 @@ from db import db
 from app import app, generate_random_data
 
 
-def login(username, password):
+def login(username: str, password: str) -> bool:
     result = db.session.execute(text("""
     SELECT id, uname, passw, fnames, blood_type(flags)
     FROM users
@@ -34,7 +34,7 @@ def logout():
     del session["user"]
 
 
-def register(username, password, firstnames, lastnames, flags):
+def register(username: str, password: str, firstnames: str, lastnames: str, flags: int) -> bool:
     hash_value = generate_password_hash(password)
     try:
         db.session.execute(text("""
@@ -56,7 +56,7 @@ def register(username, password, firstnames, lastnames, flags):
 all_blood_types = '0- 0+ A- A+ B- B+ AB- AB+'.split(' ')
 
 
-def flags_from_form(is_male, blood_type, is_admin=False):
+def flags_from_form(is_male: bool, blood_type: int, is_admin: bool = False) -> int:
     flags = blood_type
 
     if is_admin:
@@ -70,7 +70,11 @@ def flags_from_form(is_male, blood_type, is_admin=False):
 # below starts the fake population thingy
 
 
-def gen_rand_gender(names_female, names_male, names_last):
+def gen_rand_gender(
+        names_female: list[str],
+        names_male: list[str],
+        names_last: list[str]
+) -> (str, str, int):
     [flags] = choices(
 
         # 1st 3 bits of the flags are A,B,RH
@@ -90,20 +94,33 @@ def gen_rand_gender(names_female, names_male, names_last):
     return choice(fnames), choice(names_last), flags
 
 
-def registration_faker(i, arr, names_female, names_male, names_last):
-    """
-    generate fake entries string on separate threads
+def registration_faker(
+        thread_idx: int,
+        arr: list[str],
+        names_female: list[str],
+        names_male: list[str],
+        names_last: list[str]
+):
+    """generate fake entries string on separate threads
+
+    Args:
+        thread_idx (int): index of thread
+        arr (list[str]): list in main thread to put the results into
+        names_female (list[str]): list of female firstnames from Wikipedia
+        names_male (list[str]): list of male firstnames from Wikipedia
+        names_last (list[str]): list of lastnames from Wikipedia
     """
     entries = []
 
     for j in range(100):
         fnames, lnames, bools = gen_rand_gender(
-            names_female, names_male, names_last)
+            names_female, names_male, names_last
+        )
 
         entries.append(
-            f"('_fake{i*100+j:03d}','','{fnames}','{lnames}',{bools})")
+            f"('_fake{thread_idx*100+j:03d}','','{fnames}','{lnames}',{bools})")
 
-    arr[i] = ",\n".join(entries)
+    arr[thread_idx] = ",\n".join(entries)
 
 
 if generate_random_data:
@@ -115,21 +132,30 @@ if generate_random_data:
             sql_from_multithread = [None] * 10
 
             # below 3 name files from Wikipedia:
-            names_female = [x.strip() for x in open(
-                "fake_data/names_female.lst", "r").readlines()]
-            names_male = [x.strip() for x in open(
-                "fake_data/names_male.lst", "r").readlines()]
-            names_last = [x.strip() for x in open(
-                "fake_data/names_last.lst", "r").readlines()]
+            female_names = [
+                x.strip() for x in open(
+                    "fake_data/names_female.lst", "r", encoding='utf8'
+                ).readlines()
+            ]
+            male_names = [
+                x.strip() for x in open(
+                    "fake_data/names_male.lst", "r", encoding='utf8'
+                ).readlines()
+            ]
+            surnames = [
+                x.strip() for x in open(
+                    "fake_data/names_last.lst", "r", encoding='utf8'
+                ).readlines()
+            ]
 
-            shuffle(names_female)
-            shuffle(names_male)
-            shuffle(names_last)
+            shuffle(female_names)
+            shuffle(male_names)
+            shuffle(surnames)
 
             threads = []
             for i in range(10):
                 threads.append(threading.Thread(target=registration_faker, args=(
-                    i, sql_from_multithread, names_female, names_male, names_last)))
+                    i, sql_from_multithread, female_names, male_names, surnames)))
                 threads[-1].start()
 
             # wait for the threads to complete

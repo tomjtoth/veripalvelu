@@ -5,7 +5,7 @@ from app import app
 from db import db
 
 
-def get_names():
+def get_names() -> list:
     return tuple(db.session.execute(text('select id, cname from clinics')).fetchall())
 
 
