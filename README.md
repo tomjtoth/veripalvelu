@@ -6,7 +6,12 @@ Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/
 
 Tässä saavutukset tuoreimmista vanhempiin:
 
+- luovutuksen prosessointi revisioitu
+- pylint otettu käyttöön
+- dokumentaatiostringit lisätty sekä JS että Python:in puolelle
 - error.html:sta pääsee takas myös linkin kautta
+- kuvaavampi title atrribuutti lisätty rekisteröinnin näkymässä:
+    - "`sukunimet`" +  "`,`" + "`etunimet`"
 - XSS haavoittuvuus paikattu
 - CSRF otettu käyttöön
 - arbitrary rajoitukset tehty syötteiden pituuksiin
@@ -20,7 +25,6 @@ Tässä saavutukset tuoreimmista vanhempiin:
     - kaaviot latautuvat melko hitaasti
     - aika hyödyllinen myös näkymän vaihdossa
 - `plotly` toimii
-    - TODO: pitää vielä säätää kyselyjä taustalla
 - feikki tietojen populointi toimii
     - (käyttäjä ei pääse noihin insert lausekkeihin, joten on turvallista rakentaa täällä tavalla)
 - luovutuksen rekisteröinti toimii
