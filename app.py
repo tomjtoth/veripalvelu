@@ -16,8 +16,12 @@ from flask import Flask
 # create default .env if not exists
 if not path.exists('.env'):
     db_name = f"verenluovutus-{uuid.uuid4()}".replace("-", "_")
-    f = open('.env', 'w')
-    f.write(f"""\
+    with open('.env', 'w', encoding='utf8') as f:
+        try:
+            run(["createdb", db_name], check=False)
+            print(
+                '\n\t./.env missing, generated from presets\n\tnow restart the program\n')
+            f.write(f"""\
 # the below database has already been created for the app
 # remember to `createdb YOUR_DB` if you modify the below string to
 # DATABASE_URL=postgresql:///YOUR_DB
@@ -29,16 +33,12 @@ GEN_RAND_DATA=true
 HOST=0.0.0.0
 PORT=xxxxx
 """)
-    f.close()
-    try:
-        run(["createdb", db_name])
-        print('\n\t./.env missing, generated from presets\n\tnow restart the program\n')
-        RC = 0
-    except:
-        print(f'\n\tfailed to create database: "{db_name}"')
-        RC = 1
-    finally:
-        exit(RC)
+        # pylint: disable=bare-except
+        except:
+            print(f'\n\tfailed to create database: "{db_name}"')
+        finally:
+            sys.exit()
+
 
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
