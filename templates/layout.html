@@ -39,14 +39,7 @@
         <h2>footer tänne</h2>
         <p></p>
     </footer>
-    <script>
-        function adjust_bottom_margin(_) {
-            const { height } = document.querySelector('body>footer').getBoundingClientRect();
-            document.querySelector('body').style.marginBottom = height + 'px';
-        }
-        document.addEventListener('DOMContentLoaded', adjust_bottom_margin);
-        window.addEventListener('resize', adjust_bottom_margin);
-    </script>
+    <script src="static/footer.js"></script>
 </body>
 
 
