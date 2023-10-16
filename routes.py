@@ -1,12 +1,12 @@
-from flask import send_from_directory, render_template, redirect, request, session, abort, escape
-from werkzeug.security import check_password_hash, generate_password_hash
+from datetime import date
+import re
+from flask import render_template, redirect, request, session, abort
+from markupsafe import escape
 from app import app, force_https
 import users
 import clinics
 import donations
 import consumables
-import re
-from datetime import date
 
 # checking name lengths is taken care of here, too
 re_names = re.compile(r"^(.{1,100}) *(?:,|<PILKKU>) *(.{1,100})$")

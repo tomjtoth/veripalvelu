@@ -1,8 +1,8 @@
-from db import db
-from sqlalchemy.sql import text
-from app import app, generate_random_data
-from random import choices, choice, randint
+from random import choices, randint
 import threading
+from sqlalchemy.sql import text
+from db import db
+from app import app, generate_random_data
 
 
 def get_all():

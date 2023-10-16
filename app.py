@@ -1,9 +1,10 @@
 from flask import Flask
 from os import getenv, path, environ
 import secrets
-import uuid
 from subprocess import run
 import sys
+import uuid
+from flask import Flask
 
 # create default .env if not exists
 if not path.exists('.env'):
@@ -46,4 +47,4 @@ force_https = next((
 
 # autopep8 wants this on the top...
 # fmt: off
-import routes
+import routes # pylint: disable=wrong-import-position,unused-import

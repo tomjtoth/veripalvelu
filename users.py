@@ -1,11 +1,11 @@
-from db import db
+import secrets
+from random import choice, choices, uniform, shuffle
+import threading
 from flask import session
 from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
-import secrets
+from db import db
 from app import app, generate_random_data
-from random import choice, choices, uniform, shuffle
-import threading
 
 
 def login(username, password):

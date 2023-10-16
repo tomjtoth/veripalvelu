@@ -1,15 +1,14 @@
-from db import db
+from datetime import date, timedelta
+import json
+import time
+import threading
+from random import random, choice, choices, shuffle
 from flask import session
 from sqlalchemy.sql import text
-import math
-from app import app, generate_random_data
-from random import randint, random, choice, choices, shuffle
-import time
-from datetime import date, timedelta
-import threading
 import plotly
 import plotly.graph_objs as go
-import json
+from db import db
+from app import app, generate_random_data
 
 
 def register(date: str, clinic_id: int, consumption, comment: str):
@@ -23,6 +22,7 @@ def register(date: str, clinic_id: int, consumption, comment: str):
         db.session.execute(text("""
         insert into donations(user_id, clinic_id, ddate)
         values(:uid, :cid, :dd)"""), {
+
             'uid': session['user']['id'],
             'cid': clinic_id,
             'dd': date

@@ -2,6 +2,7 @@ from db import db
 from flask import session
 from sqlalchemy.sql import text
 from app import app
+from db import db
 
 
 def get_names():
