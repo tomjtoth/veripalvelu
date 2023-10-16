@@ -43,11 +43,12 @@ class Fun {
     }
 
     /**
-     * creates 1 clown emoji at every 300ms at random x,y pos on screen
+     * creates n number of emoji at every 300ms at random x,y pos on screen
      * 
-     * @param {Int} n index of the emoji
+     * @param {Int} n number of emoji to spam
+     * @param {Int} i index of the emoji
      */
-    static err(n) {
+    static spam(n, i = -1) {
         if (n == 0 || !this.status) {
             this._counter.textContent = '';
             this._counter.setAttribute('hidden', 'hidden');
@@ -55,16 +56,16 @@ class Fun {
             this._counter.textContent = n;
             this._counter.removeAttribute('hidden');
 
-            setTimeout(_ => {
+            setTimeout((n, i) => {
                 const
                     // allowing area between (0,0) and (bottom-80,right-80)
                     w = window.screen.width - 80,
                     h = window.screen.height - 80;
 
                 // moving above area to the center
-                new this(Math.random() * w + 40, Math.random() * h + 40, 0);
-                this.err(n - 1);
-            }, 300, n);
+                new this(Math.random() * w + 40, Math.random() * h + 40, i);
+                this.spam(n - 1, i);
+            }, 300, n, i);
         }
     }
 
