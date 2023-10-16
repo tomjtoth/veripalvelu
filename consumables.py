@@ -20,21 +20,21 @@ def get_all() -> list:
 def consumption_faker(
     thread_idx: int,
     arr: list[str],
-    donation_ids: list[int],
-    consumable_ids: list[int]
+    d_ids: list[int],
+    c_ids: list[int]
 ):
     """worker thread calls this function during population of fake data
 
     Args:
         thread_idx (int): index of thread
         arr (list[str]): array that joins results from threads
-        donation_ids (list[int]): random donation ids 
-        consumable_ids (list[int]): random consumable ids
+        d_ids (list[int]): random donation ids 
+        c_ids (list[int]): random consumable ids
     """
     entries = []
 
-    for donation_id in choices(donation_ids, k=100):
-        for consumable_id in choices(consumable_ids, k=randint(2, 8)):
+    for donation_id in choices(d_ids, k=100):
+        for consumable_id in choices(c_ids, k=randint(2, 8)):
             entries.append(f"({donation_id},{consumable_id})")
 
     arr[thread_idx] = ",\n".join(entries)

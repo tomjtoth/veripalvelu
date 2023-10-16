@@ -14,11 +14,11 @@ from db import db
 from app import app, generate_random_data
 
 
-def register(date: str, clinic_id: int, cons: list[int], comment: str):
+def register(donation_date: str, clinic_id: int, cons: list[int], comment: str):
     """registers 1 donation to the DB
 
     Args:
-        date (str): date of donation
+        donation_date (str): date of donation
         clinic_id (int): id of clinic the donation took place at
         consumables (list[int]): quantities of consumables
         comment (str): optional comments of donation experience
@@ -37,7 +37,7 @@ def register(date: str, clinic_id: int, cons: list[int], comment: str):
         ), {
             'uid': session['user']['id'],
             'cid': clinic_id,
-            'dd': date
+            'dd': donation_date
         }).scalar_one()
 
         consumables_sql = []
@@ -140,17 +140,17 @@ def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
     ) if len(data) > 0 else None
 
 
-def rand_date(min: str = "2000-01-01") -> str:
+def rand_date(start_date: str = "2000-01-01") -> str:
     """picks a random date between min and today
 
     Args:
-        min(str): datestring in the form of "YYYY-MM-DD"
+        start_date (str): datestring in the form of "YYYY-MM-DD"
 
     Returns:
         str: a random date in the form of "YYYY-MM-DD"
     """
     fmt = "%Y-%m-%d"
-    stime = time.mktime(time.strptime(min, fmt))
+    stime = time.mktime(time.strptime(start_date, fmt))
     etime = time.mktime(time.strptime(date.today().strftime(fmt), fmt))
 
     ptime = stime + random() * (etime - stime)
@@ -158,36 +158,36 @@ def rand_date(min: str = "2000-01-01") -> str:
     return time.strftime(fmt, time.localtime(ptime))
 
 
-def donation_faker(i: int, arr: list[str], user_ids: list[int], clinic_ids: list[int]):
-    """generate fake entries string on separate threads
-
-    Args:
-        i (int): index of thread
-        arr (list[str]): list to insert the results into
-        user_ids (list[int]): user ids to randomly pick from
-        clinic_ids (list[int]): clinic ids to randomly pick from
-    """
-    entries = []
-
-    for _ in range(1000):
-        entries.append(
-            f"({choice(user_ids)},{choice(clinic_ids)},'{rand_date()}')")
-
-    arr[i] = ",\n".join(entries)
-
-
-def comment_faker(thread_idx: int, arr: list[str], donation_ids: list[int], comments: list[str]):
+def donation_faker(thread_idx: int, arr: list[str], u_ids: list[int], c_ids: list[int]):
     """generate fake entries string on separate threads
 
     Args:
         thread_idx (int): index of thread
         arr (list[str]): list to insert the results into
-        donation_ids (list[int]): all donation ids
+        u_ids (list[int]): user ids to randomly pick from
+        c_ids (list[int]): clinic ids to randomly pick from
+    """
+    entries = []
+
+    for _ in range(1000):
+        entries.append(
+            f"({choice(u_ids)},{choice(c_ids)},'{rand_date()}')")
+
+    arr[thread_idx] = ",\n".join(entries)
+
+
+def comment_faker(thread_idx: int, arr: list[str], d_ids: list[int], comments: list[str]):
+    """generate fake entries string on separate threads
+
+    Args:
+        thread_idx (int): index of thread
+        arr (list[str]): list to insert the results into
+        d_ids (list[int]): all donation ids
         comments (list[str]): all comments
     """
     entries = []
 
-    for donation_id in choices(donation_ids, k=100):
+    for donation_id in choices(d_ids, k=100):
         entries.append(f"({donation_id},'{choice(comments)}')")
 
     arr[thread_idx] = ",\n".join(entries)
@@ -248,12 +248,12 @@ if generate_random_data:
             ))
 
             # comments from ChatGPT in batches of 50
-            comments = [
+            all_comments = [
                 x.strip().replace("'", "''")
                 for x in open("fake_data/comments.lst", "r", encoding='utf8').readlines()
             ]
 
-            shuffle(comments)
+            shuffle(all_comments)
 
             donation_ids = [
                 x[0]
@@ -263,7 +263,7 @@ if generate_random_data:
             threads = []
             for i in range(10):
                 threads.append(threading.Thread(target=comment_faker, args=(
-                    i, sql_from_multithread, donation_ids, comments)))
+                    i, sql_from_multithread, donation_ids, all_comments)))
                 threads[-1].start()
 
             # wait for the threads to complete
