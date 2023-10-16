@@ -109,7 +109,7 @@ def registration_faker(i, arr, names_female, names_male, names_last):
 if generate_random_data:
     with app.app_context():
         # populate only once
-        if int(db.session.execute(text("select count(*) from users")).fetchone()[0]) < 1000:
+        if db.session.execute(text("select count(*) from users")).scalar_one() < 1000:
             print("populating users with fake data")
 
             sql_from_multithread = [None] * 10

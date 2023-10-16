@@ -25,7 +25,7 @@ def consumption_faker(i, arr, donation_ids, consumable_ids):
 with app.app_context():
 
     # populate necessary data once
-    if int(db.session.execute(text("select count(*) from consumables")).fetchone()[0]) == 0:
+    if db.session.execute(text("select count(*) from consumables")).scalar_one() == 0:
         db.session.execute(text(
             "insert into consumables(consumable) values\n"
             + ",\n".join([f"('{x.strip()}')"
@@ -47,7 +47,7 @@ with app.app_context():
         db.session.commit()
 
     if generate_random_data:
-        if int(db.session.execute(text("select count(*) from consumption")).fetchone()[0]) < 10000:
+        if db.session.execute(text("select count(*) from consumption")).scalar_one() < 10000:
             print("populating consuption with fake data")
 
             consumable_ids = [x[0]

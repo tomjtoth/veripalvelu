@@ -9,7 +9,7 @@ def get_names():
 
 
 with app.app_context():
-    if int(db.session.execute(text("select count(*) from clinics")).fetchone()[0]) == 0:
+    if db.session.execute(text("select count(*) from clinics")).scalar_one() == 0:
         db.session.execute(text(
             "insert into clinics(cname) values\n" +
             ",".join([f"('{x.strip()}')"
