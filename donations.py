@@ -1,3 +1,6 @@
+"""### Manages donation-related functionalities
+"""
+
 from datetime import date, timedelta
 import json
 import time
@@ -12,6 +15,15 @@ from app import app, generate_random_data
 
 
 def register(date: str, clinic_id: int, cons: list[int], comment: str):
+    """registers 1 donation to the DB
+
+    Args:
+        date (str): date of donation
+        clinic_id (int): id of clinic the donation took place at
+        consumables (list[int]): quantities of consumables
+        comment (str): optional comments of donation experience
+    """
+
     # this must be here, otherwise during population of fake data would get stuck
     import consumables  # pylint: disable=import-outside-toplevel
 
@@ -58,6 +70,16 @@ def register(date: str, clinic_id: int, cons: list[int], comment: str):
 
 
 def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
+    """gets data and config for plotly charts
+
+    Args:
+        user_id (int): filtering DB query by user_id if present. Defaults to None.
+        crit (str): filtering criterium. Defaults to "clinic".
+
+    Returns:
+        (str, str): a tuple of `data` + `conf` in JSON serialized form that's jinja compatible
+        or None: in case there's no data
+    """
     data = [
 
         go.Bar(
@@ -119,6 +141,14 @@ def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
 
 
 def rand_date(min: str = "2000-01-01") -> str:
+    """picks a random date between min and today
+
+    Args:
+        min(str): datestring in the form of "YYYY-MM-DD"
+
+    Returns:
+        str: a random date in the form of "YYYY-MM-DD"
+    """
     fmt = "%Y-%m-%d"
     stime = time.mktime(time.strptime(min, fmt))
     etime = time.mktime(time.strptime(date.today().strftime(fmt), fmt))
@@ -130,6 +160,12 @@ def rand_date(min: str = "2000-01-01") -> str:
 
 def donation_faker(i: int, arr: list[str], user_ids: list[int], clinic_ids: list[int]):
     """generate fake entries string on separate threads
+
+    Args:
+        i (int): index of thread
+        arr (list[str]): list to insert the results into
+        user_ids (list[int]): user ids to randomly pick from
+        clinic_ids (list[int]): clinic ids to randomly pick from
     """
     entries = []
 
@@ -142,6 +178,12 @@ def donation_faker(i: int, arr: list[str], user_ids: list[int], clinic_ids: list
 
 def comment_faker(thread_idx: int, arr: list[str], donation_ids: list[int], comments: list[str]):
     """generate fake entries string on separate threads
+
+    Args:
+        thread_idx (int): index of thread
+        arr (list[str]): list to insert the results into
+        donation_ids (list[int]): all donation ids
+        comments (list[str]): all comments
     """
     entries = []
 
@@ -152,6 +194,8 @@ def comment_faker(thread_idx: int, arr: list[str], donation_ids: list[int], comm
 
 
 def all_comments():
+    """get all comments from DB
+    """
     return [
 
         row[0] for row in
@@ -203,7 +247,7 @@ if generate_random_data:
                 + ",\n".join(sql_from_multithread)
             ))
 
-            # comments from ChatGPT: "generate 50 random comments about how good it was to donate blood in Finnish"
+            # comments from ChatGPT in batches of 50
             comments = [
                 x.strip().replace("'", "''")
                 for x in open("fake_data/comments.lst", "r").readlines()

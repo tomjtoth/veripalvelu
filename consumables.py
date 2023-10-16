@@ -1,3 +1,6 @@
+"""Consumables related functionalities
+"""
+
 from random import choices, randint
 import threading
 from sqlalchemy.sql import text
@@ -6,6 +9,11 @@ from app import app, generate_random_data
 
 
 def get_all() -> list:
+    """fetches all consumables along with their ids
+
+    Returns:
+        list: tuples of (id, name)
+    """
     return db.session.execute(text("SELECT id, consumable FROM consumables")).fetchall()
 
 

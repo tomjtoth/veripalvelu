@@ -1,11 +1,17 @@
-from db import db
-from flask import session
+"""Clinics related functionalities
+"""
+
 from sqlalchemy.sql import text
 from app import app
 from db import db
 
 
 def get_names() -> list:
+    """returns the names and ids of clinics, used during population of donate.html
+
+    Returns:
+        list: tuples of (id, name)
+    """
     return tuple(db.session.execute(text('select id, cname from clinics')).fetchall())
 
 

@@ -1,3 +1,6 @@
+"""Manages users related functionalities
+"""
+
 import secrets
 from random import choice, choices, uniform, shuffle
 import threading
@@ -9,6 +12,12 @@ from app import app, generate_random_data
 
 
 def login(username: str, password: str) -> bool:
+    """tries to log the user in, setting session["user"] upon success
+
+    Returns:
+        bool: describing whether the process succeeded or not
+    """
+
     result = db.session.execute(text("""
     SELECT id, uname, passw, fnames, blood_type(flags)
     FROM users
@@ -31,10 +40,15 @@ def login(username: str, password: str) -> bool:
 
 
 def logout():
+    """simply deletes session["user"]
+    """
+
     del session["user"]
 
 
 def register(username: str, password: str, firstnames: str, lastnames: str, flags: int) -> bool:
+    """tries to register the user
+    """
     hash_value = generate_password_hash(password)
     try:
         db.session.execute(text("""
@@ -57,6 +71,16 @@ all_blood_types = '0- 0+ A- A+ B- B+ AB- AB+'.split(' ')
 
 
 def flags_from_form(is_male: bool, blood_type: int, is_admin: bool = False) -> int:
+    """resolves the flags from the form
+
+    Args:
+        is_male (bool): user's sex
+        blood_type (int): user's blood type
+        is_admin (bool, optional): admin account. Defaults to False.
+
+    Returns:
+        int: this can be stored in the DB
+    """
     flags = blood_type
 
     if is_admin:
@@ -75,6 +99,16 @@ def gen_rand_gender(
         names_male: list[str],
         names_last: list[str]
 ) -> (str, str, int):
+    """creates a random user
+
+    Args:
+        names_female (list[str]): list of female firstnames from Wikipedia
+        names_male (list[str]): list of male firstnames from Wikipedia
+        names_last (list[str]): list of lastnames from Wikipedia
+
+    Returns:
+        (str, str, int): a tuple of (firstname, lastname, flags)
+    """
     [flags] = choices(
 
         # 1st 3 bits of the flags are A,B,RH

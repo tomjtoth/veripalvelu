@@ -1,4 +1,11 @@
-from flask import Flask
+"""## main module
+
+responsible for:
+- reading in command line arguments
+- creating the `.env` preset
+- creating a randomized database 
+"""
+
 from os import getenv, path, environ
 import secrets
 from subprocess import run

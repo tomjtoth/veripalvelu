@@ -1,3 +1,6 @@
+"""Manages what happens on what path
+"""
+
 from datetime import date
 import re
 from flask import render_template, redirect, request, session, abort
@@ -14,6 +17,11 @@ re_linefeed = re.compile(r"\r?\n")
 
 
 def valid_date(date_text: str) -> bool:
+    """checks if a date is valid AND smaller than today
+
+    Args:
+        date_text (str): date to be checked in the format of "YYYY-MM-DD"
+    """
     try:
         if date.today() < date.fromisoformat(date_text):
             return False
@@ -26,6 +34,8 @@ def valid_date(date_text: str) -> bool:
 
 
 def before_request():
+    """WiP - this was supposed to redirect HTTP -> HTTPS on my VPS
+    """
     if force_https and not request.is_secure:
         return redirect(
             request.url.replace('http://', 'https://', 1),
@@ -35,6 +45,8 @@ def before_request():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """handles registering the user
+    """
     if request.method == "GET":
         return render_template("register.html",
                                blood_types=users.all_blood_types)
@@ -72,6 +84,8 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """handles logging the user in
+    """
     if request.method == "GET":
         return render_template("login.html")
     if request.method == "POST":
@@ -89,12 +103,16 @@ def login():
 
 @app.route("/logout")
 def logout():
+    """handles logging the user out
+    """
     del session["user"]
     return redirect("/")
 
 
 @app.route('/')
 def root():
+    """shows the basic view
+    """
     return render_template(
         'index.html',
         plots=[
@@ -109,6 +127,8 @@ def root():
 
 @app.route('/donate', methods=["GET", "POST"])
 def donate():
+    """handles registering donation
+    """
     if not session.get('user'):
         return redirect('/login')
 
@@ -121,10 +141,11 @@ def donate():
         )
     else:
 
-        # we don't event have a session yet
+        # we don't even have a session yet
         if not session.get("user"):
             return redirect("/login")
 
+        # or CSRF mismathed
         elif request.form.get("csrf") is None or request.form["csrf"] != session["user"]["csrf"]:
             abort(403)
 
@@ -150,4 +171,6 @@ def donate():
 
 @app.route('/comments')
 def comments():
+    """GET /comments/
+    """
     return render_template('comments.html', comments=donations.all_comments())
