@@ -35,16 +35,5 @@
     <input type="hidden" name="csrf" value="{{ session.user.csrf }}">
     <input type="submit" value="Luovutin!">
 </form>
-<script>
-    const span = document.querySelector('span#feedback');
-    window.addEventListener('input', ({ target: { tagName, value } }) => {
-
-        if (tagName !== 'TEXTAREA') return;
-
-        span.textContent = value.length > 0 
-            ? `(${5000 - value.length} merkkiä tilaa jäljellä)` 
-            : '';
-
-    });
-</script>
+<script src="static/donation.js"></script>
 {% endblock %}
