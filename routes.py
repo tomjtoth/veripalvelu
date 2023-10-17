@@ -74,12 +74,12 @@ def register():
             )
         ):
             return redirect("/")
-        else:
-            return render_template(
-                "error.html",
-                operation='rekisteröinti',
-                err="Käyttäjätunnus varmaan otettu jo",
-                retry='register')
+
+        return render_template(
+            "error.html",
+            operation='rekisteröinti',
+            err="Käyttäjätunnus varmaan otettu jo",
+            retry='register')
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -93,12 +93,12 @@ def login():
         password = request.form["password"]
         if users.login(username, password):
             return redirect("/")
-        else:
-            return render_template(
-                "error.html",
-                operation='kirjautuminen',
-                err="Väärä tunnus tai salasana",
-                retry='login')
+
+        return render_template(
+            "error.html",
+            operation='kirjautuminen',
+            err="Väärä tunnus tai salasana",
+            retry='login')
 
 
 @app.route("/logout")
@@ -139,34 +139,33 @@ def donate():
             today=date.today(),
             consumables=consumables.get_all()
         )
-    else:
 
-        # we don't even have a session yet
-        if not session.get("user"):
-            return redirect("/login")
+    # we don't even have a session yet
+    if not session.get("user"):
+        return redirect("/login")
 
-        # or CSRF mismathed
-        elif request.form.get("csrf") is None or request.form["csrf"] != session["user"]["csrf"]:
-            abort(403)
+    # or CSRF mismathed
+    if request.form.get("csrf") is None or request.form["csrf"] != session["user"]["csrf"]:
+        abort(403)
 
-        comment = request.form['comment']
+    comment = request.form['comment']
 
-        if len(comment) > 5000:
-            return render_template("error.html", err="liian pitkä kommentti", retry='donate')
+    if len(comment) > 5000:
+        return render_template("error.html", err="liian pitkä kommentti", retry='donate')
 
-        donation_date = request.form['date']
-        if not valid_date(donation_date):
-            return render_template("error.html", err="päivämäärä tulevaisuudessa", retry='donate')
+    donation_date = request.form['date']
+    if not valid_date(donation_date):
+        return render_template("error.html", err="päivämäärä tulevaisuudessa", retry='donate')
 
-        if donations.register(
-            donation_date,
-            request.form['clinic'],
-            request.form.getlist('consumables', int),
-            re_linefeed.sub('<br/>', str(escape(comment)))
-        ):
-            return redirect('/')
+    if donations.register(
+        donation_date,
+        request.form['clinic'],
+        request.form.getlist('consumables', int),
+        re_linefeed.sub('<br/>', str(escape(comment)))
+    ):
+        return redirect('/')
 
-        return render_template('error.html', err='emt', retry='donate')
+    return render_template('error.html', err='emt', retry='donate')
 
 
 @app.route('/comments')

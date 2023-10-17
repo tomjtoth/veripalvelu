@@ -27,17 +27,17 @@ def login(username: str, password: str) -> bool:
     user = result.fetchone()
     if not user:
         return False
-    else:
-        if check_password_hash(user.passw, password):
 
-            user = user._asdict()
-            # the hashed pw should not be sent back to the client
-            del user['passw']
-            user['csrf'] = secrets.token_hex(16)
-            session["user"] = user
-            return True
-        else:
-            return False
+    if check_password_hash(user.passw, password):
+
+        user = user._asdict()
+        # the hashed pw should not be sent back to the client
+        del user['passw']
+        user['csrf'] = secrets.token_hex(16)
+        session["user"] = user
+        return True
+
+    return False
 
 
 def logout():
