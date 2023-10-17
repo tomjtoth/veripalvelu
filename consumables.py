@@ -69,7 +69,7 @@ with app.app_context():
         db.session.commit()
 
     if generate_random_data:
-        if db.session.execute(text("select count(*) from consumption")).scalar_one() < 10000:
+        if db.session.execute(text("select count(*) from consumption")).scalar_one() < 100:
             print("populating consuption with fake data")
 
             consumable_ids = [

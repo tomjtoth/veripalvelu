@@ -218,7 +218,7 @@ def all_comments():
 if generate_random_data:
     with app.app_context():
         # populate only once
-        if db.session.execute(text("select count(*) from donations")).scalar_one() < 10:
+        if db.session.execute(text("select count(*) from donations")).scalar_one() < 100:
             print("populating donations with fake data")
 
             clinic_ids = [
