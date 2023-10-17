@@ -56,8 +56,8 @@ begin
     select ($1 >> 3) & 1 = 1 into male;
     return case
             when male
-                then 'male'
-                else 'female'
+            then 'mies'
+            else 'nainen'
     end;
 end;
 $$;
