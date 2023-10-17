@@ -118,6 +118,7 @@ def root():
         plots=[
             donations.plot(),
             donations.plot(crit="blood_type"),
+            donations.plot(crit="sex"),
 
             donations.plot(session['user']['id'])
             if session.get('user') else None

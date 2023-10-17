@@ -81,6 +81,13 @@ def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
         (str, str): a tuple of `data` + `conf` in JSON serialized form that's jinja compatible
         or None: in case there's no data
     """
+
+    translation = {
+        'clinic': 'Luovutuspaikkojen',
+        'blood_type': 'Veriryhmien',
+        'sex': 'Sukupuolten'
+    }
+
     data = [
 
         go.Bar(
@@ -113,9 +120,12 @@ def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
         )).fetchall()
     ]
 
-    return (
-        json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder),
-        json.dumps({
+    return {
+        'name': crit,
+
+        'data': json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder),
+
+        'conf': json.dumps({
             'barmode': "relative",
             'scrollZoom': True,
             'xaxis': {
@@ -127,18 +137,14 @@ def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
                 'title': "päivämäärä"
             },
             'yaxis': {'title': "luovutukset"},
-            'title': f"""{
-                'Luovutuspaikkojen' 
-                if crit == 'clinic' 
-                else 'Veriryhmien'
-            } perusteella""",
+            'title': f"{translation[crit]} perusteella",
             'font': {
                 'color': 'red'
             },
             'plot_bgcolor': 'transparent',
             'paper_bgcolor': 'transparent',
         }, cls=plotly.utils.PlotlyJSONEncoder)
-    ) if len(data) > 0 else None
+    } if len(data) > 0 else None
 
 
 def rand_date(start_date: str = "2000-01-01") -> str:
