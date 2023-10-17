@@ -11,6 +11,13 @@ elif [ "$1" == "update" ]; then
         systemctl --user restart "$SERVICE"
     fi
 else
+    if [ ! -d "./venv" ]; then
+        python3 -m venv venv
+        . venv/bin/activate
+        pip install -r requirements.txt
+    else
+        . venv/bin/activate
+    fi
     [ -f ".env" ] && . .env
     flask run \
         ${HOST:+--host=$HOST} \

@@ -6,6 +6,7 @@ Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/
 
 Tässä saavutukset tuoreimmista vanhempiin:
 
+- `main.sh` hoitaa asennuksen
 - luovutuksen prosessointi revisioitu
 - pylint otettu käyttöön
 - dokumentaatiostringit lisätty sekä JS että Python:in puolelle
@@ -51,21 +52,41 @@ Tässä saavutukset tuoreimmista vanhempiin:
 
 ## Pää- / Kehitysversio
 
-- Kloonaa repo komennolla `git clone https://github.com/tomjtoth/verenluovutus-sovellus`
-- Vaihda äsken syntyneen hakemistoon komennolla `cd verenluovutus-sovellus`
-- Asenna virtuaaliympäristö projektille ja aktivoi sitä
-    - `python3 -m venv venv`
-    - `source venv/bin/activate`
-- Asenna projektin riippuvuudet virtuaaliympäristöön alla komennolla
-    - `pip install -r requirements.txt`
-- käynnistä:
-    - `flask run` komennolla
-    - `.env` tiedosto ja tietokanta tulee luoduksi ekalla käynnistyksellä
-        - olettaen että `v12.15` postgresql pyörii testaajan koneessa
-        - muuten testaaja joutuu:
-            - käsin luoda kantaa komennolla `createdb jotain`
-            - alustaa sitä `psql jotain < schema.sql`
-            - ja syöttää `DATABASE_URL=postgresql:///jotain` tiedostoon `.env`
+Pakotusti käsin hoidettavat askeleet:
+```shell
+# kloonaa repo
+git clone https://github.com/tomjtoth/verenluovutus-sovellus
+
+# vaihda äsken syntyneen hakemistoon
+cd verenluovutus-sovellus
+```
+
+Asennus ja käynnistys **JOKO** tuotantopalvelimessa käytetyllä wrapper:illa:
+```shell
+# tämä kyllä hoitaa kaiken
+./main.sh
+```
+
+**TAI** kurssin materiaalin mukaan:
+```shell
+# asenna virtuaaliympäristö projektille ja aktivoi sitä
+python3 -m venv venv
+source venv/bin/activate
+
+# asenna projektin riippuvuudet virtuaaliympäristöön alla komennolla
+pip install -r requirements.txt
+
+# käynnistä:
+flask run
+```
+
+Molemmassa tapauksessa sovellus pysähtyy siihen, että se on luonut `.env` tiedosto, jonka sisällön kuuluisi testaajan katsoa läpi.
+Tietokanta tulee luoduksi ekalla käynnistyksellä olettaen että `v12.15` postgresql pyörii testaajan koneessa. Muuten pitää käsin luoda se tietokanta ja liittää sen nimi `.env`:iin.
+
+Kun `.env` katsottiin läpi, ja tietokanta on olemassa, käynnistetään sovelluksen vielä kerran:
+- joko `flask run`
+- tai `./main.sh`
+komennolla.
 
 ## Toiminnan kuvaus
 
