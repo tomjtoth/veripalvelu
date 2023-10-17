@@ -85,10 +85,10 @@ def flags_from_form(is_male: bool, blood_type: int, is_admin: bool = False) -> i
     flags = blood_type
 
     if is_admin:
-        flags |= 0x10000
+        flags |= 0b10000
 
     if is_male:
-        flags |= 0x1000
+        flags |= 0b1000
 
     return flags
 
@@ -125,7 +125,7 @@ def gen_rand_gender(
         fnames = names_female
     else:
         fnames = names_male
-        flags |= 0x1000
+        flags |= 0b1000
     return choice(fnames), choice(names_last), flags
 
 

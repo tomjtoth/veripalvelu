@@ -54,13 +54,11 @@ declare
     male boolean;
 begin
     select ($1 >> 3) & 1 = 1 into male;
-    return concat(
-        case 
+    return case
             when male
                 then 'male'
                 else 'female'
-        end
-    );
+    end;
 end;
 $$;
 
