@@ -35,7 +35,7 @@ def consumption_faker(
 
     for donation_id in choices(d_ids, k=100):
         for consumable_id in choices(c_ids, k=randint(2, 8)):
-            entries.append(f"({donation_id},{consumable_id})")
+            entries.append(f"({donation_id},{consumable_id},{randint(1,5)})")
 
     arr[thread_idx] = ",\n".join(entries)
 
@@ -95,7 +95,7 @@ with app.app_context():
                 t.join()
 
             db.session.execute(text(
-                "insert into consumption(donation_id, consumable_id) values\n"
+                "insert into consumption(donation_id, consumable_id, consumed_qty) values\n"
                 + ",\n".join(sql_from_multithread)
             ))
             db.session.commit()

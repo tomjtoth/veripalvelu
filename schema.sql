@@ -29,7 +29,8 @@ create table if not exists donations(
 
 create table if not exists consumption(
     donation_id integer references donations(id),
-    consumable_id integer references consumables(id)
+    consumable_id integer references consumables(id),
+    consumed_qty integer default 0
 );
 
 create table if not exists comments(
@@ -99,14 +100,14 @@ select
     is_admin(flags),
     sex(flags),
     blood_type(flags),
-    string_agg(consumable, ', ') as consumption,
+    --string_agg(consumable, ', ') as consumption,
     comment
 from donations d
 inner join users u on u.id = d.user_id
 inner join clinics cli on cli.id = d.clinic_id
-left join consumption con1 on con1.donation_id = d.id
-left join consumables con2 on con2.id = con1.consumable_id
+--left join consumption con1 on con1.donation_id = d.id
+--left join consumables con2 on con2.id = con1.consumable_id
 left join comments com on com.donation_id  = d.id
-group by d.id, cli.id, cli.cname, u.id, fnames, lnames, flags, com.comment
+--group by d.id, cli.id, cli.cname, u.id, fnames, lnames, flags, com.comment
 order by ddate desc
 ;

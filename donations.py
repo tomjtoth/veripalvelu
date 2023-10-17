@@ -45,11 +45,11 @@ def register(donation_date: str, clinic_id: int, cons: list[int], comment: str):
 
         for cons_id, cons_qty in zip([x[0] for x in consumables.get_all()], cons):
             for _ in range(cons_qty):
-                consumables_sql.append(f"({donation_id},{cons_id})")
+                consumables_sql.append(f"({donation_id},{cons_id},{cons_qty})")
 
         if len(consumables_sql) > 0:
             db.session.execute(text(
-                "insert into consumption(donation_id, consumable_id) values"
+                "insert into consumption(donation_id, consumable_id, consumed_qty) values\n"
                 # this should be safe as conversion to list[int] is enforced in routes.py
                 + ",".join(consumables_sql)
             ))
