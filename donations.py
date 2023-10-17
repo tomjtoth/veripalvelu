@@ -252,10 +252,11 @@ if generate_random_data:
             ))
 
             # comments from ChatGPT
-            all_comments = [
-                x.strip().replace("'", "''")
-                for x in open("fake_data/comments.lst", "r", encoding='utf8').readlines()
-            ]
+            with open("fake_data/comments.lst", "r", encoding='utf8') as f:
+                all_comments = [
+                    x.strip().replace("'", "''")
+                    for x in f.readlines()
+                ]
 
             shuffle(all_comments)
 
