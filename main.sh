@@ -26,7 +26,7 @@ else
         ${HOST:+--host=$HOST} \
         ${PORT:+--port=$PORT} \
         ${TLS_CERT:+--cert=$TLS_CERT} \
-        ${TLS_KEY:+--key=$TLS_CERT}
+        ${TLS_KEY:+--key=$TLS_KEY}
     
     #gunicorn -b $HOST:$PORT --keyfile $TLS_KEY --certfile $TLS_CERT 'app:app'
 fi
