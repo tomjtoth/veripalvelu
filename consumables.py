@@ -85,10 +85,14 @@ with app.app_context():
             sql_from_multithread = [None] * 10
 
             threads = []
-            for i in range(10):
+            for i in range(9):
                 threads.append(threading.Thread(target=consumption_faker, args=(
                     i, sql_from_multithread, donation_ids, consumable_ids)))
                 threads[-1].start()
+
+            # do the last part on the main thread
+            consumption_faker(9, sql_from_multithread,
+                              donation_ids, consumable_ids)
 
             # wait for the threads to complete
             for t in threads:

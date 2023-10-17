@@ -234,10 +234,13 @@ if generate_random_data:
             sql_from_multithread = [None] * 10
 
             threads = []
-            for i in range(10):
+            for i in range(9):
                 threads.append(threading.Thread(target=donation_faker, args=(
                     i, sql_from_multithread, user_ids, clinic_ids)))
                 threads[-1].start()
+
+            # do the last part on the main thread
+            donation_faker(9, sql_from_multithread, user_ids, clinic_ids)
 
             # wait for the threads to complete
             for t in threads:
@@ -262,10 +265,13 @@ if generate_random_data:
             ]
 
             threads = []
-            for i in range(10):
+            for i in range(9):
                 threads.append(threading.Thread(target=comment_faker, args=(
                     i, sql_from_multithread, donation_ids, all_comments)))
                 threads[-1].start()
+
+            # do the last part on the main thread
+            comment_faker(9, sql_from_multithread, donation_ids, all_comments)
 
             # wait for the threads to complete
             for t in threads:

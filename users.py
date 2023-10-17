@@ -188,10 +188,14 @@ if generate_random_data:
             shuffle(surnames)
 
             threads = []
-            for i in range(10):
+            for i in range(9):
                 threads.append(threading.Thread(target=registration_faker, args=(
                     i, sql_from_multithread, female_names, male_names, surnames)))
                 threads[-1].start()
+
+            # do the last part on the main thread
+            registration_faker(9, sql_from_multithread,
+                               female_names, male_names, surnames)
 
             # wait for the threads to complete
             for t in threads:
