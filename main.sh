@@ -1,15 +1,18 @@
 #!/bin/bash
 
-SERVICE="verenluovutus-sovellus"
+APP_NAME="verenluovutus-sovellus"
 
 if [ "$1" == "systemd" ]; then
-    systemctl --user $2 "$SERVICE"
+    systemctl --user $2 "$APP_NAME"
 elif [ "$1" == "update" ]; then
     git fetch origin
     if $(git pull | grep -q '^Updating'); then
         systemctl --user daemon-reload
-        systemctl --user restart "$SERVICE"
+        systemctl --user restart "$APP_NAME"
     fi
+elif [ "$1" == "resetdb" ]; then
+    sudo -u postgres dropdb $APP_NAME
+    sudo -u postgres createdb -O $USER $APP_NAME
 else
     if [ ! -d "./venv" ]; then
         python3 -m venv venv
