@@ -4,6 +4,7 @@
     --loader-bg: #ccc8;
     --loader-border: #ddd;
     --loader-border-top: #3498db;
+    --delay: 150ms;
 }
 
 [color-theme="dark"] {
@@ -49,18 +50,22 @@ nav>a {
     padding: 14px 16px;
     text-decoration: none;
     cursor: pointer;
+    transition: var(--delay);
 }
 
 nav>a:hover:not(.active) {
     background: #183c61;
+    box-shadow: 0 0 20px #183c61;
 }
 
 nav>a[href].active {
     background: purple;
+    box-shadow: 0 0 20px purple;
 }
 
 nav>a:not([href]).active {
     background: radial-gradient(purple, orange);
+    box-shadow: 0 0 20px orange;
 }
 
 nav>a.auth,
@@ -117,6 +122,14 @@ a[title*="fun"]>sub {
 
 span.easter-egg {
     cursor: pointer;
+    transition: var(--delay);
+}
+
+span.easter-egg:hover {
+    text-shadow:
+        1px 1px 2px var(--color),
+        0 0 1em blue,
+        0 0 0.2em blue;
 }
 
 @keyframes fun {
