@@ -11,8 +11,12 @@ elif [ "$1" == "update" ]; then
         systemctl --user restart "$SERVICE"
     fi
 else
-    source venv/bin/activate
-    source .env
-    flask run --host=$HOST --port=$PORT --cert=$TLS_CERT --key=$TLS_KEY
+    [ -f ".env" ] && . .env
+    flask run \
+        ${HOST:+--host=$HOST} \
+        ${PORT:+--port=$PORT} \
+        ${TLS_CERT:+--cert=$TLS_CERT} \
+        ${TLS_KEY:+--key=$TLS_CERT}
+    
     #gunicorn -b $HOST:$PORT --keyfile $TLS_KEY --certfile $TLS_CERT 'app:app'
 fi
