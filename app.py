@@ -16,7 +16,7 @@ from flask import Flask
 # create .env preset if not exists
 if not path.exists('.env'):
     db_name = f"verenluovutus-{uuid.uuid4()}"
-    DB_NAME = f"""\
+    DATABASE_URL = f"""\
 # the below database has been automatically created
 DATABASE_URL=postgresql:///{db_name}"""
 
@@ -30,7 +30,7 @@ DATABASE_URL=postgresql:///{db_name}"""
 
         except CalledProcessError:
             print("\n\tfollow the instructions in the newly created `./.env` file\n")
-            DB_NAME = """\
+            DATABASE_URL = """\
 # automatic database creation failed ¯\\_(ツ)_/¯
 # run `createdb verenluovutus-sovellus` however you see fit
 # schema.sql gets loaded automatically, no worries there!
@@ -39,7 +39,7 @@ DATABASE_URL=postgresql:///verenluovutus-sovellus"""
 
         finally:
             f.write(f"""\
-{DB_NAME}
+{DATABASE_URL}
 
 # Flask related
 SECRET_KEY={secrets.token_hex(16)}
