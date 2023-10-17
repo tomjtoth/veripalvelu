@@ -172,4 +172,4 @@ def donate():
 def comments():
     """GET /comments/
     """
-    return render_template('comments.html', comments=donations.all_comments())
+    return render_template('comments.html', comments=donations.get_all_comments())

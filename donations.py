@@ -194,7 +194,7 @@ def comment_faker(thread_idx: int, arr: list[str], d_ids: list[int], comments: l
     arr[thread_idx] = ",\n".join(entries)
 
 
-def all_comments():
+def get_all_comments() -> list:
     """get all comments from DB
     """
     return [
