@@ -167,21 +167,14 @@ if generate_random_data:
             sql_from_multithread = [None] * 10
 
             # below 3 name files from Wikipedia:
-            female_names = [
-                x.strip() for x in open(
-                    "fake_data/names_female.lst", "r", encoding='utf8'
-                ).readlines()
-            ]
-            male_names = [
-                x.strip() for x in open(
-                    "fake_data/names_male.lst", "r", encoding='utf8'
-                ).readlines()
-            ]
-            surnames = [
-                x.strip() for x in open(
-                    "fake_data/names_last.lst", "r", encoding='utf8'
-                ).readlines()
-            ]
+            with open("fake_data/names_female.lst", "r", encoding='utf8') as f:
+                female_names = [x.strip() for x in f.readlines()]
+
+            with open("fake_data/names_male.lst", "r", encoding='utf8') as f:
+                male_names = [x.strip() for x in f.readlines()]
+
+            with open("fake_data/names_last.lst", "r", encoding='utf8') as f:
+                surnames = [x.strip() for x in f.readlines()]
 
             shuffle(female_names)
             shuffle(male_names)
