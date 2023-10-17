@@ -44,7 +44,7 @@ def register(donation_date: str, clinic_id: int, cons: list[int], comment: str):
         consumables_sql = []
 
         for cons_id, cons_qty in zip([x[0] for x in consumables.get_all()], cons):
-            for _ in range(cons_qty):
+            if cons_qty > 0:
                 consumables_sql.append(f"({donation_id},{cons_id},{cons_qty})")
 
         if len(consumables_sql) > 0:
@@ -251,7 +251,7 @@ if generate_random_data:
                 + ",\n".join(sql_from_multithread)
             ))
 
-            # comments from ChatGPT in batches of 50
+            # comments from ChatGPT
             all_comments = [
                 x.strip().replace("'", "''")
                 for x in open("fake_data/comments.lst", "r", encoding='utf8').readlines()
