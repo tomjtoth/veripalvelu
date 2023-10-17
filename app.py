@@ -49,8 +49,10 @@ SECRET_KEY={secrets.token_hex(16)}
 GEN_RAND_DATA=true
 
 # the below part is only required in the production environment
-HOST=0.0.0.0
-PORT=xxxxx
+# HOST=0.0.0.0
+# PORT=xxxxx
+# TLS_CERT=/path/to/fullchain.pem
+# TLS_KEY=/path/to/privkey.pem
 """)
             sys.exit()
 
