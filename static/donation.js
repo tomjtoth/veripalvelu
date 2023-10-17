@@ -16,8 +16,12 @@ class Donation {
         });
 
         document.addEventListener('click', ({ target: { classList, tagName } }) => {
-            if (classList.contains('easter-egg') && tagName == 'SPAN')
-                Fun.spam(100);
+            if (classList.contains('easter-egg') && tagName == 'SPAN') {
+                if (Fun.status)
+                    Fun.spam(100)
+                else
+                    alert('laita FUN mode päälle, et näin voi luovuttaa!');
+            }
         });
     }
 }
