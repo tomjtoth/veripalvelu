@@ -7,6 +7,7 @@ import threading
 from flask import session
 from sqlalchemy.sql import text
 from werkzeug.security import check_password_hash, generate_password_hash
+from psycopg2 import OperationalError
 from db import db
 from app import app, generate_random_data
 
@@ -62,7 +63,7 @@ def register(username: str, password: str, firstnames: str, lastnames: str, flag
             "flags": flags
         })
         db.session.commit()
-    except:
+    except OperationalError:
         return False
     return login(username, password)
 

@@ -10,6 +10,7 @@ from flask import session
 from sqlalchemy.sql import text
 import plotly
 import plotly.graph_objs as go
+from psycopg2 import OperationalError
 from db import db
 from app import app, generate_random_data
 
@@ -62,7 +63,7 @@ def register(donation_date: str, clinic_id: int, cons: list[int], comment: str):
 
         db.session.commit()
 
-    except:
+    except OperationalError:
         db.session.rollback()
         return False
 

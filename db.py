@@ -3,6 +3,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
+from psycopg2 import OperationalError
 from app import app
 
 db = SQLAlchemy(app)
@@ -14,6 +15,5 @@ with app.app_context():
             db.session.execute(text(f.read()))
             db.session.commit()
 
-        # pylint: disable=bare-except
-        except:
+        except OperationalError:
             db.session.rollback()
