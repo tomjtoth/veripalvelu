@@ -8,35 +8,50 @@ responsible for:
 
 from os import getenv, path, environ
 import secrets
-from subprocess import run
+from subprocess import CalledProcessError, run
 import sys
 import uuid
 from flask import Flask
 
-# create default .env if not exists
+# create .env preset if not exists
 if not path.exists('.env'):
-    db_name = f"verenluovutus-{uuid.uuid4()}".replace("-", "_")
+    db_name = f"verenluovutus-{uuid.uuid4()}"
+    DB_NAME = """\
+# the below database has been automatically created
+DATABASE_URL=postgresql:///{db_name}"""
+
     with open('.env', 'w', encoding='utf8') as f:
         try:
-            run(["createdb", db_name], check=False)
-            print(
-                '\n\t./.env missing, generated from presets\n\tnow restart the program\n')
+            run(["createdb", db_name], check=True)
+            print("""\
+\t`./.env` was missing, generated from presets
+\treview it and restart the program\n
+""")
+
+        except CalledProcessError:
+            print("\n\tfollow the instructions in the newly created `./.env` file\n")
+            DB_NAME = """\
+# automatic database creation failed ¯\\_(ツ)_/¯
+# run `createdb verenluovutus-sovellus` however you see fit
+# schema.sql gets loaded automatically, no worries there!
+# modify the below line if necessary
+DATABASE_URL=postgresql:///verenluovutus-sovellus"""
+
+        finally:
             f.write(f"""\
-# the below database has already been created for the app
-# remember to `createdb YOUR_DB` if you modify the below string to
-# DATABASE_URL=postgresql:///YOUR_DB
-DATABASE_URL=postgresql:///{db_name}
+{DB_NAME}
+
+# Flask related
 SECRET_KEY={secrets.token_hex(16)}
+
+# populate the database with fake users, donations, comments, consumptions
+# this is really advised as charts would be quite boring to look at without it
 GEN_RAND_DATA=true
 
-# the below is only present because of the VPS
+# the below part is only required in the production environment
 HOST=0.0.0.0
 PORT=xxxxx
 """)
-        # pylint: disable=bare-except
-        except:
-            print(f'\n\tfailed to create database: "{db_name}"')
-        finally:
             sys.exit()
 
 
