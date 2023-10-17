@@ -16,7 +16,7 @@ from flask import Flask
 # create .env preset if not exists
 if not path.exists('.env'):
     db_name = f"verenluovutus-{uuid.uuid4()}"
-    DB_NAME = """\
+    DB_NAME = f"""\
 # the below database has been automatically created
 DATABASE_URL=postgresql:///{db_name}"""
 
