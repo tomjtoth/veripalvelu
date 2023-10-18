@@ -3,7 +3,7 @@
 
 from datetime import date
 import re
-from flask import render_template, redirect, request, session, abort
+from flask import json, render_template, redirect, request, session, abort
 from markupsafe import escape
 from app import app, force_https
 import users
@@ -174,3 +174,13 @@ def comments():
     """GET /comments/
     """
     return render_template('comments.html', comments=donations.get_all_comments())
+
+
+@app.route('/api/heartbeat')
+def heartbeat():
+    """retrieving number of registered donations via REST API (?)
+
+    Returns:
+        int: count of registered donations
+    """
+    return json.jsonify(donations.get_total_count())

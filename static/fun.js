@@ -17,18 +17,25 @@ class Fun {
         localStorage.setItem('fun-mode', this.status);
     }
 
+    /**
+     * remove div.fun from the DOM tree after animation ends
+     * 
+     * @param {HTMLElement} ev_target 
+     * @returns boolean, true if this was actually a Fun related div, else false
+     */
+    static rm_div(target) {
+        if (target.classList.contains('fun')) {
+            document.body.removeChild(target);
+            return true;
+        }
+        return false;
+    };
+
     static {
 
         // create div.fun at click pos
         document.addEventListener('click', ({ pageX, pageY }) => {
             if (this.status) new this(pageX, pageY);
-        });
-
-        // remove div.fun from the DOM tree after animation ends
-        document.addEventListener('animationend', ({ target }) => {
-            if (target.classList.contains('fun')) {
-                document.body.removeChild(target);
-            }
         });
 
     }

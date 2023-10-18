@@ -291,3 +291,12 @@ if generate_random_data:
 
             db.session.commit()
             print("\tDONE")
+
+
+def get_total_count() -> int:
+    """gets how many donations are registered in the DB
+
+    Returns:
+        int: number of donations
+    """
+    return db.session.execute(text("select count(*) from donations")).scalar_one()

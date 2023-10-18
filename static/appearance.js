@@ -6,6 +6,20 @@ class Appearance {
     // rotating circle shown during content load
     static _loader = document.querySelector('div.loader');
 
+    // gets assigned only when page is loaded
+    static _heart = null;
+
+    /**
+     * query the server how many donations are registered
+     * then pulse *ONCE*
+     */
+    static heartbeat() {
+        fetch('/api/heartbeat').then(r => r.json()).then(count => {
+            this._heart.__count = count;
+            this._heart.classList.add('beating');
+        });
+    }
+
     static {
 
         const color_theme = localStorage.getItem('color-theme') || 'light';
@@ -60,9 +74,37 @@ class Appearance {
 
             })
 
-        // hide loader when pageload is done
         document.addEventListener('DOMContentLoaded', _ => {
+
+            // hide loader when pageload is done
             this._loader.setAttribute('hidden', 'hidden');
-        })
+
+            this._heart = document.getElementById('heart');
+
+            this._heart.addEventListener('click', _ => {
+                if (this._heart.__count) {
+                    alert(`There are ${this._heart.__count} donations registered`);
+                }
+
+                else {
+                    alert('With each heartbeat I read how many donations are registered!');
+                    // initial heartbeat
+                    this.heartbeat();
+                }
+            });
+        });
+
+        document.addEventListener('animationend', ({ target }) => {
+
+            if (Fun.rm_div(target)) return;
+
+            // at the end of the pulse animation query the server again
+            if (target.id == 'heart') {
+                this._heart.classList.remove('beating');
+                this._heart.title = 'REST API 4 the win!';
+                this.heartbeat();
+            }
+        });
+
     }
 }
