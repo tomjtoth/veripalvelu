@@ -28,7 +28,7 @@ def consumption_faker(
     Args:
         thread_idx (int): index of thread
         arr (list[str]): array that joins results from threads
-        d_ids (list[int]): random donation ids 
+        d_ids (list[int]): random donation ids
         c_ids (list[int]): random consumable ids
     """
     entries = []

@@ -4,7 +4,7 @@
 class Footer {
 
     /** adjusts the bottom margin of body according to the current height of the would-be-overlapping footer
-     * 
+     *
      * @param {event} _ev
      */
     static adjust_bottom_margin(_ev) {

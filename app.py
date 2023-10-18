@@ -3,7 +3,7 @@
 responsible for:
 - reading in command line arguments
 - creating the `.env` preset
-- creating a randomized database 
+- creating a randomized database
 """
 
 from os import getenv, path, environ

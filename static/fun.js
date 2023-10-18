@@ -19,8 +19,8 @@ class Fun {
 
     /**
      * remove div.fun from the DOM tree after animation ends
-     * 
-     * @param {HTMLElement} ev_target 
+     *
+     * @param {HTMLElement} ev_target
      * @returns boolean, true if this was actually a Fun related div, else false
      */
     static rm_div(target) {
@@ -42,7 +42,7 @@ class Fun {
 
     /**
      * picks 1 random emoji
-     * 
+     *
      * @returns 1 emoji
      */
     static _rand() {
@@ -51,7 +51,7 @@ class Fun {
 
     /**
      * creates n number of emoji at every 300ms at random x,y pos on screen
-     * 
+     *
      * @param {Int} n number of emoji to spam
      * @param {Int} i index of the emoji
      */
@@ -78,7 +78,7 @@ class Fun {
 
     /**
      * creates an emoji on screen at given x,y coords
-     * 
+     *
      * @param {Int} x coord on screen
      * @param {Int} y coord on screen
      * @param {Int} i index of emoji, defaults to a random choice

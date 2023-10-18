@@ -76,7 +76,7 @@ begin
     select ($1 >> 1) & 1 = 1 into a;
     select $1 & 1 = 1 into rh;
     return concat(
-        case 
+        case
             when a and b then 'AB'
             when a then 'A'
             when b then 'B'
@@ -88,13 +88,13 @@ end;
 $$;
 
 create or replace view data as
-select 
-    ddate as date, 
+select
+    ddate as date,
     cli.id as clinic_id,
     cli.cname as clinic,
     u.id as user_id,
-    fnames, 
-    lnames, 
+    fnames,
+    lnames,
     is_admin(flags),
     sex(flags),
     blood_type(flags),

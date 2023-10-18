@@ -100,9 +100,9 @@ def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
 
         for name, x, y in db.session.execute(text(f"""
             with cte as (
-                select 
-                    __CRIT__, 
-                    date, 
+                select
+                    __CRIT__,
+                    date,
                     count(*)
                 from data
                 {"where user_id = " + str(user_id) if user_id else ""}

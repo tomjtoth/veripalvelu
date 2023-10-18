@@ -55,7 +55,7 @@ def register(username: str, password: str, firstnames: str, lastnames: str, flag
     hash_value = generate_password_hash(password)
     try:
         db.session.execute(text("""
-        INSERT INTO users(uname, passw, fnames, lnames, flags) 
+        INSERT INTO users(uname, passw, fnames, lnames, flags)
         VALUES (:un,:pw,:fn,:ln,:flags)
         """), {
             "un": username,
