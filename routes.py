@@ -105,7 +105,7 @@ def login():
 def logout():
     """handles logging the user out
     """
-    del session["user"]
+    users.logout()
     return redirect("/")
 
 

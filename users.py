@@ -44,7 +44,9 @@ def logout():
     """simply deletes session["user"]
     """
 
-    del session["user"]
+    # when opening from 2 browser tabs, logging out from 1, the other still has the logout button...
+    if session.get("user"):
+        del session["user"]
 
 
 def register(username: str, password: str, firstnames: str, lastnames: str, flags: int) -> bool:
