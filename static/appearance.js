@@ -83,11 +83,11 @@ class Appearance {
 
             this._heart.addEventListener('click', _ => {
                 if (this._heart.__count) {
-                    alert(`There are ${this._heart.__count} donations registered`);
+                    alert(`On ${this._heart.__count} luovutusta rekisteröity`);
                 }
 
                 else {
-                    alert('With each heartbeat I read how many donations are registered!');
+                    alert('Jokaisella sykkeellä luen montako luovutus on rekisteröity!');
                     // initial heartbeat
                     this.heartbeat();
                 }
@@ -101,7 +101,7 @@ class Appearance {
             // at the end of the pulse animation query the server again
             if (target.id == 'heart') {
                 this._heart.classList.remove('beating');
-                this._heart.title = 'REST API 4 the win!';
+                this._heart.title = 'REST API ftw!';
                 this.heartbeat();
             }
         });
