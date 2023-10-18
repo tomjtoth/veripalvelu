@@ -3,6 +3,7 @@
 
 from random import choices, randint
 import threading
+from textwrap import dedent
 from sqlalchemy.sql import text
 from db import db
 from app import app, generate_random_data
@@ -50,7 +51,8 @@ with app.app_context():
 
                 f"('{x.strip()}')"
 
-                for x in """
+                for x in dedent(
+                    """\
                     alkoholiton kalja
                     kokis
                     energiajuoma
@@ -62,8 +64,8 @@ with app.app_context():
                     makea pulla
                     kalkkunasämpylä
                     kanasämpylä
-                    Marionetti karkki
-                """.splitlines() if x.strip() != ""
+                    Marionetti karkki"""
+                ).splitlines()
             ])
         ))
         db.session.commit()

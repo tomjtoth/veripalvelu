@@ -1,6 +1,7 @@
 """Clinics related functionalities
 """
 
+from textwrap import dedent
 from sqlalchemy.sql import text
 from app import app
 from db import db
@@ -23,7 +24,8 @@ with app.app_context():
 
                 f"('{x.strip()}')"
 
-                for x in """
+                for x in dedent(
+                    """\
                     Espoo, Iso Omena
                     Helsinki, Kivihaka
                     Helsinki, Sanomatalo
@@ -33,7 +35,7 @@ with app.app_context():
                     Oulu
                     Seinäjoki
                     Tampere
-                    Turku
-                """.splitlines() if x.strip() != ""
+                    Turku"""
+                ).splitlines()
             ])))
         db.session.commit()
