@@ -34,7 +34,7 @@ def valid_date(date_text: str) -> bool:
 
 
 def before_request():
-    """WiP - this was supposed to redirect HTTP -> HTTPS on my VPS
+    """WiP - this was supposed to redirect HTTP -> HTTPS in production
     """
     if force_https and not request.is_secure:
         return redirect(
@@ -128,7 +128,7 @@ def root():
 
 @app.route('/donate', methods=["GET", "POST"])
 def donate():
-    """handles registering donation
+    """handles registering a donation
     """
     if not session.get('user'):
         return redirect('/login')
@@ -171,7 +171,7 @@ def donate():
 
 @app.route('/comments')
 def comments():
-    """GET /comments/
+    """rendering all comments
     """
     return render_template('comments.html', comments=donations.get_all_comments())
 

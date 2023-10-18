@@ -18,7 +18,7 @@
 body {
     background: var(--background);
     color: var(--color);
-    /* emojis flying outside sideways created created horizontal scrollbar */
+    /* emojis flying outside sideways created horizontal scrollbar */
     overflow-x: hidden;
     margin-bottom: 400px;
 }
