@@ -7,7 +7,7 @@ class Footer {
      *
      * @param {event} _ev
      */
-    static adjust_bottom_margin(_ev) {
+    static _adjust_bottom_margin(_ev) {
         const { height } = document.querySelector('body>footer').getBoundingClientRect();
         document.querySelector('body').style.marginBottom = height + 'px';
     }
@@ -15,7 +15,7 @@ class Footer {
     static {
 
         // initiate on both documentload AND resize
-        document.addEventListener('DOMContentLoaded', this.adjust_bottom_margin);
-        window.addEventListener('resize', this.adjust_bottom_margin);
+        document.addEventListener('DOMContentLoaded', this._adjust_bottom_margin);
+        window.addEventListener('resize', this._adjust_bottom_margin);
     }
 }
