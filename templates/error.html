@@ -6,6 +6,8 @@
 {% if retry %}
 <a href="{{ retry }}">Yritä uudelleen</a>
 {% endif %}
+{% endblock %}
+{% block script %}
 <script>
     Fun.spam(50, 0);
 </script>

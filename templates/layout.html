@@ -7,48 +7,49 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩸</text></svg>">
-    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="static/main.css">
+    <link rel="stylesheet" href="static/dark-mode.css">
+    <link rel="stylesheet" href="static/fun-mode.css">
+    <link rel="stylesheet" href="static/heartbeat.css">
+    <link rel="stylesheet" href="static/loader.css">
+    <link rel="stylesheet" href="static/navbar.css">
+    <script src="static/dark-mode.js"></script>
 </head>
 
 <body>
-    <div class="loader">
-        <div></div>
-    </div>
+    <script>
+        new DarkModeController();
+    </script>
+    <script src="static/loader.js"></script>
+
     <nav>
         <a href="/">Pääsivu</a>
         <a href="/comments">Kertomukset</a>
         {% if session.user %}
-        <a href="/donate">Rekisteröi luovutus</a>
-        <a class="auth" href="/logout">Kirjaudu ulos</a>
+            <a href="/donate">Rekisteröi luovutus</a>
+            <a class="auth" href="/logout">Kirjaudu ulos</a>
         {% else %}
-        <a class="auth" href="/register">Rekisteröi</a>
-        <a class="auth" href="/login">Kirjaudu sisään</a>
+            <a class="auth" href="/register">Rekisteröi</a>
+            <a class="auth" href="/login">Kirjaudu sisään</a>
         {% endif %}
-        <a class="auth" title="toggle between fun/lame mode">
-            🥳
-            <sub hidden></sub>
-        </a>
-        <a class="auth" title="toggle between dark/light mode">🌗</a>
     </nav>
-
-    <!--
-        the below 2 <script> tags are ordered here because:
-        - dark mode would not be set before plotly charts' load is done in index.html
-            - resulting in several hundreds of ms of non-dark color theme
-        - cannot move to header, as both of these reference the above <nav> tag
-        - appearance.js also uses `class Fun` from fun.js
-    -->
-    <script src="static/fun.js"></script>
-    <script src="static/appearance.js"></script>
-
+    <script src="static/navbar.js"></script>
     <h1>Verenluovutus-sovellus</h1>
-    <hr>
     {% block body %}{% endblock %}
     <footer>
-        <div id="heart" title="de-fibrillate if STOPPED!!!">❤️</div>
+        <div id="btn-heart" title="de-fibrillate if STOPPED!!!">❤️</div>
+        <div id="btn-fun">
+            🥳
+            <sub hidden></sub>
+        </div>
+        <div id="btn-dark">🌗</div>
     </footer>
-    <script src="static/footer.js"></script>
 </body>
+
+<script src="static/footer.js"></script>
+<script src="static/fun-mode.js"></script>
+<script src="static/heartbeat.js"></script>
+{% block script %}{% endblock %}
 
 
 </html>

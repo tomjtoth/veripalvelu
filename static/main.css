@@ -1,0 +1,63 @@
+:root {
+    --background: white;
+    --color: black;
+    --loader-bg: #ccc8;
+    --loader-border: #ddd;
+    --loader-border-top: #3498db;
+    --delay: 150ms;
+}
+
+body {
+    background: var(--background);
+    color: var(--color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+body>footer {
+    position: fixed;
+    top: calc(90vh);
+    /* otherwise would be transparent */
+    /*background: var(--background);
+    color: var(--color);*/
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    background: var(--color);
+    border-radius: 50%;
+    padding: 2vh 70px 15vh;
+    box-shadow:
+        0 0 10px var(--color),
+        0 0 15px var(--color),
+        0 0 20px var(--color),
+        0 0 25px var(--color),
+        0 0 30px var(--color),
+        0 0 35px var(--color),
+        0 0 40px var(--color),
+        0 0 45px var(--color),
+        0 0 50px var(--color);
+}
+
+body>footer>div {
+    transition: 200ms;
+    cursor: pointer;
+    user-select: none;
+    font-size: xx-large;
+}
+
+form.flex,
+div#comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+div#comments {
+    width: 50vw;
+    min-width: 20vw;
+}

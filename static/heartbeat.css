@@ -1,0 +1,38 @@
+#btn-heart:hover,
+#btn-heart.active {
+    text-shadow:
+        0 0 5px red,
+        0 0 10px red,
+        0 0 15px red,
+        0 0 20px red;
+}
+
+#btn-heart.beating {
+    animation: heartbeat 1s;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(1.5);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+
+    60% {
+        transform: scale(1.5);
+    }
+
+    80% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

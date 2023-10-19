@@ -3,41 +3,48 @@
  */
 class Fun {
 
-    static _emojis = [...'🤡🎉🎈🥳🎪🤹🎁🍭🤹🥳🎊'];
-
     static status = localStorage.getItem('fun-mode') === 'true';
 
-    static _counter = document.querySelector('a[title*="fun"]>sub');
+    static _emojis = [...'🤡🎉🎈🥳🎪🤹🎁🍭🤹🥳🎊'];
+    static _btn = document.querySelector('div#btn-fun');
+    static _counter = document.querySelector('div#btn-fun>sub');
 
     /**
      * toggles FUN mode
      */
     static toggle() {
         this.status = !this.status;
-        localStorage.setItem('fun-mode', this.status);
+        this._set(true);
     }
 
-    /**
-     * remove div.fun from the DOM tree after animation ends
-     *
-     * @param {HTMLElement} ev_target
-     * @returns boolean, true if this was actually a Fun related div, else false
-     */
-    static rm_div(target) {
-        if (target.classList.contains('fun')) {
-            document.body.removeChild(target);
-            return true;
+    static _set(store_locally = false) {
+
+        if (this.status) {
+            this._btn.classList.add('active');
+        } else {
+            this._btn.classList.remove('active');
         }
-        return false;
+        if (store_locally) localStorage.setItem('fun-mode', this.status);
+
     };
 
     static {
 
-        // create div.fun at click pos
-        document.addEventListener('click', ({ pageX, pageY }) => {
-            if (this.status) new this(pageX, pageY);
+        this._set();
+
+        document.addEventListener('click', ({ pageX, pageY, target: { id, classList } }) => {
+
+            if (id === 'btn-fun') this.toggle(classList);
+
+            // OR create div.fun at click pos
+            else if (this.status) new this(pageX, pageY);
         });
 
+        document.addEventListener('animationend', ({ target }) => {
+            if (target.classList.contains('fun')) {
+                document.body.removeChild(target);
+            }
+        });
     }
 
     /**
@@ -88,11 +95,11 @@ class Fun {
         const div = document.createElement('div');
         div.classList.add('fun');
         div.textContent = i >= 0
+            // must reference `Fun` statically instead of `this` == this instance of Fun() 
             ? Fun._emojis[i]
             : Fun._rand();
         div.style.left = x + 'px';
         div.style.top = y + 'px';
         document.body.appendChild(div);
-
     }
 }

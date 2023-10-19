@@ -1,0 +1,41 @@
+body {
+    /* navbar on top had a gap */
+    margin: 0;
+}
+
+nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    background: gray;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    width: 100%;
+}
+
+nav>a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--delay);
+}
+
+nav>a:hover:not(.active) {
+    background: #183c61;
+    box-shadow: 0 0 20px #183c61;
+}
+
+nav>a.active {
+    background: purple;
+    box-shadow: 0 0 20px purple;
+}
+
+nav>a.auth {
+    float: right;
+}

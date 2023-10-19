@@ -1,0 +1,92 @@
+body {
+    /* emojis flying outside sideways created horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+div.fun {
+    position: absolute;
+    z-index: 2;
+    animation: fun 2s linear;
+    user-select: none;
+}
+
+div#btn-fun>sub {
+    font-size: xx-small;
+    color: var(--background);
+}
+
+span.easter-egg {
+    user-select: none;
+    cursor: pointer;
+    transition: var(--delay);
+}
+
+span.easter-egg:hover {
+    text-shadow:
+        0 0 2px var(--color),
+        0 0 1em red,
+        0 0 0.2em red;
+}
+
+div#btn-fun:hover,
+div#btn-fun.active {
+    text-shadow:
+        0 0 5px orange,
+        0 0 10px orange,
+        0 0 15px orange,
+        0 0 40px purple,
+        0 0 50px purple;
+}
+
+div#btn-fun.active {
+    animation: shake 2s infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: rotate(0.0deg)
+    }
+
+    10% {
+        transform: rotate(14.0deg)
+    }
+
+    20% {
+        transform: rotate(-8.0deg)
+    }
+
+    30% {
+        transform: rotate(14.0deg)
+    }
+
+    40% {
+        transform: rotate(-4.0deg)
+    }
+
+    50% {
+        transform: rotate(10.0deg)
+    }
+
+    60% {
+        transform: rotate(0.0deg)
+    }
+
+    100% {
+        transform: rotate(0.0deg)
+    }
+}
+
+
+@keyframes fun {
+    0% {
+        transform:
+            scale(1) translateX(-50%) translateY(-50%) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            scale(50) translateX(50%) translateY(50%) rotate(360deg);
+        opacity: 0;
+    }
+}
