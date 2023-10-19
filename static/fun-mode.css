@@ -12,7 +12,7 @@ div.fun {
 
 div#btn-fun>sub {
     font-size: xx-small;
-    color: var(--background);
+    color: var(--color);
 }
 
 span.easter-egg {

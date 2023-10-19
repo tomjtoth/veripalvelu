@@ -8,7 +8,7 @@ class Footer {
      * @param {event} _ev
      */
     static _adjust_bottom_margin(_ev) {
-        const { height } = document.querySelector('body>footer').getBoundingClientRect();
+        const { height } = document.querySelector('body footer').getBoundingClientRect();
         document.querySelector('body').style.marginBottom = height + 'px';
     }
 

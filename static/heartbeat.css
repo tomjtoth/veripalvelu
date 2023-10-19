@@ -3,8 +3,12 @@
     text-shadow:
         0 0 5px red,
         0 0 10px red,
-        0 0 15px red,
         0 0 20px red;
+}
+
+div#btn-heart>sub {
+    font-size: xx-small;
+    color: var(--color);
 }
 
 #btn-heart.beating {

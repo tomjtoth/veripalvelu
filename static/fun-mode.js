@@ -32,11 +32,9 @@ class Fun {
 
         this._set();
 
-        document.addEventListener('click', ({ pageX, pageY, target: { id, classList } }) => {
+        document.addEventListener('click', ({ pageX, pageY, target: { id } }) => {
 
-            if (id === 'btn-fun') this.toggle(classList);
-
-            // OR create div.fun at click pos
+            if (id === 'btn-fun') this.toggle();
             else if (this.status) new this(pageX, pageY);
         });
 

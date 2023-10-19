@@ -6,6 +6,12 @@ Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/
 
 Tässä saavutukset tuoreimmista vanhempiin:
 
+- front-end hiottu suht valmiiksi
+- REST API:n hyödyntäen sydän kyselee palvelimelta montako luovutusta on rekisteröity
+    - toisesta selaimesta kantsii rekisteröidä uusia, niin alkuperäisen ikkunan laskuri muuntuu
+    - en oo testannut mitä jos vastaus ei ikinä saavu takas, sehän on olennainen osa syklistä
+- dark-mode nappi animoitu
+- fun-mode nappi sykkii kun aktiivinen
 - `main.sh` hoitaa asennuksen
 - luovutuksen prosessointi revisioitu
 - pylint otettu käyttöön

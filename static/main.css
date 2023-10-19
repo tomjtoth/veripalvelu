@@ -4,49 +4,51 @@
     --loader-bg: #ccc8;
     --loader-border: #ddd;
     --loader-border-top: #3498db;
-    --delay: 150ms;
+    --delay: 300ms;
+    --rot: 90deg;
 }
 
 body {
     background: var(--background);
     color: var(--color);
+}
+
+div.main-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    margin: 10px;
 }
 
-body>footer {
+body footer {
     position: fixed;
-    top: calc(90vh);
+    bottom: 10px;
     /* otherwise would be transparent */
     /*background: var(--background);
     color: var(--color);*/
-    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
 
-    background: var(--color);
+    border: 5px solid red;
+
+    box-shadow: 0 0 10px red,
+        inset 0 0 10px red;
+    padding: 10px 30px;
     border-radius: 50%;
-    padding: 2vh 70px 15vh;
-    box-shadow:
-        0 0 10px var(--color),
-        0 0 15px var(--color),
-        0 0 20px var(--color),
-        0 0 25px var(--color),
-        0 0 30px var(--color),
-        0 0 35px var(--color),
-        0 0 40px var(--color),
-        0 0 45px var(--color),
-        0 0 50px var(--color);
+    background: var(--background);
 }
 
-body>footer>div {
-    transition: 200ms;
+body footer>div {
+    transition: var(--delay);
     cursor: pointer;
     user-select: none;
     font-size: xx-large;
+}
+
+body footer>div:hover {
+    scale: 1.25;
 }
 
 form.flex,
@@ -60,4 +62,8 @@ div#comments {
 div#comments {
     width: 50vw;
     min-width: 20vw;
+}
+
+div.chart {
+    width: 100%;
 }

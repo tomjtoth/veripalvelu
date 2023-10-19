@@ -4,6 +4,12 @@
     --loader-bg: #2228;
     --loader-border: #343434;
     --loader-border-top: #0b2232;
+    --rot: 270deg;
+}
+
+div#btn-dark {
+    transform-origin: center;
+    transform: rotate(var(--rot));
 }
 
 div#btn-dark:hover,
