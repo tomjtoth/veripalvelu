@@ -11,7 +11,7 @@ from app import app, generate_random_data
 from chart_gen import ser_data_gen_conf
 
 
-def get_all() -> list:
+def get_ids_names() -> list:
     """fetches all consumables along with their ids
 
     Returns:

@@ -138,7 +138,7 @@ def donate():
             'donation.html',
             clinics=clinics.get_names(),
             today=date.today(),
-            consumables=consumables.get_all()
+            consumables=consumables.get_ids_names()
         )
 
     # we don't even have a session yet

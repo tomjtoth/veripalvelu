@@ -42,7 +42,7 @@ def register(donation_date: str, clinic_id: int, cons: list[int], comment: str):
 
         consumables_sql = []
 
-        for cons_id, cons_qty in zip([x[0] for x in consumables.get_all()], cons):
+        for cons_id, cons_qty in zip([x[0] for x in consumables.get_ids_names()], cons):
             if cons_qty > 0:
                 consumables_sql.append(f"({donation_id},{cons_id},{cons_qty})")
 
