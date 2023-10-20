@@ -8,6 +8,7 @@ class Fun {
     static _emojis = [...'🤡🎉🎈🥳🎪🤹🎁🍭🤹🥳🎊'];
     static _btn = document.querySelector('div#btn-fun');
     static _counter = document.querySelector('div#btn-fun>sub');
+    static _canvas = document.createElement('div');
 
     /**
      * toggles FUN mode
@@ -30,6 +31,9 @@ class Fun {
 
     static {
 
+        this._canvas.classList.add('fun-canvas');
+        document.body.appendChild(this._canvas);
+
         this._set();
 
         document.addEventListener('click', ({ pageX, pageY, target: { id } }) => {
@@ -40,7 +44,7 @@ class Fun {
 
         document.addEventListener('animationend', ({ target }) => {
             if (target.classList.contains('fun')) {
-                document.body.removeChild(target);
+                this._canvas.removeChild(target);
             }
         });
     }
@@ -97,7 +101,7 @@ class Fun {
             ? Fun._emojis[i]
             : Fun._rand();
         div.style.left = x + 'px';
-        div.style.top = y + 'px';
-        document.body.appendChild(div);
+        div.style.top = y - window.scrollY + 'px';
+        Fun._canvas.appendChild(div);
     }
 }
