@@ -10,6 +10,10 @@ Tässä saavutukset tuoreimmista vanhempiin:
 - REST API:n hyödyntäen sydän kyselee palvelimelta montako luovutusta on rekisteröity
     - toisesta selaimesta kantsii rekisteröidä uusia, niin alkuperäisen ikkunan laskuri muuntuu
     - en oo testannut mitä jos vastaus ei ikinä saavu takas, sehän on olennainen osa syklistä
+    - sydän menee fibrillating tilaan jos fetch kestää yli `x` ms, voit triggeröidä alla tavoilla:
+        - jos palvelin pyörii paikallisesti, sammuta se
+        - jos kokeilet tuotannon palvelimen, katkaise nettiyhteys
+        - kun sydän fibrilloi, siitä klikkaen voi elvyttää (käynnistää uuden query:n ja timer:in)
 - dark-mode nappi animoitu
 - fun-mode nappi sykkii kun aktiivinen
 - `main.sh` hoitaa asennuksen

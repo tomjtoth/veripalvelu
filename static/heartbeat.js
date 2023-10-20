@@ -8,13 +8,34 @@ class Heartbeat {
      * then pulse *ONCE*
      */
     static heartbeat() {
-        fetch('/api/heartbeat').then(r => r.json()).then(count => {
-            if (this.status) {
-                this._counter.textContent = count;
-                this._btn.classList.add('beating');
-                this._counter.removeAttribute('hidden');
-            }
-        });
+        Promise.race([
+
+            // query server
+            fetch('/api/heartbeat'),
+
+            // start a timer that rejects when expired
+            new Promise((_resolve, reject) => setTimeout((reject) => {
+                reject();
+            }, 300, reject))
+        ])
+
+            // response from server arrived 1st
+            .then(r => r.json()).then(count => {
+                if (this.status) {
+                    this._counter.textContent = count;
+                    this._btn.classList.add('beating');
+                    this._counter.removeAttribute('hidden');
+                }
+            })
+
+            // response took longer than 300ms
+            .catch(_ => {
+                if (this.status) {
+                    this._counter.textContent = '⚡⚡ FIBRILLATING ⚡⚡';
+                    this._btn.classList.add('fibrillating');
+                    this._counter.removeAttribute('hidden');
+                }
+            });
     }
 
     static _set(store_locally = false) {
@@ -31,8 +52,14 @@ class Heartbeat {
     };
 
     static toggle() {
-        this.status = !this.status;
-        this._set(true);
+        if (this._btn.classList.contains('fibrillating')) {
+            this._btn.classList.remove('fibrillating');
+            this._counter.setAttribute('hidden', 'hidden');
+            this.heartbeat();
+        } else {
+            this.status = !this.status;
+            this._set(true);
+        }
     }
 
     static {
