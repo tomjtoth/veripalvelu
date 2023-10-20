@@ -20,11 +20,10 @@ class Fun {
 
     static _set(store_locally = false) {
 
-        if (this.status) {
-            this._btn.classList.add('active');
-        } else {
-            this._btn.classList.remove('active');
-        }
+        this._btn.classList[this.status
+            ? 'add'
+            : 'remove'
+        ]('active');
         if (store_locally) localStorage.setItem('fun-mode', this.status);
 
     };
