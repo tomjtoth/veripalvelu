@@ -21,35 +21,6 @@ div.main-content {
     margin: 10px;
 }
 
-body footer {
-    position: fixed;
-    bottom: 10px;
-    /* otherwise would be transparent */
-    /*background: var(--background);
-    color: var(--color);*/
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    border: 5px solid red;
-
-    box-shadow: 0 0 10px red,
-        inset 0 0 10px red;
-    padding: 10px 30px;
-    border-radius: 50%;
-    background: var(--background);
-}
-
-body footer>div {
-    transition: var(--delay);
-    cursor: pointer;
-    user-select: none;
-    font-size: xx-large;
-}
-
-body footer>div:hover {
-    scale: 1.25;
-}
 
 form.flex,
 div#comments {
