@@ -1,15 +1,10 @@
-body footer {
+div.main-content>footer {
     position: fixed;
     bottom: 5vh;
-    /* otherwise would be transparent */
-    /*background: var(--background);
-    color: var(--color);*/
     display: flex;
     align-items: center;
     gap: 20px;
-
     border: 3px solid red;
-
     box-shadow: 0 0 15px red,
         inset 0 0 5px red;
     padding: 10px 30px;
@@ -17,14 +12,13 @@ body footer {
     background: radial-gradient(var(--background), red);
 }
 
-body footer>div {
+div.main-content>footer>div {
     transition: var(--delay);
     cursor: pointer;
     user-select: none;
     font-size: xx-large;
 }
 
-body footer>div:hover {
+div.main-content>footer>div:hover {
     scale: 1.25;
-    transform: translate(0 -10);
 }
