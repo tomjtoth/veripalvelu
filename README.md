@@ -6,6 +6,7 @@ Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/
 
 Tässä saavutukset tuoreimmista vanhempiin:
 
+- consumption annettu takaisin sekä tauluna, että kaavioina
 - front-end hiottu suht valmiiksi
 - REST API:n hyödyntäen sydän kyselee palvelimelta montako luovutusta on rekisteröity
     - toisesta selaimesta kantsii rekisteröidä uusia, niin alkuperäisen ikkunan laskuri muuntuu

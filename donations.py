@@ -1,18 +1,17 @@
 """### Manages donation-related functionalities
 """
 
-from datetime import date, timedelta
-import json
+from datetime import date
 import time
 import threading
 from random import random, choice, choices, shuffle
 from flask import session
 from sqlalchemy.sql import text
-import plotly
 import plotly.graph_objs as go
 from psycopg2 import OperationalError
 from db import db
 from app import app, generate_random_data
+from chart_gen import ser_data_gen_conf
 
 
 def register(donation_date: str, clinic_id: int, cons: list[int], comment: str):
@@ -70,7 +69,7 @@ def register(donation_date: str, clinic_id: int, cons: list[int], comment: str):
     return True
 
 
-def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
+def plot(user_id: int = None, crit: str = "clinic") -> dict[str, str]:
     """gets data and config for plotly charts
 
     Args:
@@ -78,7 +77,7 @@ def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
         crit (str): filtering criterium. Defaults to "clinic".
 
     Returns:
-        (str, str): a tuple of `data` + `conf` in JSON serialized form that's jinja compatible
+        dict[str, str]: a tuple of `data` + `conf` in JSON serialized form that's jinja compatible
         or None: in case there's no data
     """
 
@@ -88,7 +87,7 @@ def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
         'sex': 'Sukupuolten'
     }
 
-    data = [
+    data = ser_data_gen_conf([
 
         go.Bar(
             name=name,
@@ -98,14 +97,15 @@ def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
             showlegend=True
         )
 
-        for name, x, y in db.session.execute(text(f"""
+        for name, x, y in db.session.execute(text(
+            f"""
             with cte as (
                 select
                     __CRIT__,
                     date,
                     count(*)
                 from data
-                {"where user_id = " + str(user_id) if user_id else ""}
+                {"where user_id = " + str(user_id) if user_id else None}
                 group by __CRIT__, date
                 order by __CRIT__
             )
@@ -118,33 +118,13 @@ def plot(user_id: int = None, crit: str = "clinic") -> (str, str):
             order by __CRIT__;
             """.replace("__CRIT__", crit)
         )).fetchall()
-    ]
+    ], f"{translation[crit]} perusteella")
 
-    return {
-        'name': crit,
+    if data:
+        data["name"] = crit
+        return data
 
-        'data': json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder),
-
-        'conf': json.dumps({
-            'barmode': "relative",
-            'scrollZoom': True,
-            'xaxis': {
-                'range': [
-                    date.today() - timedelta(weeks=4*3),
-                    # today's donations were only visible half-width :D
-                    date.today() + timedelta(days=1)
-                ],
-                'title': "päivämäärä"
-            },
-            'yaxis': {'title': "luovutukset"},
-            'title': f"{translation[crit]} perusteella",
-            'font': {
-                'color': 'red'
-            },
-            'plot_bgcolor': 'transparent',
-            'paper_bgcolor': 'transparent',
-        }, cls=plotly.utils.PlotlyJSONEncoder)
-    } if len(data) > 0 else None
+    return None
 
 
 def rand_date(start_date: str = "2000-01-01") -> str:

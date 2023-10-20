@@ -109,3 +109,14 @@ left join comments com on com.donation_id  = d.id
 --group by d.id, cli.id, cli.cname, u.id, fnames, lnames, flags, com.comment
 order by ddate desc
 ;
+
+create or replace view raw_consumption as
+select
+    user_id,
+    ddate,
+    c2.consumable,
+    consumed_qty
+from consumption c
+inner join consumables c2 on c.consumable_id = c2.id
+inner join donations d on d.id = c.donation_id
+;

@@ -176,6 +176,27 @@ def comments():
     return render_template('comments.html', comments=donations.get_all_comments())
 
 
+@app.route("/consumption")
+def consumption():
+    """gets statistics on how many/much consumables were consumed
+    """
+    return render_template(
+        "consumption.html",
+        plots=[
+            consumables.plot(session["user"]) if session.get("user") else None,
+            consumables.plot(),
+        ],
+        tables=[
+            consumables.total_consumed(session["user"])
+            if session.get("user")
+            else None,
+
+            # for everyone
+            consumables.total_consumed()
+        ]
+    )
+
+
 @app.route('/api/heartbeat')
 def heartbeat():
     """retrieving number of registered donations via REST API (?)

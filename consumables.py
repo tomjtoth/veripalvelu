@@ -5,8 +5,10 @@ from random import choices, randint
 import threading
 from textwrap import dedent
 from sqlalchemy.sql import text
+import plotly.graph_objs as go
 from db import db
 from app import app, generate_random_data
+from chart_gen import ser_data_gen_conf
 
 
 def get_all() -> list:
@@ -16,6 +18,87 @@ def get_all() -> list:
         list: tuples of (id, name)
     """
     return db.session.execute(text("SELECT id, consumable FROM consumables")).fetchall()
+
+
+def plot(user=None) -> dict[str, str]:
+    """fetches statistics on overall consumption
+
+    Args:
+        user(session variable): should this query be filtered to session["user"]? Defaults to None.
+
+    Returns:
+        dict[str, str]: containing consumable names and quantites
+    """
+
+    data = ser_data_gen_conf([
+
+        go.Bar(
+            name=name,
+            x=x,
+            y=y,
+            hoverinfo="x+name+y",
+            showlegend=True
+        )
+
+        for name, x, y in db.session.execute(text(
+            f"""
+            with cte as (
+                select
+                    consumable,
+                    ddate as date,
+                    sum(consumed_qty) as ss
+                from raw_consumption
+                {"where user_id = :uid" if user else None}
+                group by consumable, date
+                order by consumable
+            )
+            select
+                consumable,
+                json_agg(date),
+                json_agg(ss)
+            from cte
+            group by consumable
+            order by consumable;
+            """
+        ), {
+            'uid': user["id"] if user else None
+        }).fetchall()
+    ], "Yhteensä järjestelmässä", "Annokset")
+
+    if data:
+        data["name"] = "omat" if user else "kaikkien"
+        return data
+
+    return None
+
+
+def total_consumed(user=None) -> list[tuple]:
+    """fetch a basic summary of either user/all consumed consumables
+
+    Args:
+        user (session variable): only the current user? Defaults to None.
+
+    Returns:
+        list[tuple]: each tuple consists of a number and name of consumable
+    """
+    return [
+
+        x[0:2] for x in
+
+        db.session.execute(text(
+            f"""
+                select
+                    sum(consumed_qty) as ss,
+                    consumable
+                from raw_consumption
+                {'where user_id = :uid' if user else None}
+                group by consumable
+                order by ss desc;
+            """
+        ), {
+            'uid': user["id"] if user else user
+        }).fetchall()
+    ]
 
 
 def consumption_faker(
