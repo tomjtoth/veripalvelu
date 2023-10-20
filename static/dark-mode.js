@@ -1,31 +1,34 @@
 class DarkModeController {
 
-    _set(store_locally = false) {
+    static status = localStorage.getItem('dark-mode') === 'true';
 
-        document.documentElement.setAttribute(this.prop, this.status);
-        if (store_locally) localStorage.setItem(this.prop, this.status);
+    static _set(classList = null, store_locally = false) {
 
+        document.documentElement.setAttribute('dark-mode', this.status);
+        if (store_locally) localStorage.setItem('dark-mode', this.status);
+
+        if (classList) {
+            classList[this.status ? 'add' : 'remove']('active');
+        }
     };
 
-    constructor(doc_property = 'dark-mode', button_id = 'btn-dark') {
+    static toggle(classList = null, store_locally = false) {
+        this.status = !this.status;
+        this._set(classList, store_locally);
+    }
 
-        this.status = localStorage.getItem(doc_property) === 'true';
-        this.prop = doc_property;
-
+    static {
         this._set();
 
         document.addEventListener('click', ({ target: { id, classList } }) => {
 
-            if (id !== button_id) return;
+            if (id !== 'btn-dark') return;
 
-            this.status = !this.status;
-            if (this.status) {
-                classList.add('active');
-            } else {
-                classList.remove('active');
-            }
+            this.toggle(classList, true);
+        });
 
-            this._set(true);
+        document.addEventListener('DOMContentLoaded', _ => {
+            this._set(document.querySelector('div#btn-dark').classList, true);
         });
     }
 
