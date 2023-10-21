@@ -4,46 +4,155 @@
 class Fun {
 
     static status = localStorage.getItem('fun-mode') === 'true';
-
     static _emojis = [...'🤡🎉🎈🥳🎪🤹🎁🍭🤹🥳🎊'];
+
+    static _main_content = document.querySelector('div.main-content');
     static _btn = document.querySelector('div#btn-fun');
+    static _snd = {
+        on: new Audio('static/sounds/party-whistle.mp3'),
+        off: new Audio('static/sounds/record-scratch-with-download-link-from-youtube.mp3')
+    };
     static _counter = document.querySelector('div#btn-fun>sub');
-    static _canvas = document.createElement('div');
 
     /**
      * toggles FUN mode
      */
-    static toggle() {
+    static toggle(silent = false) {
         this.status = !this.status;
+        if (!silent) {
+            if (this.status) {
+                this._snd.on.play();
+            } else {
+                this._snd.on.pause();
+                this._snd.on.currentTime = 0;
+                this._snd.off.play();
+            }
+        }
         this._set(true);
     }
 
     static _set(store_locally = false) {
-
-        this._btn.classList[this.status
-            ? 'add'
-            : 'remove'
-        ]('active');
+        this._btn.classList[this.status ? 'add' : 'remove']('active');
         if (store_locally) localStorage.setItem('fun-mode', this.status);
-
     };
 
+    static _canvas = document.createElement('div');
+
+    static rick = {
+        snd: new Audio('static/sounds/Rick Roll Sound Effect.mp3'),
+        img: document.createElement('img'),
+        rolling: false,
+        roll: function () {
+
+            // reject multiple overlapping calls
+            if (this.rolling) return;
+
+            this.rolling = true;
+
+            // make sure the user actually wants to navigate away :)
+            window.onbeforeunload = () => true;
+
+            this.snd.onplay = () => {
+                this.img.classList.add('gliding');
+            };
+
+            setTimeout(_ => {
+                this.snd.pause();
+                this.snd.currentTime = 0;
+                Fun._snd.off.play();
+                this.rolling = false;
+            }, 8.5 * 1000);
+
+            this.toggle_theme();
+
+            Fun.status = true;
+            Fun._set();
+            Fun.spam(30, 0);
+            Heartbeat.fibrillate();
+            this.snd.play();
+
+            LoaderController.unhide()
+        },
+        toggle_theme: function () {
+            setTimeout(_ => {
+
+                if (!this.rolling) return;
+
+                DarkModeController.toggle(false, true);
+                this.toggle_theme();
+
+            }, 1000);
+        }
+    }
+
+
+    };
+    };
+
+    static trap = {
+        snd: new Audio('static/sounds/itsatrap.mp3'),
+        img: document.createElement('img'),
+        activate: function () {
+            Fun._play_snd_show_img(this);
+        }
+    };
+
+    static _play_snd_show_img(obj) {
+        obj.snd.onplay = () => {
+            obj.img.style.visibility = 'visible';
+        };
+
+        obj.snd.onended = () => {
+            obj.img.style.visibility = 'hidden';
+        };
+
+        obj.snd.play();
+    }
+
     static {
+        this._snd.on.volume = 0.2;
+        this._snd.off.volume = 0.2;
+
+        this.rick.img.classList.add('rick');
+        this.rick.img.src = 'https://media.tenor.com/CHc0B6gKHqUAAAAi/deadserver.gif';
+        this._main_content.appendChild(this.rick.img);
+
+        this.trap.img.classList.add('flash-center');
+        this.trap.img.src = 'https://media1.giphy.com/media/l3fZXnX7OsHuj9zDq/giphy.gif?cid=ecf05e472fzn8uauk1pbx062s2udx865bhtfm9irc61bzzug&ep=v1_gifs_search&rid=giphy.gif&ct=g';
+        this._main_content.appendChild(this.trap.img);
+
 
         this._canvas.classList.add('fun-canvas');
         document.body.appendChild(this._canvas);
 
         this._set();
 
-        document.addEventListener('click', ({ pageX, pageY, target: { id } }) => {
+        document.addEventListener('click', ({ pageX, pageY, target: { id, tagName, type } }) => {
 
-            if (id === 'btn-fun') this.toggle();
-            else if (this.status) new this(pageX, pageY);
+            if (this.status && type !== 'submit' && (
+                tagName === 'INPUT'
+                || tagName === 'TEXTAREA'
+                || tagName === 'SELECT'
+            )) {
+                this.trap.activate();
+            }
+
+            else if (id === 'btn-fun') {
+                this.toggle();
+            }
+            else if (this.status && (
+                id !== 'btn-dark'
+                && id !== 'btn-heart'
+            )) new this(pageX, pageY);
         });
 
         document.addEventListener('animationend', ({ target }) => {
             if (target.classList.contains('fun')) {
                 this._canvas.removeChild(target);
+            }
+            else if (target.classList.contains('rick')) {
+                this.rick.img.classList.remove('gliding');
+                LoaderController.hide();
             }
         });
     }

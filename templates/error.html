@@ -7,8 +7,15 @@
 <a href="{{ retry }}">Yritä uudelleen</a>
 {% endif %}
 {% endblock %}
+
 {% block script %}
 <script>
-    Fun.spam(50, 0);
+    document.addEventListener('click', (ev) => {
+        
+        if (ev.target.tagName !== 'A') return;
+
+        ev.preventDefault();
+        Fun.rick.roll();
+    });    
 </script>
 {% endblock %}

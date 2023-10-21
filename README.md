@@ -6,6 +6,7 @@ Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/
 
 Tässä saavutukset tuoreimmista vanhempiin:
 
+- äänitehosteet lisätty
 - consumption annettu takaisin sekä tauluna, että kaavioina
 - front-end hiottu suht valmiiksi
 - REST API:n hyödyntäen sydän kyselee palvelimelta montako luovutusta on rekisteröity
@@ -17,6 +18,8 @@ Tässä saavutukset tuoreimmista vanhempiin:
         - kun sydän fibrilloi, siitä klikkaen voi elvyttää (käynnistää uuden query:n ja timer:in)
 - dark-mode nappi animoitu
 - fun-mode nappi sykkii kun aktiivinen
+    - piirretään `z-index: -1;` kaikki emojit, jotta perus HTML elementit ois räplättävissä
+        - ainakin debian testingin firefox:ssa tuli glitchit, chromium näyttää OK:lta
 - `main.sh` hoitaa asennuksen
 - luovutuksen prosessointi revisioitu
 - pylint otettu käyttöön

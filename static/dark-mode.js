@@ -1,34 +1,46 @@
 class DarkModeController {
 
     static status = localStorage.getItem('dark-mode') === 'true';
+    static _btn = null;
 
-    static _set(classList = null, store_locally = false) {
+    static snd = {
+        light: new Audio('static/sounds/Alarm_Rooster_02.ogg'),
+        dark: new Audio('static/sounds/instaowl.mp3')
+    };
+
+    static _set(store_locally = false) {
 
         document.documentElement.setAttribute('dark-mode', this.status);
         if (store_locally) localStorage.setItem('dark-mode', this.status);
 
-        if (classList) {
-            classList[this.status ? 'add' : 'remove']('active');
+        if (this._btn) {
+            this._btn.classList[this.status ? 'add' : 'remove']('active');
         }
     };
 
-    static toggle(classList = null, store_locally = false) {
+    static toggle(store_locally = false, silent = false) {
         this.status = !this.status;
-        this._set(classList, store_locally);
+        if (!silent) {
+            this.snd[this.status ? 'dark' : 'light'].play();
+        }
+        this._set(store_locally);
     }
 
     static {
+        this.snd.light.volume = 0.2;
+        this.snd.dark.volume = 0.5;
         this._set();
 
         document.addEventListener('click', ({ target: { id, classList } }) => {
 
             if (id !== 'btn-dark') return;
 
-            this.toggle(classList, true);
+            this.toggle();
         });
 
         document.addEventListener('DOMContentLoaded', _ => {
-            this._set(document.querySelector('div#btn-dark').classList, true);
+            this._btn = document.querySelector('div#btn-dark');
+            this._set(true);
         });
     }
 

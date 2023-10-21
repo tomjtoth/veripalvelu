@@ -3,6 +3,7 @@ class Heartbeat {
     static status = localStorage.getItem('heartbeat') === 'true';
     static _btn = document.getElementById('btn-heart');
     static _counter = document.querySelector('div#btn-heart>sub');
+    static _snd = new Audio('static/sounds/electricity_us849kj.mp3');
     /**
      * query the server how many donations are registered
      * then pulse *ONCE*
@@ -21,6 +22,8 @@ class Heartbeat {
 
             // response from server arrived 1st
             .then(r => r.json()).then(count => {
+                if (Fun.rick.rolling) return;
+
                 if (this.status) {
                     this._counter.textContent = count;
                     this._btn.classList.add('beating');
@@ -31,11 +34,15 @@ class Heartbeat {
             // response took longer than 300ms
             .catch(_ => {
                 if (this.status) {
-                    this._counter.textContent = '⚡⚡ FIBRILLATING ⚡⚡';
-                    this._btn.classList.add('fibrillating');
-                    this._counter.removeAttribute('hidden');
+                    this.fibrillate();
                 }
             });
+    }
+
+    static fibrillate() {
+        this._counter.textContent = '⚡⚡ FIBRILLATING ⚡⚡';
+        this._btn.classList.add('fibrillating');
+        this._counter.removeAttribute('hidden');
     }
 
     static _set(store_locally = false) {
@@ -56,6 +63,7 @@ class Heartbeat {
             this._btn.classList.remove('fibrillating');
             this._counter.setAttribute('hidden', 'hidden');
             this.heartbeat();
+            this._snd.play();
         } else {
             this.status = !this.status;
             this._set(true);
@@ -63,6 +71,8 @@ class Heartbeat {
     }
 
     static {
+
+        this._snd.volume = 0.2;
 
         this._set();
 

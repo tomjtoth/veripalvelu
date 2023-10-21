@@ -95,3 +95,39 @@ div#btn-fun.active {
         opacity: 0;
     }
 }
+
+img.flash-center {
+    z-index: -2;
+    position: fixed;
+    visibility: hidden;
+    opacity: 0.5;
+}
+
+img.rick {
+    z-index: 0;
+    position: fixed;
+    left: 100vw;
+    bottom: 0;
+}
+
+img.rick.gliding {
+    animation: gliding 9s linear;
+}
+
+@keyframes gliding {
+    0% {
+        left: 100vw;
+    }
+
+    5% {
+        left: calc(50vw - 440px / 2);
+    }
+
+    95% {
+        left: calc(50vw - 440px / 2);
+    }
+
+    100% {
+        left: calc(0vw - 440px);
+    }
+}
