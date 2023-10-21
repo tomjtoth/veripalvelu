@@ -113,6 +113,6 @@ select
     c2.consumable,
     consumed_qty
 from donations d
-left join consumption c on d.id = c.donation_id
-left join consumables c2 on c.consumable_id = c2.id
+inner join consumption c on d.id = c.donation_id
+inner join consumables c2 on c.consumable_id = c2.id
 ;

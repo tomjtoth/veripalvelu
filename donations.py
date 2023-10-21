@@ -105,7 +105,7 @@ def plot(user_id: int = None, crit: str = "clinic") -> dict[str, str]:
                     date,
                     count(*)
                 from data
-                {"where user_id = " + str(user_id) if user_id else None}
+                {"where user_id = " + str(user_id) if user_id else ""}
                 group by __CRIT__, date
                 order by __CRIT__
             )

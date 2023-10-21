@@ -6,6 +6,7 @@ Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/
 
 Tässä saavutukset tuoreimmista vanhempiin:
 
+- (lähes) tyhjä kanta antaa järkeviä tekstejä kaavioiden sijaan
 - äänitehosteet lisätty
 - consumption annettu takaisin sekä tauluna, että kaavioina
 - front-end hiottu suht valmiiksi

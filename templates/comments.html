@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Kertomukset{% endblock %}
 {% block body %}
+{% if comments | length > 0 %}
 <div id="comments">
     {% for row in comments %}
     <br>
@@ -17,4 +18,8 @@
     </figure>
     {% endfor %}
 </div>
+{% else %}
+<p>Ei ole vielä kertomuksia järjestelmässä</p>
+{% endif %}
+
 {% endblock %}

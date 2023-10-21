@@ -6,11 +6,6 @@
     Jos on herännyt kiinnostus luovutuksen suhteen, varaa aika
     <a href="https://www.veripalvelu.fi/ajanvaraus/">SPR:n kautta</a>.
 </p>
-<!--
-    <iframe width="564" height="453" src="https://www.veripalvelu.fi/veritilanne/barometri/"
-        style="border:0;overflow:hidden;" scrolling="no" allow="all">
-    </iframe>
--->
 <hr>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
@@ -31,6 +26,7 @@ Tervetuloa, {{ session.user.fnames }}! Veriryhmäsi on {{ session.user.blood_typ
 {% endif %}
 
 <h2>Kaikki luovutukset järjestelmässä</h2>
+{% if plots | length > 0 %}
 <p>
     Alla kaaviot esittävät luovuttajien jakautumaa sekä luovutuspaikkojen, että veriryhmän perusteella.
     Kutsu mukaan kunnon porukka luovutukseen!
@@ -40,7 +36,7 @@ Tervetuloa, {{ session.user.fnames }}! Veriryhmäsi on {{ session.user.blood_typ
 {% set plot = plots[i] %}
 <div class="chart" id="all-by-{{ plot.name }}">
     <script>
-        const plot_by_{{ plot.name  }} = {{ plot.data | safe }};
+        const plot_by_{{ plot.name }} = {{ plot.data | safe }};
         const plot_by_{{ plot.name }}_conf = {{ plot.conf | safe }};
         Plotly.plot(
             "all-by-{{ plot.name }}",
@@ -50,5 +46,10 @@ Tervetuloa, {{ session.user.fnames }}! Veriryhmäsi on {{ session.user.blood_typ
     </script>
 </div>
 {% endfor %}
+{% else %}
+<p>Ei ole vielä kappalettakaan rekisteröityä luovutusta</p> 
+{% endif %}
+
+
 
 {% endblock %}

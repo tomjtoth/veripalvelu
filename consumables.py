@@ -48,7 +48,7 @@ def plot(user=None) -> dict[str, str]:
                     ddate as date,
                     sum(consumed_qty) as ss
                 from raw_consumption
-                {"where user_id = :uid" if user else None}
+                {"where user_id = :uid" if user else ""}
                 group by consumable, date
                 order by consumable
             )
@@ -91,13 +91,13 @@ def total_consumed(user=None) -> list[tuple]:
                     sum(consumed_qty) as ss,
                     consumable
                 from raw_consumption
-                {'where user_id = :uid' if user else None}
+                {'where user_id = :uid' if user else ''}
                 group by consumable
                 order by ss desc;
             """
         ), {
             'uid': user["id"] if user else user
-        }).fetchall()
+        }).fetchall() if x[0] is not None
     ]
 
 

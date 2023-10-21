@@ -205,16 +205,21 @@ def consumption():
     return render_template(
         "consumption.html",
         plots=[
-            consumables.plot(session["user"]) if session.get("user") else None,
-            consumables.plot(),
+            x for x in [
+                consumables.plot(session["user"]) if session.get(
+                    "user") else None,
+                consumables.plot()
+            ] if x is not None
         ],
         tables=[
-            consumables.total_consumed(session["user"])
-            if session.get("user")
-            else None,
+            x for x in [
+                consumables.total_consumed(session["user"])
+                if session.get("user")
+                else None,
 
-            # for everyone
-            consumables.total_consumed()
+                # for everyone
+                consumables.total_consumed()
+            ] if x is not None
         ]
     )
 
