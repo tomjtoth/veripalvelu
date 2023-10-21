@@ -1,7 +1,7 @@
 """Manages what happens on what path
 """
 
-from datetime import date, timedelta
+from datetime import date
 import re
 from flask import json, render_template, redirect, request, session, abort
 from markupsafe import escape
