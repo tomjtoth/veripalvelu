@@ -9,6 +9,10 @@ class Donation {
 
     static {
 
+        fetch('/api/dates').then(r => r.json()).then(dates => {
+            this.dates = dates;
+        });
+
         this._snd.volume = 0.2;
         this._snd.onended = () => {
             this._submit_target.dispatchEvent(new Event('submit'));
@@ -54,12 +58,6 @@ class Donation {
                 Donation._snd.play();
                 Donation._submit_target = ev.target;
             }
-        });
-
-        document.addEventListener('DOMContentLoaded', _ => {
-            fetch('/api/dates').then(r => r.json()).then(dates => {
-                this.dates = dates;
-            });
         });
     }
 }

@@ -112,7 +112,7 @@ select
     ddate,
     c2.consumable,
     consumed_qty
-from consumption c
-inner join consumables c2 on c.consumable_id = c2.id
-inner join donations d on d.id = c.donation_id
+from donations d
+left join consumption c on d.id = c.donation_id
+left join consumables c2 on c.consumable_id = c2.id
 ;

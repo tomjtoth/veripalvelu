@@ -295,7 +295,7 @@ def get_user_dates() -> list[date]:
         db.session.execute(text(
             """
             select distinct ddate
-            from raw_consumption 
+            from donations 
             where user_id = :uid
             order by ddate desc
             """),
