@@ -53,10 +53,6 @@ class Fun {
                 window.onbeforeunload = () => true;
 
 
-            this.snd.onplay = () => {
-                this.img.classList.add('gliding');
-            };
-
             setTimeout(_ => {
                 this.snd.pause();
                 this.snd.currentTime = 0;
@@ -86,35 +82,40 @@ class Fun {
         }
     }
 
-    static vader = {
-        snd: new Audio('static/sounds/nooo.mp3'),
-        img: document.createElement('img'),
-        activate: function () {
-            Fun._play_snd_show_img(this);
-        }
-    };
-
     static trap = {
         snd: new Audio('static/sounds/itsatrap.mp3'),
         img: document.createElement('img'),
-        activate: function () {
-            Fun._play_snd_show_img(this);
-        }
     };
 
-    static _play_snd_show_img(obj) {
-        obj.snd.onplay = () => {
-            obj.img.style.visibility = 'visible';
-        };
-
-        obj.snd.onended = () => {
-            obj.img.style.visibility = 'hidden';
-        };
-
-        obj.snd.play();
-    }
+    static vader = {
+        snd: new Audio('static/sounds/nooo.mp3'),
+        img: document.createElement('img'),
+        logout_target: null,
+    };
 
     static {
+
+        this.rick.snd.onplay = () => {
+            this.rick.img.classList.add('gliding');
+        };
+
+        this.trap.snd.onplay = () => {
+            this.trap.img.style.visibility = 'visible';
+        };
+
+        this.trap.snd.onended = () => {
+            this.trap.img.style.visibility = 'hidden';
+        };
+
+        this.vader.snd.onplay = () => {
+            this.vader.img.style.visibility = 'visible';
+        };
+
+        this.vader.snd.onended = () => {
+            this.vader.img.style.visibility = 'hidden';
+            window.location = '/logout';
+        }
+
         this._snd.on.volume = 0.2;
         this._snd.off.volume = 0.2;
 
@@ -126,6 +127,7 @@ class Fun {
         this.trap.img.src = 'https://media1.giphy.com/media/l3fZXnX7OsHuj9zDq/giphy.gif?cid=ecf05e472fzn8uauk1pbx062s2udx865bhtfm9irc61bzzug&ep=v1_gifs_search&rid=giphy.gif&ct=g';
         this._main_content.appendChild(this.trap.img);
 
+        this.vader.snd.volume = 0.1;
         this.vader.img.classList.add('flash-center');
         this.vader.img.src = 'https://media.tenor.com/N0cb66tKosEAAAAC/star-wars-darth-vader.gi';
         this._main_content.appendChild(this.vader.img);
@@ -135,23 +137,38 @@ class Fun {
 
         this._set();
 
-        document.addEventListener('click', ({ pageX, pageY, target: { id, tagName, type } }) => {
+        document.addEventListener('click', (ev) => {
 
-            if (this.status && type !== 'submit' && (
-                tagName === 'INPUT'
-                || tagName === 'TEXTAREA'
-                || tagName === 'SELECT'
-            )) {
-                this.trap.activate();
+            const { pageX, pageY, target: { id, href, tagName, type } } = ev;
+
+            if (this.status) {
+
+                if (type !== 'submit' && (
+                    tagName === 'INPUT'
+                    || tagName === 'TEXTAREA'
+                    || tagName === 'SELECT'
+                )) {
+                    this.trap.snd.play();
+                }
+
+                else if (
+                    tagName === 'A'
+                    && href.endsWith('/logout')
+                ) {
+                    ev.preventDefault();
+                    this.vader.snd.play();
+                }
+
+                else if (
+                    id !== 'btn-dark'
+                    && id !== 'btn-heart'
+                    && id !== 'btn-fun'
+                ) new this(pageX, pageY);
             }
 
-            else if (id === 'btn-fun') {
-                this.toggle();
-            }
-            else if (this.status && (
-                id !== 'btn-dark'
-                && id !== 'btn-heart'
-            )) new this(pageX, pageY);
+            if (id === 'btn-fun') this.toggle();
+
+
         });
 
         document.addEventListener('animationend', ({ target }) => {
