@@ -1,7 +1,7 @@
 """Manages what happens on what path
 """
 
-from datetime import date
+from datetime import date, timedelta
 import re
 from flask import json, render_template, redirect, request, session, abort
 from markupsafe import escape
@@ -16,18 +16,23 @@ re_names = re.compile(r"^(.{1,100}) *(?:,|<PILKKU>) *(.{1,100})$")
 re_linefeed = re.compile(r"\r?\n")
 
 
-def valid_date(date_text: str) -> bool:
+def valid_date(date_text: str) -> date:
     """checks if a date is valid AND smaller than today
 
     Args:
         date_text (str): date to be checked in the format of "YYYY-MM-DD"
+
+    Returns:
+        date
     """
     try:
-        if date.today() < date.fromisoformat(date_text):
-            return False
-        return True
+        date_obj = date.fromisoformat(date_text)
+        if date.today() < date_obj:
+            return None
+
+        return date_obj
     except ValueError:
-        return False
+        return None
 
 # this is not working as flask won't run on both http and https
 # @app.before_request
@@ -154,9 +159,26 @@ def donate():
     if len(comment) > 5000:
         return render_template("error.html", err="liian pitkä kommentti", retry='donate')
 
-    donation_date = request.form['date']
-    if not valid_date(donation_date):
+    donation_date = valid_date(request.form['date'])
+    if not donation_date:
         return render_template("error.html", err="päivämäärä tulevaisuudessa", retry='donate')
+
+    conflicting_date = next((
+        x
+        for x in donations.get_user_dates()
+        if abs((x - donation_date).total_seconds()) < 60*60*24*90
+    ), None)
+
+    if conflicting_date:
+        return render_template(
+            "error.html",
+
+            err="Toinen luovutus 90 pv:n sisällä:\n"
+            + str(conflicting_date)
+            + "\net voinut silloin luovuttaa!",
+
+            retry='donate'
+        )
 
     if donations.register(
         donation_date,

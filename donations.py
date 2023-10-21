@@ -282,11 +282,11 @@ def get_total_count() -> int:
     return db.session.execute(text("select count(*) from donations")).scalar_one()
 
 
-def get_user_dates() -> list[str]:
+def get_user_dates() -> list[date]:
     """gets the dates the logged in user has donated on
 
     Returns:
-        list[str]: list of dates in form of "YYYY-MM-DD"
+        list[date]: list of dates
     """
     return [
 
