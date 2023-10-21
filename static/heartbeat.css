@@ -16,7 +16,7 @@ div#btn-heart>sub {
 }
 
 #btn-heart.fibrillating {
-    animation: shake 1s infinite;
+    animation: cardiac-arrest 0.25s infinite;
     scale: 2.0;
     transform-origin: 15% 50%;
     text-shadow:
@@ -52,4 +52,37 @@ div#btn-heart>sub {
     100% {
         transform: scale(1);
     }
+}
+
+@keyframes cardiac-arrest {
+    0% {
+        rotate: 0deg;
+        scale: 1;
+        translate: 0px;
+    }
+
+    20% {
+        rotate: -30.0deg;
+        scale: 1.2;
+        translate: -3px;
+    }
+
+    60% {
+        rotate: -5.0deg;
+        scale: 1;
+        translate: 10px;
+    }
+
+    80% {
+        rotate: 23.0deg;
+        scale: 0.8;
+        translate: -7px;
+    }
+
+    100% {
+        rotate: 0deg;
+        scale: 1;
+        translate: 0px;
+    }
+
 }
