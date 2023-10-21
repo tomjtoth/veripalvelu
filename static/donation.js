@@ -4,7 +4,6 @@
 class Donation {
     static _span = document.querySelector('span#feedback');
     static _snd = new Audio('static/sounds/hallelujahshort.swf.mp3');
-    static _snd_played = false;
     static dates = null;
     static _submit_target = null;
 
@@ -12,7 +11,6 @@ class Donation {
 
         this._snd.volume = 0.2;
         this._snd.onended = () => {
-            this._snd_played = true;
             this._submit_target.dispatchEvent(new Event('submit'));
         }
 
@@ -51,7 +49,7 @@ class Donation {
                 return;
             }
 
-            if (Fun.status && !this._snd_played) {
+            if (Fun.status && !this._submit_target) {
                 ev.preventDefault();
                 Donation._snd.play();
                 Donation._submit_target = ev.target;
