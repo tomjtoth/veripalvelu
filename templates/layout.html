@@ -19,7 +19,7 @@
 
 <body>
     <script src="static/loader.js"></script>
-
+    
     <nav>
         <a href="/">Luovutuksia</a>
         <a href="/comments">Kertomuksia</a>
@@ -33,19 +33,20 @@
         {% endif %}
     </nav>
     <script src="static/navbar.js"></script>
+
     <div class="main-content">
         <h1>Verenluovutus-sovellus</h1>
         {% block body %}{% endblock %}
         <footer>
-            <div id="btn-heart">
+            <div id="btn-heart" title="ihmisethän näkee sydämmellään parhaiten...&#10;...montako luovutusta on rekisteröity järjestelmässä...&#10;...REST API:n avulla ⊂(◉‿◉)つ">
                 ❤️
                 <sub hidden></sub>
             </div>
-            <div id="btn-fun">
+            <div id="btn-fun" title="satunnaisia emojeita vaan sateilee&#10;jokaisella klikkauksella">
                 🥳
                 <sub hidden></sub>
             </div>
-            <div id="btn-dark">🌗</div>
+            <div id="btn-dark" title="en kommentoi">🌗</div>
         </footer>
     </div>
 </body>
