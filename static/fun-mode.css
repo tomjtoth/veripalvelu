@@ -128,6 +128,6 @@ img.rick.gliding {
     }
 
     100% {
-        left: calc(0vw - 440px);
+        left: 100vw;
     }
 }
