@@ -8,7 +8,7 @@ div.main-content>footer {
     border: 3px solid red;
     box-shadow: 0 0 15px red,
         inset 0 0 5px red;
-    padding: 10px 30px;
+    padding: 20px 40px;
     border-radius: 50%;
     background: radial-gradient(var(--background), red);
 }
