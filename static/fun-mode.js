@@ -85,8 +85,12 @@ class Fun {
         }
     }
 
-
-    };
+    static vader = {
+        snd: new Audio('static/sounds/nooo.mp3'),
+        img: document.createElement('img'),
+        activate: function () {
+            Fun._play_snd_show_img(this);
+        }
     };
 
     static trap = {
@@ -121,6 +125,9 @@ class Fun {
         this.trap.img.src = 'https://media1.giphy.com/media/l3fZXnX7OsHuj9zDq/giphy.gif?cid=ecf05e472fzn8uauk1pbx062s2udx865bhtfm9irc61bzzug&ep=v1_gifs_search&rid=giphy.gif&ct=g';
         this._main_content.appendChild(this.trap.img);
 
+        this.vader.img.classList.add('flash-center');
+        this.vader.img.src = 'https://media.tenor.com/N0cb66tKosEAAAAC/star-wars-darth-vader.gi';
+        this._main_content.appendChild(this.vader.img);
 
         this._canvas.classList.add('fun-canvas');
         document.body.appendChild(this._canvas);
