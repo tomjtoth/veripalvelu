@@ -205,3 +205,15 @@ def heartbeat():
         int: count of registered donations
     """
     return json.jsonify(donations.get_total_count())
+
+
+@app.route('/api/dates')
+def user_dates():
+    """retrieves the user's donation dates
+
+    Returns:
+        list[dates]: count of registered donations
+    """
+    if not session.get("user"):
+        abort(403)
+    return json.jsonify(donations.get_user_dates())

@@ -24,7 +24,7 @@ def register(donation_date: str, clinic_id: int, cons: list[int], comment: str):
         comment (str): optional comments of donation experience
     """
 
-    # this must be here, otherwise during population of fake data would get stuck
+    # this must be here, otherwise population of fake data would get stuck
     import consumables  # pylint: disable=import-outside-toplevel
 
     try:
@@ -280,3 +280,25 @@ def get_total_count() -> int:
         int: number of donations
     """
     return db.session.execute(text("select count(*) from donations")).scalar_one()
+
+
+def get_user_dates() -> list[str]:
+    """gets the dates the logged in user has donated on
+
+    Returns:
+        list[str]: list of dates in form of "YYYY-MM-DD"
+    """
+    return [
+
+        x[0] for x in
+
+        db.session.execute(text(
+            """
+            select distinct ddate
+            from raw_consumption 
+            where user_id = :uid
+            order by ddate desc
+            """),
+            {'uid': session.get("user")["id"]}
+        ).fetchall()
+    ]
