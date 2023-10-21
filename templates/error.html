@@ -4,8 +4,7 @@
 <h1>Hupsista, {{ operation | default('jokin') }} meni pieleen...</h1>
 <p>{{ err }}</p>
 {% if retry %}
-<a href="{{ retry }}">Yritä uudelleen</a>
-<a hidden id="escape" href="{{ retry }}">Kyllä riittää, kiitos!</a>
+<a id="escape" href="{{ retry }}">Yritä uudelleen</a>
 {% endif %}
 {% endblock %}
 
@@ -13,10 +12,10 @@
 <script>
     document.addEventListener('click', (ev) => {
         
-        if (ev.target.tagName !== 'A' || ev.target.id === 'escape') return;
+        if (ev.target.tagName !== 'A' || ev.target._rolled_already) return;
 
         ev.preventDefault();
-        Fun.rick.roll(true, document.querySelector('a#escape'));
+        Fun.rick.roll(true, ev.target);
     });
 </script>
 {% endblock %}

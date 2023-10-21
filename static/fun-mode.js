@@ -42,7 +42,7 @@ class Fun {
         snd: new Audio('static/sounds/Rick Roll Sound Effect.mp3'),
         img: document.createElement('img'),
         rolling: false,
-        roll: function (confirm_navigation_away = false, escape_link = null) {
+        roll: function (confirm_navigation_away = false, link = null) {
 
             // reject multiple overlapping calls
             if (this.rolling) return;
@@ -60,7 +60,7 @@ class Fun {
                 this.rolling = false;
                 Fun.status = false;
                 Fun._set();
-                if (escape_link) escape_link.removeAttribute('hidden');
+                if (link) link._rolled_already = true;
             }, 8.5 * 1000);
 
             this.toggle_theme();

@@ -99,6 +99,7 @@ div#btn-fun.active {
 img.flash-center {
     z-index: -2;
     position: fixed;
+    bottom: 30vh;
     visibility: hidden;
     scale: 1.5;
     opacity: 0.5;
