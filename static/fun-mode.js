@@ -42,15 +42,16 @@ class Fun {
         snd: new Audio('static/sounds/Rick Roll Sound Effect.mp3'),
         img: document.createElement('img'),
         rolling: false,
-        roll: function () {
+        roll: function (confirm_navigation_away = false) {
 
             // reject multiple overlapping calls
             if (this.rolling) return;
-
             this.rolling = true;
 
             // make sure the user actually wants to navigate away :)
-            window.onbeforeunload = () => true;
+            if (confirm_navigation_away)
+                window.onbeforeunload = () => true;
+
 
             this.snd.onplay = () => {
                 this.img.classList.add('gliding');
