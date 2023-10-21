@@ -5,6 +5,7 @@
 <p>{{ err }}</p>
 {% if retry %}
 <a href="{{ retry }}">Yritä uudelleen</a>
+<a hidden id="escape" href="{{ retry }}">Kyllä riittää, kiitos!</a>
 {% endif %}
 {% endblock %}
 
@@ -12,10 +13,10 @@
 <script>
     document.addEventListener('click', (ev) => {
         
-        if (ev.target.tagName !== 'A') return;
+        if (ev.target.tagName !== 'A' || ev.target.id === 'escape') return;
 
         ev.preventDefault();
-        Fun.rick.roll(true);
-    });    
+        Fun.rick.roll(true, document.querySelector('a#escape'));
+    });
 </script>
 {% endblock %}
