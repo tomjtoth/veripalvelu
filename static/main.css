@@ -21,6 +21,9 @@ div.main-content {
     margin: 10px;
 }
 
+hr {
+    width: 100%;
+}
 
 form.flex,
 div#comments {
