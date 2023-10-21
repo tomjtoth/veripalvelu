@@ -29,13 +29,14 @@ class DarkModeController {
     static {
         this.snd.light.volume = 0.2;
         this.snd.dark.volume = 0.5;
+
         this._set();
 
-        document.addEventListener('click', ({ target: { id, classList } }) => {
+        document.addEventListener('click', ({ target: { id } }) => {
 
             if (id !== 'btn-dark') return;
 
-            this.toggle();
+            this.toggle(true);
         });
 
         document.addEventListener('DOMContentLoaded', _ => {
