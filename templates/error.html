@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Virhe{% endblock %}
 {% block body %}
-<h1>Hupsista, {{ operation | default('jokin') }} meni pieleen...</h1>
+<h2>Hupsista, {{ operation | default('jokin') }} meni pieleen...</h2>
 <p>{{ err }}</p>
 {% if retry %}
 <a id="escape" href="{{ retry }}">Yritä uudelleen</a>
