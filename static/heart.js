@@ -58,8 +58,16 @@ class Heart {
 
     };
 
-    static toggle() {
+    static toggle(ev) {
         if (this._btn.classList.contains('cardiac-arrest')) {
+            if (ev) {
+                const l_bolt = document.createElement('div');
+                l_bolt.classList.add('bolt');
+                l_bolt.textContent = '⚡';
+                l_bolt.style.left = ev.pageX - 8 + 'px';
+                l_bolt.style.top = ev.pageY - window.scrollY - 8 + 'px';
+                document.body.appendChild(l_bolt);
+            }
             this._btn.classList.remove('cardiac-arrest');
             this._counter.setAttribute('hidden', 'hidden');
             this.heartbeat();
@@ -81,16 +89,19 @@ class Heart {
 
         this._set();
 
-        this._btn.addEventListener('click', _ => this.toggle());
+        this._btn.addEventListener('click', ev => this.toggle(ev));
 
-        document.addEventListener('animationend', ({ target: { id } }) => {
+        document.addEventListener('animationend', ({ target }) => {
 
             // at the end of the pulse animation query the server again
-            if (id == 'btn-heart') {
+            if (target.id == 'btn-heart') {
                 this._btn.classList.remove('beating');
                 if (this.status) this.heartbeat();
             }
+
+            else if (target.classList.contains('bolt')) {
+                document.body.removeChild(target);
+            }
         });
     }
-
 }
