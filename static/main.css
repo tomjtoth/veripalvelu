@@ -21,6 +21,12 @@ div.main-content {
     margin: 10px;
 }
 
+h1 {
+    text-shadow:
+        0 0 20px red,
+        0 0 40px red;
+}
+
 hr {
     width: 100%;
 }
