@@ -52,7 +52,6 @@ class Heart {
 
                 // append how long this roundtrip took
                 this._roundtrips.push(new Date() - this._last_query_at);
-                console.log(this._roundtrips);
 
                 if (Fun.rick.rolling) return;
 
