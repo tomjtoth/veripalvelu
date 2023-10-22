@@ -105,7 +105,10 @@ class Heart {
                 document.body.appendChild(l_bolt);
             }
             this._btn.classList.remove('cardiac-arrest');
-            //this._counter.setAttribute('hidden', 'hidden');
+
+            if (!this._btn.classList.contains('beating'))
+                this._counter.setAttribute('hidden', 'hidden');
+
             this.query_server();
             this._snd.play();
         } else {

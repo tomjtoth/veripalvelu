@@ -147,10 +147,12 @@ class Fun {
         this._main_content.appendChild(this.rick.img);
 
         this.ackbar.img.classList.add('flash-center');
+        this.ackbar.img.classList.add('ackbar');
         this.ackbar.img.src = 'https://media1.giphy.com/media/l3fZXnX7OsHuj9zDq/giphy.gif?cid=ecf05e472fzn8uauk1pbx062s2udx865bhtfm9irc61bzzug&ep=v1_gifs_search&rid=giphy.gif&ct=g';
         this._main_content.appendChild(this.ackbar.img);
 
         this.vader.img.classList.add('flash-center');
+        this.vader.img.classList.add('vader');
         this.vader.img.src = 'https://media.tenor.com/N0cb66tKosEAAAAC/star-wars-darth-vader.gi';
         this._main_content.appendChild(this.vader.img);
 

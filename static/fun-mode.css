@@ -97,12 +97,19 @@ div#btn-fun.active {
 }
 
 img.flash-center {
-    z-index: -2;
     position: fixed;
     bottom: 30vh;
     visibility: hidden;
     scale: 1.5;
+}
+
+img.ackbar {
+    z-index: -2;
     opacity: 0.5;
+}
+
+img.vader {
+    z-index: 0;
 }
 
 img.rick {
