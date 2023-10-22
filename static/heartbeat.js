@@ -1,4 +1,4 @@
-class Heartbeat {
+class Heart {
 
     static status = localStorage.getItem('heartbeat') === 'true';
     static _btn = document.getElementById('btn-heart');

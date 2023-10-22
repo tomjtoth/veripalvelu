@@ -85,7 +85,7 @@ class Fun {
             Fun.status = true;
             Fun._set();
             Fun.spam(30, 0);
-            Heartbeat.cardiac_arrest();
+            Heart.cardiac_arrest();
             this.snd.play();
 
             LoaderController.unhide()
