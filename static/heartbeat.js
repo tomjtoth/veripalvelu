@@ -67,6 +67,11 @@ class Heartbeat {
         } else {
             this.status = !this.status;
             this._set(true);
+            if (this.status) Fun.pop_up(
+                'ihmisethän näkee sydämmellään parhaiten...'
+                + '\n...montako luovutusta on rekisteröity järjestelmässä...'
+                + '\n...REST API:n avulla ⊂(◉‿◉)つ', 5000
+            );
         }
     }
 

@@ -12,7 +12,7 @@ class Fun {
         on: new Audio('static/sounds/party-whistle.mp3'),
         off: new Audio('static/sounds/record-scratch-with-download-link-from-youtube.mp3')
     };
-    static _counter = document.querySelector('div#btn-fun>sub');
+    static _popup = document.querySelector('div.popup');
 
     /**
      * toggles FUN mode
@@ -37,6 +37,22 @@ class Fun {
     };
 
     static _canvas = document.createElement('div');
+
+    static pop_up(msg, delay = 3000) {
+
+        this._popup.innerHTML = msg.replaceAll('\n', '</br>');
+        this._popup._counter++;
+        this._popup.removeAttribute('hidden');
+
+        // center horizontally
+        const { width } = this._popup.getBoundingClientRect();
+        this._popup.style.left = `calc(50vw - ${width}px / 2)`;
+
+        setTimeout(_ => {
+            if (--this._popup._counter == 0)
+                this._popup.setAttribute('hidden', 'hidden');
+        }, delay);
+    }
 
     static rick = {
         snd: new Audio('static/sounds/Rick Roll Sound Effect.mp3'),
@@ -135,6 +151,7 @@ class Fun {
         this.vader.img.src = 'https://media.tenor.com/N0cb66tKosEAAAAC/star-wars-darth-vader.gi';
         this._main_content.appendChild(this.vader.img);
 
+        this._popup._counter = 0;
         this._canvas.classList.add('fun-canvas');
         document.body.appendChild(this._canvas);
 
@@ -169,7 +186,12 @@ class Fun {
                 ) new this(pageX, pageY);
             }
 
-            if (id === 'btn-fun') this.toggle();
+            if (id === 'btn-fun') {
+                this.toggle();
+                if (this.status) this.pop_up(
+                    'satunnaisia emojeita vaan sateilee&#10;jokaisella klikkauksella'
+                )
+            }
 
 
         });
