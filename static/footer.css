@@ -31,7 +31,6 @@ div.popup {
     background: var(--background);
     color: var(--color);
     border: 5px solid red;
-    font-size: xx-small;
     user-select: none;
     padding: 10px;
 }
