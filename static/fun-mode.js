@@ -102,7 +102,7 @@ class Fun {
         }
     }
 
-    static trap = {
+    static ackbar = {
         snd: new Audio('static/sounds/itsatrap.mp3'),
         img: document.createElement('img'),
     };
@@ -119,12 +119,12 @@ class Fun {
             this.rick.img.classList.add('gliding');
         };
 
-        this.trap.snd.onplay = () => {
-            this.trap.img.style.visibility = 'visible';
+        this.ackbar.snd.onplay = () => {
+            this.ackbar.img.style.visibility = 'visible';
         };
 
-        this.trap.snd.onended = () => {
-            this.trap.img.style.visibility = 'hidden';
+        this.ackbar.snd.onended = () => {
+            this.ackbar.img.style.visibility = 'hidden';
         };
 
         this.vader.snd.onplay = () => {
@@ -140,15 +140,15 @@ class Fun {
         this._snd.off.volume = 0.15;
         this.rick.snd.volume = 0.2;
         this.vader.snd.volume = 0.1;
-        this.trap.snd.volume = 0.2;
+        this.ackbar.snd.volume = 0.2;
 
         this.rick.img.classList.add('rick');
         this.rick.img.src = 'https://media.tenor.com/CHc0B6gKHqUAAAAi/deadserver.gif';
         this._main_content.appendChild(this.rick.img);
 
-        this.trap.img.classList.add('flash-center');
-        this.trap.img.src = 'https://media1.giphy.com/media/l3fZXnX7OsHuj9zDq/giphy.gif?cid=ecf05e472fzn8uauk1pbx062s2udx865bhtfm9irc61bzzug&ep=v1_gifs_search&rid=giphy.gif&ct=g';
-        this._main_content.appendChild(this.trap.img);
+        this.ackbar.img.classList.add('flash-center');
+        this.ackbar.img.src = 'https://media1.giphy.com/media/l3fZXnX7OsHuj9zDq/giphy.gif?cid=ecf05e472fzn8uauk1pbx062s2udx865bhtfm9irc61bzzug&ep=v1_gifs_search&rid=giphy.gif&ct=g';
+        this._main_content.appendChild(this.ackbar.img);
 
         this.vader.img.classList.add('flash-center');
         this.vader.img.src = 'https://media.tenor.com/N0cb66tKosEAAAAC/star-wars-darth-vader.gi';
@@ -171,7 +171,7 @@ class Fun {
                     || tagName === 'TEXTAREA'
                     || tagName === 'SELECT'
                 )) {
-                    this.trap.snd.play();
+                    this.ackbar.snd.play();
                 }
 
                 else if (
