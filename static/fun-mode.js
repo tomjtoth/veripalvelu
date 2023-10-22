@@ -12,6 +12,7 @@ class Fun {
         on: new Audio('static/sounds/party-whistle.mp3'),
         off: new Audio('static/sounds/record-scratch-with-download-link-from-youtube.mp3')
     };
+    static _countdown = document.querySelector('div#btn-fun>sub');
     static _popup = document.querySelector('div.popup');
 
     /**
@@ -224,11 +225,11 @@ class Fun {
      */
     static spam(n, i = -1) {
         if (n == 0 || !this.status) {
-            this._counter.textContent = '';
-            this._counter.setAttribute('hidden', 'hidden');
+            this._countdown.textContent = '';
+            this._countdown.setAttribute('hidden', 'hidden');
         } else {
-            this._counter.textContent = n;
-            this._counter.removeAttribute('hidden');
+            this._countdown.textContent = n;
+            this._countdown.removeAttribute('hidden');
 
             setTimeout((n, i) => {
                 const
