@@ -34,14 +34,14 @@ class Heartbeat {
             // response took longer than 300ms
             .catch(_ => {
                 if (this.status) {
-                    this.fibrillate();
+                    this.cardiac_arrest();
                 }
             });
     }
 
-    static fibrillate() {
-        this._counter.textContent = '⚡⚡ FIBRILLATING ⚡⚡';
-        this._btn.classList.add('fibrillating');
+    static cardiac_arrest() {
+        this._counter.textContent = '⚡KOHTAUS⚡';
+        this._btn.classList.add('cardiac-arrest');
         this._counter.removeAttribute('hidden');
     }
 
@@ -59,8 +59,8 @@ class Heartbeat {
     };
 
     static toggle() {
-        if (this._btn.classList.contains('fibrillating')) {
-            this._btn.classList.remove('fibrillating');
+        if (this._btn.classList.contains('cardiac-arrest')) {
+            this._btn.classList.remove('cardiac-arrest');
             this._counter.setAttribute('hidden', 'hidden');
             this.heartbeat();
             this._snd.play();

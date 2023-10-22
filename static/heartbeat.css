@@ -15,7 +15,7 @@ div#btn-heart>sub {
     animation: heartbeat 1s;
 }
 
-#btn-heart.fibrillating {
+#btn-heart.cardiac-arrest {
     animation: cardiac-arrest 0.25s infinite;
     scale: 2.0;
     transform-origin: 15% 50%;
