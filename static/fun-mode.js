@@ -140,6 +140,7 @@ class Fun {
         this._snd.off.volume = 0.15;
         this.rick.snd.volume = 0.2;
         this.vader.snd.volume = 0.1;
+        this.trap.snd.volume = 0.2;
 
         this.rick.img.classList.add('rick');
         this.rick.img.src = 'https://media.tenor.com/CHc0B6gKHqUAAAAi/deadserver.gif';
