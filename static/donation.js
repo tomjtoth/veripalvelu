@@ -13,7 +13,7 @@ class Donation {
             this.dates = dates;
         });
 
-        this._snd.volume = 0.2;
+        this._snd.volume = 0.05;
         this._snd.onended = () => {
             this._submit_target.dispatchEvent(new Event('submit'));
         }
