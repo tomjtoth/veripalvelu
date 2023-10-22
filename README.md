@@ -6,6 +6,9 @@ Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/
 
 Tässä saavutukset tuoreimmista vanhempiin:
 
+- "ponnahdusikkuna" lisätty 2 hämäävämmälle "työkalulle"
+- JS tiedostot, CSS rikottu moduuleihin, koska meinasin kierrettää mun yksityisprojekteissa, 
+    - ois pärjännyt vähemmällä luokalla ja eventListener:llakin, meni jo...
 - (lähes) tyhjä kanta antaa järkeviä tekstejä kaavioiden sijaan
 - äänitehosteet lisätty
 - consumption annettu takaisin sekä tauluna, että kaavioina
@@ -124,22 +127,20 @@ Kirjautumatta voi katsoa:
 
 - tilastoja päivämäärien mukaan ja
     - veriryhmän,
-    - ja luovutuspaikan perusteella.
+    - luovutuspaikan,
+    - ja sukupuolten perusteella
 
 - luovutuksen yhteydessä jätetyt kommentit, joista näkyy myös
     - päivämäärä
     - luovuttajan etu ja sukunimien alkukirjaimet
 
+- luovutuksen yhteydessä vedätyt naposteltavat saa myös nähdä pvm: perusteella 
+
 ## Jatkokehitysideat
 
 Tänne niitä joita voisikin toteuttaa, muttei mahdu aikarajoitteen takia kurssiin.
 
-- reaaliset [rajoitteet](https://www.veripalvelu.fi/verenluovutus/luovutusedellytykset/) 2 luovutuksen väliin:
-    > Suosittelemme verenluovutusta yli 25-vuotiaille naisille enintään 2–3 kertaa vuodessa ja 18-25 v. naisille enintään kerran vuodessa. Miehille suosittelemme enintään 3–4 verenluovutusta vuodessa. Sallitut minimivälit kokoverenluovutuksille ovat naisille 91 ja miehille 61 vuorokautta. Voit laskea laskurilla​, onko minimiväli kohdallasi jo täyttynyt.
-
 - admin käyttäjätunnus (?)
-- tilastot siitä paljonko consumable on mennyt, samalla tavalla, kuin index.html:ssa
-    - sukupuolen perusteella
-    - veriryhmän perusteella
-    - luovutuspaikan perusteella
-- flexbox, joku siedättävämmännäköinen ulkoasu...
+    - en näe enää tässä pointtia
+
+- JS ja CSS tiedostojen isosiivous/yhdistely selkeyden vuoksi
