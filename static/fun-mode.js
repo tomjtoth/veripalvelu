@@ -136,8 +136,10 @@ class Fun {
             window.location = '/logout';
         }
 
-        this._snd.on.volume = 0.2;
-        this._snd.off.volume = 0.2;
+        this._snd.on.volume = 0.15;
+        this._snd.off.volume = 0.15;
+        this.rick.snd.volume = 0.2;
+        this.vader.snd.volume = 0.1;
 
         this.rick.img.classList.add('rick');
         this.rick.img.src = 'https://media.tenor.com/CHc0B6gKHqUAAAAi/deadserver.gif';
@@ -147,7 +149,6 @@ class Fun {
         this.trap.img.src = 'https://media1.giphy.com/media/l3fZXnX7OsHuj9zDq/giphy.gif?cid=ecf05e472fzn8uauk1pbx062s2udx865bhtfm9irc61bzzug&ep=v1_gifs_search&rid=giphy.gif&ct=g';
         this._main_content.appendChild(this.trap.img);
 
-        this.vader.snd.volume = 0.1;
         this.vader.img.classList.add('flash-center');
         this.vader.img.src = 'https://media.tenor.com/N0cb66tKosEAAAAC/star-wars-darth-vader.gi';
         this._main_content.appendChild(this.vader.img);
