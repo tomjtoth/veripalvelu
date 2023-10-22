@@ -3,7 +3,7 @@
  */
 class Donation {
     static _span = document.querySelector('span#feedback');
-    static _snd = new Audio('static/sounds/hallelujahshort.swf.mp3');
+    static _snd = new Audio('static/sounds/tada_1.mp3');
     static dates = null;
     static _submit_target = null;
 
