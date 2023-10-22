@@ -16,7 +16,7 @@ Tässä saavutukset tuoreimmista vanhempiin:
 - REST API:n hyödyntäen sydän kyselee palvelimelta montako luovutusta on rekisteröity
     - toisesta selaimesta kantsii rekisteröidä uusia, niin alkuperäisen ikkunan laskuri muuntuu
     - en oo testannut mitä jos vastaus ei ikinä saavu takas, sehän on olennainen osa syklistä
-    - sydän saa kohtauksen jos fetch kestää yli `avg(viimeisen 10kpl roundtrip)  + 150ms`, voit triggeröidä alla tavoilla:
+    - sydän saa kohtauksen jos fetch kestää yli `avg(viimeisen 10kpl roundtrip)  + 350ms`, voit triggeröidä alla tavoilla:
         - jos palvelin pyörii paikallisesti, sammuta se
         - jos kokeilet tuotannon palvelimen, katkaise nettiyhteys
         - sydänkohtauksen aikana siitä klikkaen voi elvyttää (käynnistää uuden query:n ja resetoida roundtrippien kestoa)

@@ -44,7 +44,7 @@ class Heart {
             // start a timer that rejects when expired
             new Promise((_resolve, reject) => setTimeout(_ => {
                 reject();
-            }, this._get_avg_rndtrip() + 150))
+            }, this._get_avg_rndtrip() + 350))
         ])
 
             // response from server arrived 1st
@@ -63,7 +63,7 @@ class Heart {
                 }
             })
 
-            // response took longer than the avg of last 10 + 150ms
+            // response took longer than the avg of last 10 + 350ms
             .catch(_ => {
                 if (this.status) {
                     this._roundtrips.length = 1;
