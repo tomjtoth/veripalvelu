@@ -4,24 +4,56 @@ class Heart {
     static _btn = document.getElementById('btn-heart');
     static _counter = document.querySelector('div#btn-heart>sub');
     static _snd = new Audio('static/sounds/electricity_us849kj.mp3');
+    static _roundtrips = [
+        // default for 1st roundtrip
+        500
+    ];
+    static _last_query_at = null;
+
+    static _get_avg_rndtrip() {
+
+        // keep at most 10 trips
+        if (this._roundtrips.length == 10) {
+            this._roundtrips.shift();
+        }
+
+        // sum
+        let total = 0;
+        for (const trip of this._roundtrips) {
+            total += trip;
+        }
+
+        // avg
+        return total / this._roundtrips.length;
+    }
+
+
     /**
      * query the server how many donations are registered
      * then pulse *ONCE*
      */
-    static heartbeat() {
+    static query_server() {
+
+        this._last_query_at = new Date();
+
         Promise.race([
 
             // query server
             fetch('/api/heartbeat'),
 
             // start a timer that rejects when expired
-            new Promise((_resolve, reject) => setTimeout((reject) => {
+            new Promise((_resolve, reject) => setTimeout(_ => {
                 reject();
-            }, 300, reject))
+            }, this._get_avg_rndtrip() + 150))
         ])
 
             // response from server arrived 1st
             .then(r => r.json()).then(count => {
+
+                // append how long this roundtrip took
+                this._roundtrips.push(new Date() - this._last_query_at);
+                console.log(this._roundtrips);
+
                 if (Fun.rick.rolling) return;
 
                 if (this.status) {
@@ -31,9 +63,11 @@ class Heart {
                 }
             })
 
-            // response took longer than 300ms
+            // response took longer than the avg of last 10 + 150ms
             .catch(_ => {
                 if (this.status) {
+                    this._roundtrips.length = 1;
+                    this._roundtrips[0] = 500;
                     this.cardiac_arrest();
                 }
             });
@@ -49,7 +83,7 @@ class Heart {
 
         if (this.status) {
             this._btn.classList.add('active');
-            this.heartbeat();
+            this.query_server();
         } else {
             this._btn.classList.remove('active');
             this._counter.setAttribute('hidden', 'hidden');
@@ -61,6 +95,8 @@ class Heart {
     static toggle(ev) {
         if (this._btn.classList.contains('cardiac-arrest')) {
             if (ev) {
+
+                // create lightning bolt on top of the heart
                 const l_bolt = document.createElement('div');
                 l_bolt.classList.add('bolt');
                 l_bolt.textContent = '⚡';
@@ -69,8 +105,8 @@ class Heart {
                 document.body.appendChild(l_bolt);
             }
             this._btn.classList.remove('cardiac-arrest');
-            this._counter.setAttribute('hidden', 'hidden');
-            this.heartbeat();
+            //this._counter.setAttribute('hidden', 'hidden');
+            this.query_server();
             this._snd.play();
         } else {
             this.status = !this.status;
@@ -96,7 +132,7 @@ class Heart {
             // at the end of the pulse animation query the server again
             if (target.id == 'btn-heart') {
                 this._btn.classList.remove('beating');
-                if (this.status) this.heartbeat();
+                if (this.status) this.query_server();
             }
 
             else if (target.classList.contains('bolt')) {
