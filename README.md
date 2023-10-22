@@ -1,6 +1,6 @@
 # Verenluovutus-sovellus
 
-Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/materiaali/) kurssille, jossa käyttäjät saattaa rekisteröidä itseänne, sekä erillisiä käyntejä verenluovutuspaikoilla, joiden yhteydessä saavat merkata mitkä kaikkea ne ovat syöneet/juoneet, myös jättää vapaamuotoista kommenttia halutessaan. Erikoisuutena `FUN` ja `DARK` moodit.
+Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/materiaali/) kurssille, jossa käyttäjät saattaa rekisteröidä itseänne, sekä erillisiä käyntejä verenluovutuspaikoilla, joiden yhteydessä saavat merkata mitkä kaikkea ne ovat syöneet/juoneet, myös jättää vapaamuotoista kommenttia halutessaan. Erikoisuutena _Fun_, _Dark_ moodit ja _animaatiot_. Jälkimmäiset debian testingin firefoxissa ainakin vähän vilahtaa, Chromium:ssa ne ovat fine
 
 ## Nykytilanne
 
@@ -16,10 +16,10 @@ Tässä saavutukset tuoreimmista vanhempiin:
 - REST API:n hyödyntäen sydän kyselee palvelimelta montako luovutusta on rekisteröity
     - toisesta selaimesta kantsii rekisteröidä uusia, niin alkuperäisen ikkunan laskuri muuntuu
     - en oo testannut mitä jos vastaus ei ikinä saavu takas, sehän on olennainen osa syklistä
-    - sydän menee fibrillating tilaan jos fetch kestää yli `x` ms, voit triggeröidä alla tavoilla:
+    - sydän saa kohtauksen jos fetch kestää yli `avg(viimeisen 10kpl roundtrip)  + 150ms`, voit triggeröidä alla tavoilla:
         - jos palvelin pyörii paikallisesti, sammuta se
         - jos kokeilet tuotannon palvelimen, katkaise nettiyhteys
-        - kun sydän fibrilloi, siitä klikkaen voi elvyttää (käynnistää uuden query:n ja timer:in)
+        - sydänkohtauksen aikana siitä klikkaen voi elvyttää (käynnistää uuden query:n ja resetoida roundtrippien kestoa)
 - dark-mode nappi animoitu
 - fun-mode nappi sykkii kun aktiivinen
     - piirretään `z-index: -1;` kaikki emojit, jotta perus HTML elementit ois räplättävissä
