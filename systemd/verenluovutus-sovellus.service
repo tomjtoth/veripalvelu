@@ -6,6 +6,7 @@ Wants=network-online.target
 [Service]
 Restart=always
 RestartSec=10
+RuntimeMaxSec=1h
 WorkingDirectory=%h/verenluovutus-sovellus
 ExecStart=%h/verenluovutus-sovellus/main.sh
 

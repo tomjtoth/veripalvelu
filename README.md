@@ -5,6 +5,7 @@ Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/
 ## Tuotantoversio
 
 [Täältä](https://oracle.ttj.hu:55599) pääsee kokeilemaan `prod` haaran tureimman version
+- joka tunnissa käynnistyy uudelleen, koska en jaksa perehtyä [gunicorniin](https://github.com/tomjtoth/verenluovutus-sovellus/issues/8)
 - 5 minuutin sisällä pitäisi hoitua deploymentin systemd timer:in toimesta
 - domain nimi ostettu Unkarista
     - `eduroam` :in tai Oodin langattomasta verkosta ei pääse siihen käsiksi
