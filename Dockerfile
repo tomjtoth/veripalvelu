@@ -21,14 +21,9 @@ RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip install -r requirements.txt
 
-ENV HOST=0.0.0.0
-ENV PORT=55599
-
 ENTRYPOINT docker-entrypoint.sh postgres & sleep 3 && \
     flask run \
     ${HOST:+--host=$HOST} \
     ${PORT:+--port=$PORT} \
     ${TLS_CERT:+--cert=$TLS_CERT} \
     ${TLS_KEY:+--key=$TLS_KEY}
-
-EXPOSE 55599
