@@ -56,7 +56,7 @@ class Fun {
     }
 
     static rick = {
-        snd: new Audio('static/sounds/Rick Roll Sound Effect.mp3'),
+        snd: new Audio('static/sounds/rick.mp3'),
         img: document.createElement('img'),
         rolling: false,
         roll: function (confirm_navigation_away = false, link = null) {
