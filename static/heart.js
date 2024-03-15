@@ -39,7 +39,7 @@ class Heart {
         Promise.race([
 
             // query server
-            fetch('/api/heartbeat'),
+            fetch('./api/heartbeat'),
 
             // start a timer that rejects when expired
             new Promise((_resolve, reject) => setTimeout(_ => {
