@@ -9,7 +9,7 @@ class Donation {
 
     static {
 
-        fetch('/api/dates').then(r => r.json()).then(dates => {
+        fetch('./api/dates').then(r => r.json()).then(dates => {
             this.dates = dates;
         });
 
