@@ -78,7 +78,7 @@ def register():
                 int(request.form["blood-type"])
             )
         ):
-            return redirect("/")
+/            return redirect(".")
 
         return render_template(
             "error.html",
@@ -97,7 +97,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username, password):
-            return redirect("/")
+            return redirect(".")
 
         return render_template(
             "error.html",
@@ -111,7 +111,7 @@ def logout():
     """handles logging the user out
     """
     users.logout()
-    return redirect("/")
+    return redirect(".")
 
 
 @app.route('/')
@@ -136,7 +136,7 @@ def donate():
     """handles registering a donation
     """
     if not session.get('user'):
-        return redirect('/login')
+        return redirect('./login')
 
     if request.method == "GET":
         return render_template(
@@ -148,7 +148,7 @@ def donate():
 
     # we don't even have a session yet
     if not session.get("user"):
-        return redirect("/login")
+        return redirect("./login")
 
     # or CSRF mismathed
     if request.form.get("csrf") is None or request.form["csrf"] != session["user"]["csrf"]:
@@ -186,7 +186,7 @@ def donate():
         request.form.getlist('consumables', int),
         re_linefeed.sub('<br/>', str(escape(comment)))
     ):
-        return redirect('/')
+        return redirect(".")
 
     return render_template('error.html', err='emt', retry='donate')
 
