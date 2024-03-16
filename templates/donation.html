@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Luovutus{% endblock %}
 {% block body %}
-<form action="./donate" method="post">
+<form action="/donate" method="post">
     <div>
         <label for="date">Koska luovutit?</label>
         <input id="date" type="date" name="date" required value="{{today}}" max="{{today}}">
