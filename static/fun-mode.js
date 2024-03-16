@@ -178,7 +178,7 @@ class Fun {
 
                 else if (
                     tagName === 'A'
-                    && href.endsWith('/logout')
+                    && href.endsWith('logout')
                 ) {
                     ev.preventDefault();
                     this.vader.snd.play();
