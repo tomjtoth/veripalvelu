@@ -78,7 +78,7 @@ def register():
                 int(request.form["blood-type"])
             )
         ):
-/            return redirect(".")
+            return redirect(".")
 
         return render_template(
             "error.html",
