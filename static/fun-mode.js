@@ -133,7 +133,7 @@ class Fun {
 
         this.vader.snd.onended = () => {
             this.vader.img.style.visibility = 'hidden';
-            window.location = '/logout';
+            window.location = 'logout';
         }
 
         this._snd.on.volume = 0.15;
