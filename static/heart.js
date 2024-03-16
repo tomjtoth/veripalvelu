@@ -109,6 +109,7 @@ class Heart {
                 this._counter.setAttribute('hidden', 'hidden');
 
             this.query_server();
+            this._snd.currentTime = 0;
             this._snd.play();
         } else {
             this.status = !this.status;
