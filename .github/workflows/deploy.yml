@@ -6,11 +6,26 @@ on:
       - main
 
 jobs:
+  set_tags:
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.set_tag.outputs.image_tag }}
+    steps:
+      - name: Set image tag
+        id: set_tag
+        run: |
+          if [ "${{ matrix.os }}" == "ubuntu-latest-arm64" ]; then
+            echo "::set-output name=image_tag::arm64"
+          else
+            echo "::set-output name=image_tag::amd64"
+          fi
+
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-latest-arm64]
+    needs: set_tags
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -30,5 +45,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: "tomjtoth/veripalvelu:latest-${{ if eq(matrix.os, 'ubuntu-latest-arm64') }}arm64{{ else }}amd64{{ endif }}"
-          
+          tags: "tomjtoth/veripalvelu:latest-${{ needs.set_tags.outputs.image_tag }}"          
