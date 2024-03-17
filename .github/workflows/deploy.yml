@@ -30,4 +30,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ matrix.os == 'ubuntu-latest-arm64' ? 'tomjtoth/veripalvelu:latest-arm64' : 'tomjtoth/veripalvelu:latest-amd64' }}
+          tags: "tomjtoth/veripalvelu:latest-${{ matrix.os == 'ubuntu-latest-arm64' ? 'arm64' : 'amd64' }}"
