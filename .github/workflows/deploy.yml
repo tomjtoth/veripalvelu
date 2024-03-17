@@ -15,9 +15,9 @@ jobs:
         id: set_tag
         run: |
           if [ "${{ matrix.os }}" == "ubuntu-latest-arm64" ]; then
-            echo "::set-output name=image_tag::arm64"
+            echo "::set-output name=image_tag::-arm64"
           else
-            echo "::set-output name=image_tag::amd64"
+            echo "::set-output name=image_tag::"
           fi
 
   build:
@@ -46,4 +46,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: "tomjtoth/veripalvelu:latest-${{ needs.set_tags.outputs.image_tag }}"          
+          tags: "tomjtoth/veripalvelu:latest${{ needs.set_tags.outputs.image_tag }}"          
