@@ -7,7 +7,6 @@ on:
 
 jobs:
   docker:
-    environment: Docker HUB
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
