@@ -29,6 +29,8 @@ class DarkModeController {
     static {
         this.snd.light.volume = 0.2;
         this.snd.dark.volume = 0.5;
+        this.snd.light.preload = 'auto';
+        this.snd.dark.preload = 'auto';
 
         this._set();
 

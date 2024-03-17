@@ -115,10 +115,14 @@ class Fun {
 
     static {
 
+        this._snd.on.preload = 'auto';
+        this._snd.off.preload = 'auto';
+        this.rick.snd.preload = 'auto';
         this.rick.snd.onplay = () => {
             this.rick.img.classList.add('gliding');
         };
 
+        this.ackbar.snd.preload = 'auto';
         this.ackbar.snd.onplay = () => {
             this.ackbar.img.style.visibility = 'visible';
         };
@@ -127,6 +131,7 @@ class Fun {
             this.ackbar.img.style.visibility = 'hidden';
         };
 
+        this.vader.snd.preload = 'auto';
         this.vader.snd.onplay = () => {
             this.vader.img.style.visibility = 'visible';
         };

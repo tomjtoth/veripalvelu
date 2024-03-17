@@ -124,6 +124,7 @@ class Heart {
 
     static {
 
+        this._snd.preload = 'auto';
         this._snd.volume = 0.2;
 
         this._set();
