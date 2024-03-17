@@ -21,6 +21,7 @@ jobs:
           fi
 
   build:
+    environment: Docker HUB
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
