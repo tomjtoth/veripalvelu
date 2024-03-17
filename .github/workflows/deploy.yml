@@ -31,5 +31,4 @@ jobs:
         with:
           push: true
           tags: |
-            tomjtoth/veripalvelu:latest-${{ matrix.os == 'ubuntu-latest-arm64' ? 'arm64' : 'amd64' }}
-            
+            ${{ matrix.os == 'ubuntu-latest-arm64' ? 'tomjtoth/veripalvelu:latest-arm64' : 'tomjtoth/veripalvelu:latest-amd64' }}
