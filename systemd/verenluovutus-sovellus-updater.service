@@ -1,7 +1,0 @@
-[Unit]
-Description=update to latest release on origin/main
-
-[Service]
-#Type=forking
-WorkingDirectory=%h/verenluovutus-sovellus
-ExecStart=%h/verenluovutus-sovellus/main.sh update
