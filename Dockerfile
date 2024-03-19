@@ -13,7 +13,9 @@ VOLUME .env
 COPY . .
 
 RUN adduser --no-create-home --disabled-password --gecos "" veripalvelu
-RUN chown veripalvelu:veripalvelu .env
+RUN chown veripalvelu:veripalvelu .
 USER veripalvelu
+
+RUN CREATE_DOTENV=true python3 app.py
 
 ENTRYPOINT gunicorn --bind 0.0.0.0 app:app

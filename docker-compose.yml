@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  veripalvelu:
+    build: .
+    restart: unless-stopped
+    ports:
+      - 80:8000
+    environment:
+      DATABASE_URL: postgresql+psycopg2://vp:${POSTGRES_PASSWORD}@db/vp # from .env
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16.2-alpine
+    container_name: db
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # from .env
+      POSTGRES_DB: vp
+      POSTGRES_USER: vp
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/vp.sql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1s
+      timeout: 1s
+      retries: 10
+
+    # uncomment to help development
+    # ports:
+    #   - 5432:5432
