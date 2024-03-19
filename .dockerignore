@@ -1,5 +1,10 @@
-venv
-.venv
-__pycache__
-.vscode
-.env
+venv/
+.venv/
+__pycache__/
+.vscode/
+.github/
+.gitignore
+Dockerfile
+docker-compose.yml
+README.md
+pg_data/
