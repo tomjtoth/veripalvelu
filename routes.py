@@ -5,7 +5,7 @@ from datetime import date
 import re
 from flask import json, render_template, redirect, request, session, abort
 from markupsafe import escape
-from app import app, force_https
+from app import app
 import users
 import clinics
 import donations
@@ -33,19 +33,6 @@ def valid_date(date_text: str) -> date:
         return date_obj
     except ValueError:
         return None
-
-# this is not working as flask won't run on both http and https
-# @app.before_request
-
-
-def before_request():
-    """WiP - this was supposed to redirect HTTP -> HTTPS in production
-    """
-    if force_https and not request.is_secure:
-        return redirect(
-            request.url.replace('http://', 'https://', 1),
-            code=301
-        )
 
 
 @app.route("/register", methods=["GET", "POST"])
