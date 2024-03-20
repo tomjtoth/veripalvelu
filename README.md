@@ -6,7 +6,9 @@ Yksinkertainen sovellus Helsingin Yliopiston [tsoha](https://hy-tsoha.github.io/
 
 ## Käyttöönotto
 
-Yhteinen askel:
+Em. kurssin aikana mentiin perus `venv + pip` mukaan, toisen kurssin yhteydessä laajensin/muunsin projektin `docker` avullakin deplattavaksi.
+
+### Yhteinen askel
 
 ```shell
 # kloonaa repo
