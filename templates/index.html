@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Veripalvelu{% endblock %}
+{% block title %}VeriPalvelu{% endblock %}
 {% block body %}
 <p>
     Tämä sivusto ei ole yhteyksissä Punaisen Ristin Veripalvelun kanssa.
@@ -36,7 +36,7 @@ Tervetuloa, {{ session.user.fnames }}! Veriryhmäsi on {{ session.user.blood_typ
 {% set plot = plots[i] %}
 <div class="chart" id="all-by-{{ plot.name }}">
     <script>
-        const plot_by_{{ plot.name }} = { { plot.data | safe } };
+        const plot_by_{{ plot.name }} = {{ plot.data | safe }};
         const plot_by_{{ plot.name }}_conf = {{ plot.conf | safe }};
         Plotly.plot(
             "all-by-{{ plot.name }}",
