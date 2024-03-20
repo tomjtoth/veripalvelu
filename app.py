@@ -9,7 +9,7 @@ from flask import Flask
 
 
 app = Flask(__name__)
-app.secret_key = getenv("SECRET_KEY")
+app.secret_key = getenv("FLASK_SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 
 # autopep8 wants this on the top...
