@@ -21,8 +21,6 @@ COPY . .
 
 USER veripalvelu
 
-# this fails repeatedly for some reason
-# ENTRYPOINT gunicorn --bind 0.0.0.0:80 app:app
-ENTRYPOINT flask run --host=0.0.0.0 --port=80
+ENTRYPOINT gunicorn -w 4 -b 0.0.0.0:80 app:app
 
 EXPOSE 80
