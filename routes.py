@@ -41,7 +41,7 @@ def register():
     """
     if request.method == "GET":
         return render_template("register.html",
-                               blood_types=users.all_blood_types)
+                               blood_types=users.ALL_BLOOD_TYPES)
     if request.method == "POST":
         password = request.form["password"]
         if password != request.form["pw-verify"]:

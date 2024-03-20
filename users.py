@@ -70,7 +70,7 @@ def register(username: str, password: str, firstnames: str, lastnames: str, flag
     return login(username, password)
 
 
-all_blood_types = '0- 0+ A- A+ B- B+ AB- AB+'.split(' ')
+ALL_BLOOD_TYPES = '0- 0+ A- A+ B- B+ AB- AB+'.split(' ')
 
 
 def flags_from_form(is_male: bool, blood_type: int, is_admin: bool = False) -> int:
