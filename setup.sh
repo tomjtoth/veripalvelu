@@ -1,22 +1,22 @@
 #!/bin/sh
 
-POSTGRES_PASSWORD=$(uuidgen)
+PG_PASS=$(uuidgen)
+PG_USER=vp
+PG_DB=vp
 
-echo \
-"FLASK_SECRET_KEY=$(uuidgen)
+echo "\
+# This file is now used by both the app and docker-compose.yml
+FLASK_SECRET_KEY=$(uuidgen)
+APP_PORT=8080
 
-# connection via local socket, name should be adjusted
-DATABASE_URL=postgresql+psycopg2:///local-database-name
+# connection to v12.5 via local socket, name should be adjusted
+DATABASE_URL=postgresql+psycopg2:///${USER}
 
 # connection via 'dialect+driver://username:password@host[:port]/database'
-DATABASE_URL=postgresql+psycopg2://vp:${POSTGRES_PASSWORD}@db/vp
+DATABASE_URL=postgresql+psycopg2://${PG_USER}:${PG_PASS}@db/${PG_DB}
 
 # postgres needs these (docker-compose.yml)
-POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-POSTGRES_USER=vp
-POSTGRES_DB=vp
+POSTGRES_PASSWORD=${PG_PASS}
+POSTGRES_USER=${PG_USER}
+POSTGRES_DB=${PG_DB}
 " > .env
-
-echo ".env created with new UUIDs"
-
-docker-compose up $@
