@@ -123,7 +123,7 @@ def donate():
     """handles registering a donation
     """
     if not session.get('user'):
-        return redirect('./login')
+        return redirect('login')
 
     if request.method == "GET":
         return render_template(
@@ -135,7 +135,7 @@ def donate():
 
     # we don't even have a session yet
     if not session.get("user"):
-        return redirect("./login")
+        return redirect("login")
 
     # or CSRF mismathed
     if request.form.get("csrf") is None or request.form["csrf"] != session["user"]["csrf"]:
@@ -218,7 +218,7 @@ def heartbeat():
     Returns:
         int: count of registered donations
     """
-    return json.jsonify(donations.get_total_count())
+    return json.jsonify({'count': donations.get_total_count()})
 
 
 @app.route('/api/dates')

@@ -11,7 +11,7 @@ class Donation {
 
         this._snd.preload = 'auto';
 
-        fetch('./api/dates').then(r => r.json()).then(dates => {
+        fetch('api/dates').then(r => r.json()).then(dates => {
             this.dates = dates;
         });
 

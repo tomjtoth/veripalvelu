@@ -39,7 +39,7 @@ class Heart {
         Promise.race([
 
             // query server
-            fetch('./api/heartbeat'),
+            fetch('api/heartbeat'),
 
             // start a timer that rejects when expired
             new Promise((_resolve, reject) => setTimeout(_ => {
@@ -48,7 +48,7 @@ class Heart {
         ])
 
             // response from server arrived 1st
-            .then(r => r.json()).then(count => {
+            .then(r => r.json()).then(({ count }) => {
 
                 // append how long this roundtrip took
                 this._roundtrips.push(new Date() - this._last_query_at);
