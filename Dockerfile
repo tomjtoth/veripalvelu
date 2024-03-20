@@ -21,6 +21,8 @@ COPY . .
 
 USER vp
 
-ENTRYPOINT gunicorn -w 4 -b 0.0.0.0:80 app:app
+# 4 worker threads trigger the population of fake data 3x
+# ENTRYPOINT gunicorn -w 4 -b 0.0.0.0:80 app:app
+ENTRYPOINT gunicorn -b 0.0.0.0:80 app:app
 
 EXPOSE 80
