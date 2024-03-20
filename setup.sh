@@ -9,7 +9,7 @@ echo \
 DATABASE_URL=postgresql+psycopg2:///local-database-name
 
 # connection via 'dialect+driver://username:password@host[:port]/database'
-# DATABASE_URL=postgresql+psycopg2://vp:${POSTGRES_PASSWORD}@db/vp
+DATABASE_URL=postgresql+psycopg2://vp:${POSTGRES_PASSWORD}@db/vp
 
 # postgres needs these (docker-compose.yml)
 POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -19,5 +19,4 @@ POSTGRES_DB=vp
 
 echo ".env created with new UUIDs"
 
-docker-compose build &&\
-docker-compose up -d
+docker-compose up $@
