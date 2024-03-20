@@ -14,12 +14,12 @@ RUN \
     python3 -m venv $VIRTUAL_ENV && \
     pip install -r requirements.txt && \
     # add the non-root user
-    adduser --no-create-home --disabled-password --gecos "" veripalvelu
+    adduser --no-create-home --disabled-password --gecos "" vp
 
 # copy over the rapidly changing /src/
 COPY . .
 
-USER veripalvelu
+USER vp
 
 ENTRYPOINT gunicorn -w 4 -b 0.0.0.0:80 app:app
 
