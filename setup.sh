@@ -19,4 +19,5 @@ DATABASE_URL=postgresql+psycopg2://${PG_USER}:${PG_PASS}@db/${PG_DB}
 POSTGRES_PASSWORD=${PG_PASS}
 POSTGRES_USER=${PG_USER}
 POSTGRES_DB=${PG_DB}
+POSTGRES_DATA=./pg_data
 " > .env
