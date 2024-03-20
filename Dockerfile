@@ -13,8 +13,6 @@ RUN \
     # building packages via `pip install` takes 10s of seconds
     python3 -m venv $VIRTUAL_ENV && \
     pip install -r requirements.txt && \
-    # create the .env file and make it readable for others
-    touch .env && chmod o+r .env && \
     # add the non-root user
     adduser --no-create-home --disabled-password --gecos "" veripalvelu
 
@@ -23,7 +21,8 @@ COPY . .
 
 USER veripalvelu
 
-# ENTRYPOINT flask run --host=0.0.0.0 --port=80
-ENTRYPOINT gunicorn --bind 0.0.0.0:80 app:app
+# this fails repeatedly for some reason
+# ENTRYPOINT gunicorn --bind 0.0.0.0:80 app:app
+ENTRYPOINT flask run --host=0.0.0.0 --port=80
 
 EXPOSE 80

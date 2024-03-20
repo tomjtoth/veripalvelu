@@ -3,7 +3,6 @@ version: "3.8"
 services:
   app:
     image: tomjtoth/veripalvelu
-    build: .
     ports:
       - 55599:80
     volumes:
@@ -13,11 +12,13 @@ services:
   db:
     image: postgres:16.2-alpine3.19
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # set in .env
-      POSTGRES_DB: vp
-      POSTGRES_USER: vp
+       # all 3 are set in .env
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
     volumes:
       - ./pg_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/vp.sql
     restart: unless-stopped
 
     # uncomment for local dev
