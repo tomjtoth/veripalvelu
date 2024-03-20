@@ -19,9 +19,10 @@ cd veripalvelu
 
 # luo .env tiedosto jossa repo:sta riippumattomat uuid tunnukset
 ./setup.sh
-```
 
-Tässä vaiheessa pitäisi katsoa läpi `.env` tiedoston sisällön.
+# katsoa läpi sisällön
+nano .env
+```
 
 ### Vaihtoehto 1 (via pip)
 
@@ -50,7 +51,6 @@ Tässä otetaan yhteyttä tietokantaan (ei välttämättä postgres:iin).
 source .env
 docker run -d -p $APP_PORT:80 --rm \
     -e "DATABASE_URL=$DATABASE_URL" \
-    # ...
     tomjtoth/veripalvelu
 ```
 
