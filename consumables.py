@@ -7,7 +7,7 @@ from textwrap import dedent
 from sqlalchemy.sql import text
 import plotly.graph_objs as go
 from db import db
-from app import app
+from app import app, GEN_RAND_DATA
 from chart_gen import ser_data_gen_conf
 
 
@@ -124,67 +124,68 @@ def consumption_faker(
     arr[thread_idx] = ",\n".join(entries)
 
 
-with app.app_context():
+if GEN_RAND_DATA:
+    with app.app_context():
 
-    # populate necessary data once
-    if db.session.execute(text("select count(*) from consumables")).scalar_one() == 0:
-        db.session.execute(text(
-            "insert into consumables(consumable) values\n"
-            + ",\n".join([
+        # populate necessary data once
+        if db.session.execute(text("select count(*) from consumables")).scalar_one() == 0:
+            db.session.execute(text(
+                "insert into consumables(consumable) values\n"
+                + ",\n".join([
 
-                f"('{x.strip()}')"
+                    f"('{x.strip()}')"
 
-                for x in dedent(
-                    """\
-                    alkoholiton kalja
-                    kokis
-                    energiajuoma
-                    kahvi mustana
-                    cappucino
-                    appelsiinimehu
-                    multivitaminmehu
-                    Elovena keksi
-                    makea pulla
-                    kalkkunasämpylä
-                    kanasämpylä
-                    Marionetti karkki"""
-                ).splitlines()
-            ])
-        ))
-        db.session.commit()
+                    for x in dedent(
+                        """\
+                        alkoholiton kalja
+                        kokis
+                        energiajuoma
+                        kahvi mustana
+                        cappucino
+                        appelsiinimehu
+                        multivitaminmehu
+                        Elovena keksi
+                        makea pulla
+                        kalkkunasämpylä
+                        kanasämpylä
+                        Marionetti karkki"""
+                    ).splitlines()
+                ])
+            ))
+            db.session.commit()
 
-    if db.session.execute(text("select count(*) from consumption")).scalar_one() < 100:
-        print("populating consuption with fake data")
+        if db.session.execute(text("select count(*) from consumption")).scalar_one() < 100:
+            print("populating consuption with fake data")
 
-        consumable_ids = [
-            x[0]
-            for x in db.session.execute(text("select id from consumables")).fetchall()
-        ]
+            consumable_ids = [
+                x[0]
+                for x in db.session.execute(text("select id from consumables")).fetchall()
+            ]
 
-        donation_ids = [
-            x[0]
-            for x in db.session.execute(text("select id from donations")).fetchall()
-        ]
+            donation_ids = [
+                x[0]
+                for x in db.session.execute(text("select id from donations")).fetchall()
+            ]
 
-        sql_from_multithread = [None] * 10
+            sql_from_multithread = [None] * 10
 
-        threads = []
-        for i in range(9):
-            threads.append(threading.Thread(target=consumption_faker, args=(
-                i, sql_from_multithread, donation_ids, consumable_ids)))
-            threads[-1].start()
+            threads = []
+            for i in range(9):
+                threads.append(threading.Thread(target=consumption_faker, args=(
+                    i, sql_from_multithread, donation_ids, consumable_ids)))
+                threads[-1].start()
 
-        # do the last part on the main thread
-        consumption_faker(9, sql_from_multithread,
-                          donation_ids, consumable_ids)
+            # do the last part on the main thread
+            consumption_faker(9, sql_from_multithread,
+                              donation_ids, consumable_ids)
 
-        # wait for the threads to complete
-        for t in threads:
-            t.join()
+            # wait for the threads to complete
+            for t in threads:
+                t.join()
 
-        db.session.execute(text(
-            "insert into consumption(donation_id, consumable_id, consumed_qty) values\n"
-            + ",\n".join(sql_from_multithread)
-        ))
-        db.session.commit()
-        print("\tDONE")
+            db.session.execute(text(
+                "insert into consumption(donation_id, consumable_id, consumed_qty) values\n"
+                + ",\n".join(sql_from_multithread)
+            ))
+            db.session.commit()
+            print("\tDONE")

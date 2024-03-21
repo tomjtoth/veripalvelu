@@ -21,8 +21,10 @@ COPY . .
 
 USER vp
 
-# 4 worker threads trigger the population of fake data 3x
-# ENTRYPOINT gunicorn -w 4 -b 0.0.0.0:80 app:app
-ENTRYPOINT gunicorn -b 0.0.0.0:80 app:app
+ENTRYPOINT \
+    # generate random data if not done so previously
+    GEN_RAND_DATA=1 flask run && \
+    # start serving with 4 worker threads
+    unset GEN_RAND_DATA && gunicorn -w 4 -b 0.0.0.0:80 app:app
 
 EXPOSE 80

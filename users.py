@@ -10,7 +10,7 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
 from psycopg2 import OperationalError
 from db import db
-from app import app
+from app import app, GEN_RAND_DATA
 
 
 def login(username: str, password: str) -> bool:
@@ -161,45 +161,46 @@ def registration_faker(
     arr[thread_idx] = ",\n".join(entries)
 
 
-with app.app_context():
-    # populate only once
-    if db.session.execute(text("select count(*) from users")).scalar_one() < 100:
-        print("populating users with fake data")
+if GEN_RAND_DATA:
+    with app.app_context():
+        # populate only once
+        if db.session.execute(text("select count(*) from users")).scalar_one() < 100:
+            print("populating users with fake data")
 
-        sql_from_multithread = [None] * 10
+            sql_from_multithread = [None] * 10
 
-        # below 3 name files from Wikipedia:
-        with open("fake_data/names_female.lst", "r", encoding='utf8') as f:
-            female_names = [x.strip() for x in f.readlines()]
+            # below 3 name files from Wikipedia:
+            with open("fake_data/names_female.lst", "r", encoding='utf8') as f:
+                female_names = [x.strip() for x in f.readlines()]
 
-        with open("fake_data/names_male.lst", "r", encoding='utf8') as f:
-            male_names = [x.strip() for x in f.readlines()]
+            with open("fake_data/names_male.lst", "r", encoding='utf8') as f:
+                male_names = [x.strip() for x in f.readlines()]
 
-        with open("fake_data/names_last.lst", "r", encoding='utf8') as f:
-            surnames = [x.strip() for x in f.readlines()]
+            with open("fake_data/names_last.lst", "r", encoding='utf8') as f:
+                surnames = [x.strip() for x in f.readlines()]
 
-        shuffle(female_names)
-        shuffle(male_names)
-        shuffle(surnames)
+            shuffle(female_names)
+            shuffle(male_names)
+            shuffle(surnames)
 
-        threads = []
-        for i in range(9):
-            threads.append(threading.Thread(target=registration_faker, args=(
-                i, sql_from_multithread, female_names, male_names, surnames)))
-            threads[-1].start()
+            threads = []
+            for i in range(9):
+                threads.append(threading.Thread(target=registration_faker, args=(
+                    i, sql_from_multithread, female_names, male_names, surnames)))
+                threads[-1].start()
 
-        # do the last part on the main thread
-        registration_faker(9, sql_from_multithread,
-                           female_names, male_names, surnames)
+            # do the last part on the main thread
+            registration_faker(9, sql_from_multithread,
+                               female_names, male_names, surnames)
 
-        # wait for the threads to complete
-        for t in threads:
-            t.join()
+            # wait for the threads to complete
+            for t in threads:
+                t.join()
 
-        db.session.execute(text(
-            "insert into users(uname, passw, fnames, lnames, flags) values\n"
-            + ",\n".join(sql_from_multithread)
-        ))
-        db.session.commit()
+            db.session.execute(text(
+                "insert into users(uname, passw, fnames, lnames, flags) values\n"
+                + ",\n".join(sql_from_multithread)
+            ))
+            db.session.commit()
 
-        print("\tDONE")
+            print("\tDONE")

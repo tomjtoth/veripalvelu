@@ -10,7 +10,7 @@ from sqlalchemy.sql import text
 import plotly.graph_objs as go
 from psycopg2 import OperationalError
 from db import db
-from app import app
+from app import app, GEN_RAND_DATA
 from chart_gen import ser_data_gen_conf
 
 
@@ -201,75 +201,76 @@ def get_all_comments() -> list:
     ]
 
 
-with app.app_context():
-    # populate only once
-    if db.session.execute(text("select count(*) from donations")).scalar_one() < 100:
-        print("populating donations with fake data")
+if GEN_RAND_DATA:
+    with app.app_context():
+        # populate only once
+        if db.session.execute(text("select count(*) from donations")).scalar_one() < 100:
+            print("populating donations with fake data")
 
-        clinic_ids = [
-            x[0]
-            for x in db.session.execute(text("select id from clinics")).fetchall()
-        ]
-
-        user_ids = [
-            x[0]
-            for x in db.session.execute(text("select id from users")).fetchall()
-        ]
-
-        sql_from_multithread = [None] * 10
-
-        threads = []
-        for i in range(9):
-            threads.append(threading.Thread(target=donation_faker, args=(
-                i, sql_from_multithread, user_ids, clinic_ids)))
-            threads[-1].start()
-
-        # do the last part on the main thread
-        donation_faker(9, sql_from_multithread, user_ids, clinic_ids)
-
-        # wait for the threads to complete
-        for t in threads:
-            t.join()
-
-        db.session.execute(text(
-            "insert into donations(user_id, clinic_id, ddate) values\n"
-            + ",\n".join(sql_from_multithread)
-        ))
-
-        # comments from ChatGPT
-        with open("fake_data/comments.lst", "r", encoding='utf8') as f:
-            all_comments = [
-                x.strip().replace("'", "''")
-                for x in f.readlines()
+            clinic_ids = [
+                x[0]
+                for x in db.session.execute(text("select id from clinics")).fetchall()
             ]
 
-        shuffle(all_comments)
+            user_ids = [
+                x[0]
+                for x in db.session.execute(text("select id from users")).fetchall()
+            ]
 
-        donation_ids = [
-            x[0]
-            for x in db.session.execute(text("select id from donations")).fetchall()
-        ]
+            sql_from_multithread = [None] * 10
 
-        threads = []
-        for i in range(9):
-            threads.append(threading.Thread(target=comment_faker, args=(
-                i, sql_from_multithread, donation_ids, all_comments)))
-            threads[-1].start()
+            threads = []
+            for i in range(9):
+                threads.append(threading.Thread(target=donation_faker, args=(
+                    i, sql_from_multithread, user_ids, clinic_ids)))
+                threads[-1].start()
 
-        # do the last part on the main thread
-        comment_faker(9, sql_from_multithread, donation_ids, all_comments)
+            # do the last part on the main thread
+            donation_faker(9, sql_from_multithread, user_ids, clinic_ids)
 
-        # wait for the threads to complete
-        for t in threads:
-            t.join()
+            # wait for the threads to complete
+            for t in threads:
+                t.join()
 
-        db.session.execute(text(
-            "insert into comments(donation_id, comment) values\n"
-            + ",\n".join(sql_from_multithread)
-        ))
+            db.session.execute(text(
+                "insert into donations(user_id, clinic_id, ddate) values\n"
+                + ",\n".join(sql_from_multithread)
+            ))
 
-        db.session.commit()
-        print("\tDONE")
+            # comments from ChatGPT
+            with open("fake_data/comments.lst", "r", encoding='utf8') as f:
+                all_comments = [
+                    x.strip().replace("'", "''")
+                    for x in f.readlines()
+                ]
+
+            shuffle(all_comments)
+
+            donation_ids = [
+                x[0]
+                for x in db.session.execute(text("select id from donations")).fetchall()
+            ]
+
+            threads = []
+            for i in range(9):
+                threads.append(threading.Thread(target=comment_faker, args=(
+                    i, sql_from_multithread, donation_ids, all_comments)))
+                threads[-1].start()
+
+            # do the last part on the main thread
+            comment_faker(9, sql_from_multithread, donation_ids, all_comments)
+
+            # wait for the threads to complete
+            for t in threads:
+                t.join()
+
+            db.session.execute(text(
+                "insert into comments(donation_id, comment) values\n"
+                + ",\n".join(sql_from_multithread)
+            ))
+
+            db.session.commit()
+            print("\tDONE")
 
 
 def get_total_count() -> int:
