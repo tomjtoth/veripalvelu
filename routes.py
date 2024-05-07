@@ -231,11 +231,3 @@ def user_dates():
     if not session.get("user"):
         abort(403)
     return json.jsonify(donations.get_user_dates())
-
-
-@app.route('/api/ping')
-def healthcheck():
-    """healthcheck endpoint
-    """
-    return "pong"
-    # json({'msg': 'alive'})
