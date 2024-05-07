@@ -20,7 +20,7 @@ cd veripalvelu
 # luo .env tiedosto jossa repo:sta riippumattomat uuid tunnukset
 ./setup.sh
 
-# katsoa läpi sisällön
+# katso läpi sisällön
 nano .env
 ```
 
