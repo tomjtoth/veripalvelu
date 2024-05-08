@@ -16,8 +16,8 @@ RUN \
     # add the non-root user
     adduser --no-create-home --disabled-password --gecos "" vp
 
-# copy over the rapidly changing /src/
-COPY . .
+# copy over the more frequently changing /src/
+COPY ./src/ .
 
 USER vp
 

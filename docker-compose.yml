@@ -22,7 +22,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
     volumes:
       - ${POSTGRES_DATA}:/var/lib/postgresql/data
-      - ./schema.sql:/docker-entrypoint-initdb.d/vp.sql
+      - ./src/schema.sql:/docker-entrypoint-initdb.d/vp.sql
     healthcheck:
       test: pg_isready -U ${POSTGRES_USER}
       timeout: 1s
