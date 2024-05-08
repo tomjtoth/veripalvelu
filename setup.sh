@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# if uuidgen does not exist, implement something similar
+if [ -z "$(which uuidgen)" ]; then
+  uuidgen () {
+    tr -dc A-Za-z0-9 < /dev/urandom | head -c 40; echo
+  }  
+fi
+
 PG_PASS=$(uuidgen)
 PG_USER=vp
 PG_DB=vp
