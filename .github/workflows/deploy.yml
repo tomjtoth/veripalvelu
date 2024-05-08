@@ -20,10 +20,6 @@ jobs:
       - run: pip install -r requirements.txt
       - run: pip install pylint
 
-      # to be implemneted, for now it's only a placeholder
-      # - name: Analysing the code with pylint
-      #   run: pylint $(git ls-files '*.py')
-
       - name: report failure
         if: failure()
         uses: rjstone/discord-webhook-notify@v1
