@@ -17,4 +17,20 @@ jobs:
         with:
           url: https://apps.ttj.hu/veripalvelu/api/heartbeat
       
-      # no further steps, I'll read my emails, thank you!
+
+      - name: report success
+        if: success()
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: info
+          details: https://apps.ttj.hu/veripalvelu is still up and running
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: report failure
+        if: failure()
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: error
+          details: https://apps.ttj.hu/veripalvelu is down
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+  
