@@ -40,7 +40,7 @@ pip install -r requirements.txt
 psql < schema.sql
 
 # käynnistä sovellus
-flask run # --host=0.0.0.0
+flask --app src/app run # --host=0.0.0.0
 ```
 
  ### Vaihtoehto 2 (docker)
