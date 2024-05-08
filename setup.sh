@@ -22,6 +22,10 @@ DATABASE_URL=postgresql+psycopg2:///${USER}
 # connection via 'dialect+driver://username:password@host[:port]/database'
 DATABASE_URL=postgresql+psycopg2://${PG_USER}:${PG_PASS}@db/${PG_DB}
 
+# same as above, only connecting to the PG instance launched by docker compose up
+# provided you uncommented publishing the port in /docker-compose.yml
+# DATABASE_URL=postgresql+psycopg2://${PG_USER}:${PG_PASS}@localhost/${PG_DB}
+
 # postgres needs these (docker-compose.yml)
 POSTGRES_PASSWORD=${PG_PASS}
 POSTGRES_USER=${PG_USER}
